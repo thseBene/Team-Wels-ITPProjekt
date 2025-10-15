@@ -1,2 +1,1 @@
 # Team-Wels-ITPProjekt
-lol
