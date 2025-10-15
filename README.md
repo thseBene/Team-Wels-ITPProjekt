@@ -1,3 +1,1 @@
 # Team-Wels-ITPProjekt
-
-Test
