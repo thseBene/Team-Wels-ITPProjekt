@@ -2,4 +2,4 @@
 Featuring @jakobpeneder @simondokter und @NFFabio
 
 Infos about the project: 
-https://miro.com/welcomeonboard/bkc5cEVGRkc3K2FiZ3dvLzhQR0lmS2UycHQ2UG1KT3Q0OFJTWTFGQU1aQlZmWjlTN2Z5aENsUnRmeHZnb2RHOUR5WlBQZW5lTUt5R2x0SG83OUZMMjI1a3QvVUZtdTBMeXZQck1ZSzhST2t4dndEUVBxTENWb2dSSTBrRE9mY0NBd044SHFHaVlWYWk0d3NxeHNmeG9BPT0hdjE=?share_link_id=703650943979
+https://miro.com/app/board/uXjVJ5z-XVY=/?share_link_id=979235064816
