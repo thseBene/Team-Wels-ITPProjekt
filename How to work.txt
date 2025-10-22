@@ -1,0 +1,45 @@
+Arbeitsvorbereitung:
+
+--GIT--
+klar definieren im Team was gemacht wird
+Überblick über Scrum haben (auch bei den anderen schauen)
+
+ToDo -> noch nicht angefangen und mach noch niemand
+
+In Progress -> jemand arbeitet schon daran/es wurde angefangen 
+
+Done -> Abgeschlossen, nur wenn es an den Scrum Master gemeldet wurde und im Meeting erwähnt 
+
+Immer Pullen vor dem Arbeiten!!!
+ 
+Nach dem Arbeiten Git stash -> überprüfen ob eure Arbeit nix überschreibt
+
+Eure Arbeit dabei zwischengespeichert (git stash show)
+
+Wenn sicher dann git stash pop
+
+Befehlsliste: https://git-scm.com/docs/git-stash
+
+
+--Clockify--
+
+Bei Beginn der Arbeit aktuelles Datum auswählen, kurz schreiben was getan wird und starten (BEENDEN NICHT VERGESSEN) 
+
+Bei Projekt den eigenen Namen auswählen 
+
+
+--Scrum--
+
+Jeden Mo. Mi. Fr. kurze Nachricht in den Discord was gemacht wird und wo Probleme sind 
+
+An bestimmten Mittwochen Scrum Meeting im Unterricht (bei Unklarheiten wie ein Scrum meeting funktioniert: 
+https://www.productplan.com/glossary/scrum-meeting/)
+
+
+
+Wenn ihr weitere Fragen und anliegen habt immer den Scrum-Master fragen und nicht Wut und Sturheit für sich behalten 
+
+ 
+
+
+
