@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+#logoNav {
+    height: 3vw;
+    width: 3vw;
+}
+#navigation {
+    width: 100vw;
+    box-sizing: border-box;
+    background-color: rgba(128, 128, 128, 0.628);
+    padding: 0.5%;
+    padding-left: 1vw;
+}
+#createFeedbackButton {
+    font-size: 2.5rem;
+    width: 5vw;
+    text-align: center;
+    background-color:green;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 10vh;
+
+}

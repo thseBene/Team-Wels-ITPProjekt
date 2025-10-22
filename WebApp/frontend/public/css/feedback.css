@@ -1,0 +1,45 @@
+#feedbackContainer {
+    width: 40%;
+    background-color: lightgrey;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5vh;
+    padding: 1%;
+    display: grid;
+    grid-template-rows: auto;
+}
+#feedbackHeadline {
+    font-size: 2rem;
+    margin-bottom: 3vh;
+}
+i {
+    font-size: 3rem;
+    color: black;
+    opacity: 0.3;
+}
+#uploadImage {
+    width: 100%;
+    display: grid;
+    margin-bottom: 2%;
+    height: 10vh;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+}
+#descriptionField {
+    width: 100%;
+    height: 30vh;
+    resize: none;
+    overflow-x: hidden;
+    padding: 1.5%;
+}
+#submitFeedbackButton {
+    width: auto;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: black;
+}
