@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{
+  "author": "Simon",
+  "message": "Test"
+}
+
+###
+
+GET http://localhost:8080/api/feedback
+Accept: application/json
