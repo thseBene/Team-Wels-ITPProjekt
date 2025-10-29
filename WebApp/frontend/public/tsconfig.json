@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    /* --- Datei-Layout --- */
+    "rootDir": "./src",               // hier liegen deine .ts-Dateien
+    "outDir": "./dist",               // hierhin wird kompiliert
+
+    /* --- Ziel-Umgebung (Browser) --- */
+    "target": "es6",                  // moderne Browser unterstützen ES6
+    "module": "esnext",               // für Browser, nicht Node.js
+    "lib": ["es6", "dom"],            // DOM-Typen (document, window, etc.)
+    "types": [],
+
+    /* --- Output-Einstellungen --- */
+    "sourceMap": false,                // erzeugt .map-Dateien für Debugging
+    "declaration": false,              // erzeugt .d.ts-Dateien
+    "declarationMap": false,
+
+    /* --- Typprüfung --- */
+    "strict": true,                   // alle strikten TypeScript-Prüfungen aktivieren
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* --- Sonstiges --- */
+    "skipLibCheck": true,             // spart Zeit beim Kompilieren
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmitOnError": true             // gibt keine JS-Datei aus, wenn Fehler vorhanden sind
+  },
+
+  /* --- Welche Dateien kompiliert werden sollen --- */
+  "include": ["src/**/*"],
+  "exclude": ["dist"]
+}
