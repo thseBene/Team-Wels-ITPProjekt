@@ -3,10 +3,12 @@ const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 
+let savedImages = new Array<File>();
 if (submitButton && descriptionField) {
   submitButton.addEventListener("click", () => {
     const feedback = {
-      description: descriptionField.value
+      description: descriptionField.value,
+      images: savedImages
     };
     console.log("Feedback submitted:", feedback);
     
@@ -30,9 +32,10 @@ imageInput.addEventListener("change", () => {
   }
 
   imagePreview.style = 'display: grid;         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;';
-  console.log('Dateien sind ausgewählt:', imageInput.files);
 
   const files = Array.from(imageInput.files!);
+  files.forEach(file => savedImages.push(file));
+  console.log('Dateien sind ausgewählt:', savedImages);
 
   for (const file of files) {
     const img = document.createElement("img");
@@ -49,6 +52,19 @@ imageInput.addEventListener("change", () => {
   }
 });
 
+imagePreview.addEventListener("click", (event) => {
+  const target = event.target as HTMLElement;
+  if (target.classList.contains("remove-image")) {
+    const previewDiv = target.closest(".preview-image");
+    previewDiv?.remove();
+    savedImages.splice(Array.from(imagePreview.children).indexOf(previewDiv!), 1);
+    console.log('Verbleibende Bilder:', savedImages);
+    if (savedImages.length === 0) {
+      imagePreview.style.display = "none";
+    }
+
+  }
+});
 
 uploadForm.addEventListener("submit", async (e) => {
   e.preventDefault();

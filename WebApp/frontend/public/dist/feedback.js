@@ -11,10 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
+let savedImages = new Array();
 if (submitButton && descriptionField) {
     submitButton.addEventListener("click", () => {
         const feedback = {
-            description: descriptionField.value
+            description: descriptionField.value,
+            images: savedImages
         };
         console.log("Feedback submitted:", feedback);
         feedbackContainer.innerHTML = "";
@@ -32,8 +34,9 @@ imageInput.addEventListener("change", () => {
         return;
     }
     imagePreview.style = 'display: grid;         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;';
-    console.log('Dateien sind ausgewählt:', imageInput.files);
     const files = Array.from(imageInput.files);
+    files.forEach(file => savedImages.push(file));
+    console.log('Dateien sind ausgewählt:', savedImages);
     for (const file of files) {
         const img = document.createElement("img");
         const div = document.createElement("div");
@@ -45,6 +48,18 @@ imageInput.addEventListener("change", () => {
         div.appendChild(img);
         div.appendChild(i);
         imagePreview.appendChild(div);
+    }
+});
+imagePreview.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.classList.contains("remove-image")) {
+        const previewDiv = target.closest(".preview-image");
+        previewDiv === null || previewDiv === void 0 ? void 0 : previewDiv.remove();
+        savedImages.splice(Array.from(imagePreview.children).indexOf(previewDiv), 1);
+        console.log('Verbleibende Bilder:', savedImages);
+        if (savedImages.length === 0) {
+            imagePreview.style.display = "none";
+        }
     }
 });
 uploadForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
