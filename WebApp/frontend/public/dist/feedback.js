@@ -8,9 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+setAtBeginning();
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
+// to store the uploaded images
 let savedImages = new Array();
 if (submitButton && descriptionField) {
     submitButton.addEventListener("click", () => {
@@ -27,6 +29,7 @@ if (submitButton && descriptionField) {
 const uploadForm = document.getElementById("uploadForm");
 const imageInput = document.getElementById("imageInput");
 const imagePreview = document.getElementById("imagePreview");
+// handle image selection and preview
 imageInput.addEventListener("change", () => {
     if (!imageInput.files) {
         console.log('Keine Dateien ausgewählt');
@@ -50,6 +53,7 @@ imageInput.addEventListener("change", () => {
         imagePreview.appendChild(div);
     }
 });
+// delete image from preview and savedImages array
 imagePreview.addEventListener("click", (event) => {
     const target = event.target;
     if (target.classList.contains("remove-image")) {
@@ -62,6 +66,7 @@ imagePreview.addEventListener("click", (event) => {
         }
     }
 });
+// handle form submission
 uploadForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     e.preventDefault();
@@ -75,7 +80,7 @@ uploadForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, f
         formData.append("images", file);
     }
 }));
-setAtBeginning();
+// sets the caret at the beginning of the description field when focused or clicked
 function setAtBeginning() {
     // remove accidental leading newlines from HTML formatting
     descriptionField.value = descriptionField.value.replace(/^\n+/, '');
@@ -94,4 +99,26 @@ function setAtBeginning() {
     };
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
+}
+// send Feedback to Server
+function sendFeedback() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const feedback = {
+            author: "Simon",
+            message: "Test"
+        };
+        const response = yield fetch("http://localhost:8080/api/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(feedback)
+        });
+        if (!response.ok) {
+            console.error("Fehler beim Senden:", response.statusText);
+            return;
+        }
+        const result = yield response.json();
+        console.log("Server-Antwort:", result);
+    });
 }

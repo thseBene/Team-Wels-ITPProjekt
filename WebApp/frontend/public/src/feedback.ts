@@ -1,8 +1,12 @@
+setAtBeginning();
+
 
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 
+
+// to store the uploaded images
 let savedImages = new Array<File>();
 if (submitButton && descriptionField) {
   submitButton.addEventListener("click", () => {
@@ -24,6 +28,7 @@ const uploadForm = document.getElementById("uploadForm") as HTMLFormElement;
 const imageInput = document.getElementById("imageInput") as HTMLInputElement;
 const imagePreview = document.getElementById("imagePreview") as HTMLDivElement;
 
+// handle image selection and preview
 imageInput.addEventListener("change", () => {
   if (!imageInput.files) {
     console.log('Keine Dateien ausgewählt');
@@ -52,6 +57,7 @@ imageInput.addEventListener("change", () => {
   }
 });
 
+// delete image from preview and savedImages array
 imagePreview.addEventListener("click", (event) => {
   const target = event.target as HTMLElement;
   if (target.classList.contains("remove-image")) {
@@ -66,6 +72,7 @@ imagePreview.addEventListener("click", (event) => {
   }
 });
 
+// handle form submission
 uploadForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!imageInput.files?.length) {
@@ -82,8 +89,8 @@ uploadForm.addEventListener("submit", async (e) => {
   
 });
 
-setAtBeginning();
 
+// sets the caret at the beginning of the description field when focused or clicked
 function setAtBeginning() {
     // remove accidental leading newlines from HTML formatting
     descriptionField.value = descriptionField.value.replace(/^\n+/, '');
@@ -105,4 +112,30 @@ function setAtBeginning() {
 
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
+}
+
+
+
+// send Feedback to Server
+async function sendFeedback() {
+  const feedback = {
+    author: "Simon",
+    message: "Test"
+  };
+
+  const response = await fetch("http://localhost:8080/api/feedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(feedback)
+  });
+
+  if (!response.ok) {
+    console.error("Fehler beim Senden:", response.statusText);
+    return;
+  }
+
+  const result = await response.json();
+  console.log("Server-Antwort:", result);
 }
