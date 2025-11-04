@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-setAtBeginning();
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
+setAtBeginning();
 // to store the uploaded images
 let savedImages = new Array();
 if (submitButton && descriptionField) {
@@ -23,6 +23,7 @@ if (submitButton && descriptionField) {
         console.log("Feedback submitted:", feedback);
         feedbackContainer.innerHTML = "";
         feedbackContainer.innerHTML = "<h2 id='thankYouMessage'>Vielen Dank für Ihr Feedback!</h2>";
+        sendFeedback(feedback.description);
         // Hier müssen dann die Daten an die Datenbank gesendet werden
     });
 }
@@ -101,11 +102,11 @@ function setAtBeginning() {
     descriptionField.addEventListener('click', moveCaretToStart);
 }
 // send Feedback to Server
-function sendFeedback() {
+function sendFeedback(description) {
     return __awaiter(this, void 0, void 0, function* () {
         const feedback = {
             author: "Simon",
-            message: "Test"
+            message: description
         };
         const response = yield fetch("http://localhost:8080/api/feedback", {
             method: "POST",
@@ -118,7 +119,6 @@ function sendFeedback() {
             console.error("Fehler beim Senden:", response.statusText);
             return;
         }
-        const result = yield response.json();
-        console.log("Server-Antwort:", result);
+        console.log("Feedback erfolgreich gesendet");
     });
 }

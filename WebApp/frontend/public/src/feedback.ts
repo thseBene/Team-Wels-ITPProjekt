@@ -1,9 +1,10 @@
-setAtBeginning();
-
-
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
+
+setAtBeginning();
+
+
 
 
 // to store the uploaded images
@@ -19,6 +20,7 @@ if (submitButton && descriptionField) {
     feedbackContainer!.innerHTML = "";
     feedbackContainer!.innerHTML = "<h2 id='thankYouMessage'>Vielen Dank für Ihr Feedback!</h2>";
 
+    sendFeedback(feedback.description);
     // Hier müssen dann die Daten an die Datenbank gesendet werden
 
   });
@@ -117,10 +119,11 @@ function setAtBeginning() {
 
 
 // send Feedback to Server
-async function sendFeedback() {
+async function sendFeedback(description: string) {
+
   const feedback = {
     author: "Simon",
-    message: "Test"
+    message: description
   };
 
   const response = await fetch("http://localhost:8080/api/feedback", {
@@ -135,7 +138,5 @@ async function sendFeedback() {
     console.error("Fehler beim Senden:", response.statusText);
     return;
   }
-
-  const result = await response.json();
-  console.log("Server-Antwort:", result);
+  console.log("Feedback erfolgreich gesendet");
 }
