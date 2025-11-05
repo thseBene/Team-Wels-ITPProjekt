@@ -1,0 +1,86 @@
+@startuml
+' Stil und Farben
+!theme cerulean
+hide circle
+skinparam linetype ortho
+skinparam entity {
+    BackgroundColor #f9fafc
+    BorderColor #3b82f6
+    FontColor #1e293b
+    FontSize 13
+    FontStyle bold
+    RoundCorner 15
+    Shadowing true
+}
+skinparam rectangle {
+    BorderColor #3b82f6
+}
+skinparam arrow {
+    Color #6366f1
+    FontColor #334155
+    FontSize 12
+}
+
+title **Lob- & Beschwerdesystem – ERD**
+
+entity "Benutzer" as Benutzer {
+    * ID : int <<PK>>
+    --
+    Vorname : varchar
+    Nachname : varchar
+    Rolle : varchar
+}
+
+entity "Feedback" as Feedback {
+    * ID : int <<PK>>
+    --
+    Betreff : varchar
+    Beschreibung : text
+    Typ : varchar
+    StatusID : int <<FK>>
+    Created_At : timestamp
+    Updated_At : timestamp
+    User_ID : int <<FK>>
+    Thema_ID : int <<FK>>
+}
+
+entity "Thema" as Thema {
+    * ID : int <<PK>>
+    --
+    Bezeichnung : varchar
+}
+
+entity "Kategorie" as Kategorie {
+    * ID : int <<PK>>
+    --
+    Bezeichnung : varchar
+}
+
+entity "FeedbackKategorie" as FeedbackKategorie {
+    * FeedbackID : int <<FK>>
+    * KategorieID : int <<FK>>
+}
+
+entity "Bild" as Bild {
+    * ID : int <<PK>>
+    --
+    Bildpfad : varchar
+    Beschreibung : varchar
+    FeedbackID : int <<FK>>
+}
+
+entity "Status" as Status {
+    * ID : int <<PK>>
+    --
+    Bezeichnung : varchar
+}
+
+' --- Beziehungen ---
+Benutzer ||--o{ Feedback : "verfasst"
+Thema ||--o{ Feedback : "beschreibt"
+Feedback ||--o{ Bild : "zeigt"
+Feedback ||--o{ FeedbackKategorie : "gehört zu"
+Kategorie ||--o{ FeedbackKategorie : "gehört zu"
+Status ||--o{ Feedback : "hat"
+
+@enduml
