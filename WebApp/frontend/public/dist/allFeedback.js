@@ -21,14 +21,22 @@ function getAllFeedback() {
         }
         const feedbackList = yield response.json();
         console.log("Feedbacks:", feedbackList);
+        let html = '';
         for (const feedback of feedbackList) {
-            document.getElementById('container').innerHTML += `
-        <div class="feedbackItem">
-            <h3>Feedback von: ${feedback.author}</h3>
+            html += `
+        <div class="feedbackItem">`;
+            if (feedback.author == 'Anonym' || feedback.author == null || feedback.author == '') {
+                html += `<h3>Anonym</h3>`;
+            }
+            else {
+                html += `<h3>Von: ${feedback.author}</h3>`;
+            }
+            html += `
             <p>${feedback.message}</p>
         </div>
         `;
         }
+        document.getElementById('container').innerHTML = html;
     });
 }
 getAllFeedback();

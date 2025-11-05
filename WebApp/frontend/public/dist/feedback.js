@@ -37,7 +37,7 @@ imageInput.addEventListener("change", () => {
         imagePreview.style.display = "none";
         return;
     }
-    imagePreview.style = 'display: grid;         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;';
+    imagePreview.style = 'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;';
     const files = Array.from(imageInput.files);
     files.forEach(file => savedImages.push(file));
     console.log('Dateien sind ausgewählt:', savedImages);
@@ -105,7 +105,7 @@ function setAtBeginning() {
 function sendFeedback(description) {
     return __awaiter(this, void 0, void 0, function* () {
         const feedback = {
-            author: "Simon",
+            author: "Anonym",
             message: description
         };
         const response = yield fetch("http://localhost:8080/api/feedback", {

@@ -6,6 +6,7 @@
     padding: 2%;
 }
 .feedbackItem {
-    background-color:rgba(0, 0, 255, 0.548);
+    background-color:rgba(0, 0, 0, 0.086);
+    margin: 2%;
     padding: 2%;
 }
