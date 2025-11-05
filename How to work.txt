@@ -18,6 +18,8 @@ Eure Arbeit dabei zwischengespeichert (git stash show)
 
 Wenn sicher dann git stash pop
 
+Issue-Number in der Commit Nachricht nicht vergessen!
+
 Befehlsliste: https://git-scm.com/docs/git-stash
 
 
