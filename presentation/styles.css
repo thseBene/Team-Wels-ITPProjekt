@@ -1,0 +1,4 @@
+/* Simple custom styles for Team Wels presentation */
+.reveal h1 { font-size: 2.2em; }
+.reveal h2 { color: #1f4e79; }
+.reveal .slides { max-width: 1200px; }
