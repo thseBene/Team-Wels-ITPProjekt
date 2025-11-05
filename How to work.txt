@@ -16,9 +16,11 @@ Nach dem Arbeiten Git stash -> überprüfen ob eure Arbeit nix überschreibt
 
 Eure Arbeit dabei zwischengespeichert (git stash show)
 
-Wenn sicher dann git stash pop
+Wenn sicher dann git stash pop 
 
 Issue-Number in der Commit Nachricht nicht vergessen!
+
+Alles Commiten!
 
 Befehlsliste: https://git-scm.com/docs/git-stash
 
