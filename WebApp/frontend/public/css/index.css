@@ -1,3 +1,18 @@
+/*reset*/
+*{
+    padding: 0;
+    margin: 0;
+}
+/*Variablen*/
+:root{
+    --colorLight:hsl(202,78,49);
+    --colorMedium:hsl(202,78,40);
+    --colorDark:hsl(202,78,30);
+    --ff:"../assets/font/Inter-Italic-VariableFont_opsz,wght.ttf";
+
+}
+
+
 a {
     text-decoration: none;
     color: white;
