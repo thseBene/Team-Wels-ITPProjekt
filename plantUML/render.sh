@@ -9,7 +9,7 @@ pushd public
     rm -f *.png *.svg
     echo "PWD is $(pwd)"
 
-    cat state.puml | docker container run --rm -i --entrypoint java ghcr.io/plantuml/plantuml -jar "/opt/plantuml.jar" -tsvg -p > state.svg
+    cat homecoming.puml | docker container run --rm -i --entrypoint java ghcr.io/plantuml/plantuml -jar "/opt/plantuml.jar" -tsvg -p > homecoming.svg
     pwd
     ls -l .
     #cat state.puml | docker container run --rm -i --entrypoint java ghcr.io/plantuml/plantuml -jar "/opt/plantuml.jar" -tpdf -p > state.pdf
