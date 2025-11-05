@@ -12,5 +12,15 @@
 
   const feedbackList = await response.json();
   console.log("Feedbacks:", feedbackList);
+
+  for (const feedback of feedbackList) {
+        document.getElementById('container')!.innerHTML += `
+        <div class="feedbackItem">
+            <h3>Feedback von: ${feedback.author}</h3>
+            <p>${feedback.message}</p>
+        </div>
+        `;
+  }
+
 }
 getAllFeedback();
