@@ -11,19 +11,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const submitButton = document.getElementById("submitFeedbackButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
+const headerField = document.getElementById("headerField");
 setAtBeginning();
 // to store the uploaded images
 let savedImages = new Array();
-if (submitButton && descriptionField) {
+if (submitButton && descriptionField && headerField) {
     submitButton.addEventListener("click", () => {
         const feedback = {
+            betreff: headerField.value,
             description: descriptionField.value,
             images: savedImages
         };
-        console.log("Feedback submitted:", feedback);
         feedbackContainer.innerHTML = "";
         feedbackContainer.innerHTML = "<h2 id='thankYouMessage'>Vielen Dank für Ihr Feedback!</h2>";
-        sendFeedback(feedback.description);
+        sendFeedback(feedback.description, feedback.betreff);
         // Hier müssen dann die Daten an die Datenbank gesendet werden
     });
 }
@@ -101,13 +102,16 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
+sendFeedback("Hallo", "Test");
 // send Feedback to Server
-function sendFeedback(description) {
+function sendFeedback(description, betreff) {
     return __awaiter(this, void 0, void 0, function* () {
         const feedback = {
-            author: "Anonym",
-            message: description
+            subject: betreff,
+            description: description,
+            type: "Beschwerde"
         };
+        console.log("Sende Feedback:", feedback);
         const response = yield fetch("http://localhost:8080/api/feedback", {
             method: "POST",
             headers: {

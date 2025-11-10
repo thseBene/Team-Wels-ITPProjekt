@@ -30,7 +30,17 @@
     <div id="feedbackContainer">
         <h1 id="feedbackHeadline">Feedback geben</h1>
 
+        <h2 class="inputLabels">Betreff</h2>
+        <input id="headerField" type="text"></input>
 
+
+        <h2 class="inputLabels">Beschreibung</h2>
+        <textarea id="descriptionField">
+
+        </textarea>
+
+
+        <h2 class="inputLabels">Foto</h2>
         <form id="uploadForm" enctype="multipart/form-data" method="post">
             <label for="imageInput" id="uploadImage" class="upload-button">
                 <i class="fa-solid fa-upload"></i>
@@ -42,9 +52,7 @@
 
        
 
-        <textarea id="descriptionField">
-
-        </textarea>
+        
 
         <div id="submitFeedbackButton">
             Feedback absenden
