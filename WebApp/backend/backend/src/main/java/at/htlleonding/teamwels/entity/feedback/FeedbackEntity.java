@@ -6,6 +6,7 @@ import at.htlleonding.teamwels.entity.status.StatusEntity;
 import at.htlleonding.teamwels.entity.kategorie.KategorieEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -14,7 +15,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "feedback")
-public class FeedbackEntity extends PanacheEntity {
+public class FeedbackEntity extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @Column(name = "betreff", nullable = false)
     public String subject;
