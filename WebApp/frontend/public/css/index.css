@@ -2,13 +2,18 @@
 *{
     padding: 0;
     margin: 0;
+    font-family: var(--ff);
 }
 /*Variablen*/
 :root{
     --colorLight:hsl(202,78,49);
     --colorMedium:hsl(202,78,40);
     --colorDark:hsl(202,78,30);
-    --ff:"../assets/font/Inter-Italic-VariableFont_opsz,wght.ttf";
+
+    --ff:"../assets/font/Inter.ttf";
+
+    --fdark:hsl(0,0,0);
+    --flighter:hsl(0,0,20);
     
     --spacing1:4px;
     --spacing2:8px;
