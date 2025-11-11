@@ -10,9 +10,12 @@
   --colorLight: hsl(202, 78%, 49%);
   --colorMedium: hsl(202, 78%, 40%);
   --colorDark: hsl(202, 78%, 30%);
+  --light:white;
 
   --fdark: hsl(0, 0%, 0%);
-  --flighter: hsl(0, 0%, 20%);
+  --fgrey: hsl(0, 0%, 20%);
+  --fwhite: hsl(0,0%, 100%);
+  --flighter: hsl(0, 0%, 80%);
 
   --none: transparent;
   --ff:'Inter';
@@ -36,14 +39,14 @@
 --md: 1rem;      /* 16px */
 --lg: 1.125rem;  /* 18px */
 --xl: 1.25rem;   /* 20px */
---xxl: 1.5rem;   /* 24px */
---xxxl: 1.875rem; /* 30px */
---xxxxl: 2.25rem;  /* 36px */
---xxxxxl: 3rem;     /* 48px */
+--xxl: 5rem;   /* 24px */
+
 
 --leading-tight: 1.1;
 --leading-snug: 1.25;
 --leading-normal: 1.5;
+
+/*variable für adding und border radius und icon size*/
 
   
 }

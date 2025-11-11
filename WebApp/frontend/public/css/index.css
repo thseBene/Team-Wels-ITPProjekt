@@ -4,32 +4,65 @@ body{
 header{
     position: relative;
     top: 0;
+    min-height: 60px;
+    width: 100%;
     display: grid;
-    grid-template-rows: 10% 80% 10%;
-    background-color: var(--none);
-    top: 10%;
+    grid-template-columns: 1fr 12.5fr 1fr;
+    grid-auto-rows: 1fr;
+    column-gap: 8px;
+    align-items: center;
+    padding: 0 1rem;
 }
 
 #blob1{
     fill: var(--colorLight);
     position: absolute;
-    left: 60%;
-    top: 25%;
+    left: 65%;
+    top: 18%;
     z-index: 3;
 }
 #blob2{
     fill: var(--colorMedium);
     position: absolute;
     left: 60%;
-    top: 25%;
+    top: 35%;
     z-index: 2;
 }
 #blob3{
     fill: var(--colorDark);
     position: absolute;
-    left: 60%;
+    left: 65%;
     top: 25%;
 
+}
+
+#nav{
+    background-color: grey;
+    height: 50%;
+    width: 50%;
+    font-size: var(--xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 25px;
+}
+
+
+.icon{
+    transform: scale(.7);
+}
+
+#nav > a {
+    color: var(--fgrey);
+ text-decoration: none;
+}
+
+#character{
+position: absolute;
+top: 20%;
+left: 60%;
+z-index: 4;
+scale: .7;
 }
 
 #greeting{
@@ -39,21 +72,67 @@ header{
         background-clip: text;
         color: transparent;
         display: inline-block;
-        font-size: var(--xxxl);
-
+        font-size: var(--xxl);
+        width: 45%;
+        line-height: 0.9;
+        padding-bottom: 0.12em;
+        overflow: visible;
+        position: absolute;
+        top: 15%;
+        left: 5%;
 }
 
 #buttonWrapper{
     display: flex;
     flex-direction: column;
-    background-color: yellow;
     width: 25%;
-    height: 30%;
+    height: 20%;
     justify-content: space-evenly;
+     position: absolute;
+     top: 40%;
+    left: 5%;
+
 }
 
 #buttonWrapper > a{
-    height: 45%;
-    background-color: blue;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 90%;
+   
+    padding: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 17px;
+
+    font-weight: bold;
+}
+#buttonWrapper > a:first-child{
+    background-color: white;
+    color: var(--fwhite);
+    background: var(--gradientMid);
+}
+
+#buttonWrapper > a:last-child{
+   
+    background: var(--light);
+    color: var(--fdark);
+    border: 2px solid transparent;
+    border-image: none;
+    border-radius: 17px;
+    background: linear-gradient(var(--light), var(--light)) padding-box,
+                linear-gradient(90deg, var(--colorLight), var(--colorDark)) border-box;
+    -webkit-background-clip: padding-box, border-box;
+    background-clip: padding-box, border-box;
+}
+
+#placeholder{
+    background-color: grey;
+    height: 50%;
+    width: 75%;
+    position: relative;
+    top: 10%;
+
 }
