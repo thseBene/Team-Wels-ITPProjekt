@@ -1,34 +1,3 @@
-/*reset*/
-*{
-    padding: 0;
-    margin: 0;
-    font-family: var(--ff);
-}
-/*Variablen*/
-:root{
-    --colorLight:hsl(202,78,49);
-    --colorMedium:hsl(202,78,40);
-    --colorDark:hsl(202,78,30);
-
-    --ff:"../assets/font/Inter.ttf";
-
-    --fdark:hsl(0,0,0);
-    --flighter:hsl(0,0,20);
-    
-    --spacing1:4px;
-    --spacing2:8px;
-    --spacing3:16px;
-    --spacing4:20px;
-    --spacing5:40px;
-    --spacing6:80px;
-    --spacing7:160px;
-
-    --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
-    --gradientTop: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 25%);
-    --gradientBottom: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark)75%);
-
-
-}
 
 
 a {
@@ -45,3 +14,8 @@ a {
     font-size: 1.2rem;
     margin-top: 2vh;
 }
+
+h1{
+    color: var(--colorDark);
+}
+
