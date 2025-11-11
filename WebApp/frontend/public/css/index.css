@@ -1,21 +1,59 @@
-
-
-a {
-    text-decoration: none;
-    color: white;
+body{
+  font-family: var(--ff);  
 }
-#seeAllFeedbacks {
-    width: 20vw;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
-    color: black;
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 2vh;
+header{
+    position: relative;
+    top: 0;
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    background-color: var(--none);
+    top: 10%;
 }
 
-h1{
-    color: var(--colorDark);
+#blob1{
+    fill: var(--colorLight);
+    position: absolute;
+    left: 60%;
+    top: 25%;
+    z-index: 3;
+}
+#blob2{
+    fill: var(--colorMedium);
+    position: absolute;
+    left: 60%;
+    top: 25%;
+    z-index: 2;
+}
+#blob3{
+    fill: var(--colorDark);
+    position: absolute;
+    left: 60%;
+    top: 25%;
+
 }
 
+#greeting{
+        background: var(--gradientMid);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        display: inline-block;
+        font-size: var(--xxxl);
+
+}
+
+#buttonWrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: yellow;
+    width: 25%;
+    height: 30%;
+    justify-content: space-evenly;
+}
+
+#buttonWrapper > a{
+    height: 45%;
+    background-color: blue;
+    
+}

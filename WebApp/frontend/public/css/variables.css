@@ -2,6 +2,10 @@
     padding: 0;
     margin: 0;
 }
+@font-face {
+    font-family: Inter;
+    src: url(../assets/font/Inter-VariableFont_opsz\,wght.ttf);
+}
 :root {
   --colorLight: hsl(202, 78%, 49%);
   --colorMedium: hsl(202, 78%, 40%);
@@ -9,6 +13,9 @@
 
   --fdark: hsl(0, 0%, 0%);
   --flighter: hsl(0, 0%, 20%);
+
+  --none: transparent;
+  --ff:'Inter';
 
   --spacing1: 4px;
   --spacing2: 8px;
@@ -19,6 +26,24 @@
   --spacing7: 160px;
 
   --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
+  --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
   --gradientTop: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 25%);
   --gradientBottom: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 75%);
+
+--xxs: 0.625rem; /* 10px */
+--xs: 0.75rem;   /* 12px */
+--sm: 0.875rem;  /* 14px */
+--md: 1rem;      /* 16px */
+--lg: 1.125rem;  /* 18px */
+--xl: 1.25rem;   /* 20px */
+--xxl: 1.5rem;   /* 24px */
+--xxxl: 1.875rem; /* 30px */
+--xxxxl: 2.25rem;  /* 36px */
+--xxxxxl: 3rem;     /* 48px */
+
+--leading-tight: 1.1;
+--leading-snug: 1.25;
+--leading-normal: 1.5;
+
+  
 }
