@@ -63,7 +63,6 @@ CREATE TABLE feedback_kategorie (
 CREATE INDEX idx_feedback_status ON feedback(status_id);
 CREATE INDEX idx_feedback_user ON feedback(user_id);
 CREATE INDEX idx_feedback_thema ON feedback(thema_id);
-
 CREATE INDEX idx_feedback_kategorie_k ON feedback_kategorie(kategorie_id);
 
 -- -------------------------
@@ -132,5 +131,7 @@ SELECT setval(pg_get_serial_sequence('kategorie','id'),
 
 SELECT setval(pg_get_serial_sequence('feedback','id'),
               GREATEST((SELECT COALESCE(MAX(id),0) FROM feedback), 1), true);
+
+
 
 -- Ende des Import-Skripts

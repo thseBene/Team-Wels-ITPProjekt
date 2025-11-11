@@ -17,14 +17,11 @@
         html += `
         <div class="feedbackItem">`;
     
-        if (feedback.author == 'Anonym' || feedback.author == null || feedback.author == '') {
-            html += `<h3>Anonym</h3>`;
-        }
-        else {
-            html += `<h3>Von: ${feedback.author}</h3>`;
-        }
+        html += `<h3>${feedback.subject}</h3>`;
+        
         html += `
-            <p>${feedback.message}</p>
+            <p>${feedback.description}</p>
+            
         </div>
         `;
   }

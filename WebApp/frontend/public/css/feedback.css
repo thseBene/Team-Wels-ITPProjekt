@@ -1,12 +1,69 @@
-#feedbackContainer {
-    width: 40%;
-    background-color: lightgrey;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 5vh;
-    padding: 1%;
+#gridContainer {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-columns: 60% 40%;
+    padding-left: 3%;
+}
+#feedbackContainer {
+    width: 70%;
+    margin-top: 5vh;
+    padding: 2%;
+    display: grid;
+    border-radius: 24px;
+    border: 1px solid var(--colorDark);
+    background: #F2F2F2;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+#headerField {
+    width: 100%;
+    border-radius: 12px;
+     /* Gradient Border */
+    border: 3px solid transparent;
+    border-image: var(--gradientBottom);
+    border-image-slice: 1; /* <— wichtig! ohne das sieht man nix */
+    background: #FFF;
+    padding: 1.5%;
+}
+.inputLabels  {
+   margin-top: 3vh;
+}
+#buttonGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    box-sizing: border-box;
+    margin-top: 3vh;
+}
+#saveButton {
+    border-radius: 12px;
+    border: 2px solid #1B98E0;
+    background: #FFF;
+    padding: 4%;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    text-align: center;
+    margin-right: 1vw;
+}
+#submitButton {
+    border-radius: 12px;
+    background: linear-gradient(182deg, #1B98E0 1.4%, #167CB6 98.42%);
+    padding: 4%;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    text-align: center;
+}
+.fa-images {
+    text-align:center;
+}
+.inputLabels {
+    color: #000;
+    font-family: InterX;
+    font-size: 12px;
+    padding-left: 1vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
 }
 #feedbackHeadline {
     font-size: 2rem;
@@ -20,11 +77,11 @@ i {
 #uploadImage {
     width: 100%;
     display: grid;
-    margin-bottom: 2%;
-    height: 10vh;
-    background-color: white;
-    text-align: center;
-    align-items: center;
+    border-radius: 16px;
+    border: 4px dashed #999;
+    background: rgba(255, 255, 255, 0.00);
+    padding: 10%;
+
 }
 #descriptionField {
     width: 100%;
@@ -32,6 +89,9 @@ i {
     resize: none;
     overflow-x: hidden;
     padding: 1.5%;
+    border-radius: 16px;
+    border: 2px solid #1B98E0;
+    background: #FFF;
 }
 #submitFeedbackButton {
     width: auto;
