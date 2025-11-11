@@ -1,4 +1,4 @@
-const submitButton = document.getElementById("submitFeedbackButton");
+const submitButton = document.getElementById("submitButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 const headerField = document.getElementById("headerField") as HTMLInputElement;
@@ -116,7 +116,6 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
-sendFeedback("Hallo", "Test");
 
 
 // send Feedback to Server

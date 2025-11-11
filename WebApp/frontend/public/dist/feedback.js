@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const submitButton = document.getElementById("submitFeedbackButton");
+const submitButton = document.getElementById("submitButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
 const headerField = document.getElementById("headerField");
@@ -102,7 +102,6 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
-sendFeedback("Hallo", "Test");
 // send Feedback to Server
 function sendFeedback(description, betreff) {
     return __awaiter(this, void 0, void 0, function* () {

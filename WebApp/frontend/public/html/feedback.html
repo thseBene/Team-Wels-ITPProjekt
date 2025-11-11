@@ -14,7 +14,6 @@
 </head> 
 <body>
     <nav id="navigation"><!-- Navigation Bar -->
-
         <a href="../index.html" >
             <svg width="54" height="40" viewBox="0 0 108 79" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M77.156 49.3732L78 46.6197L64.3331 2L56.9109 26.0506L55 32.2871L68.6954 77L77.156 49.3732Z" fill="#1B98E0"/>
@@ -27,36 +26,48 @@
 
     </nav>
 
-    <div id="feedbackContainer">
-        <h1 id="feedbackHeadline">Feedback geben</h1>
 
-        <h2 class="inputLabels">Betreff</h2>
-        <input id="headerField" type="text"></input>
+    <div id="gridContainer">
+        <div id="feedbackContainer">
+
+            <div>
+                <h2 class="inputLabels">Betreff</h2>
+                <input id="headerField" type="text"></input>
+            </div>
+
+            <div>
+                <h2 class="inputLabels">Anliegen</h2>
+                <textarea id="descriptionField">
+
+                </textarea>
+            </div>
+
+            <div>
+                <h2 class="inputLabels">Foto</h2>
+                <form id="uploadForm" enctype="multipart/form-data" method="post">
+
+                    <label for="imageInput" id="uploadImage" class="upload-button">
+                        <i class="fa-solid fa-images"></i>
+                    </label>
+
+                    <input id="imageInput" type="file" accept="image/*" multiple hidden>
+                </form>
+                <div id="imagePreview" class="image-preview"></div>
+
+            </div>
+
+                <div id="buttonGrid">
+                    <div id="saveButton">Entwurf speichern</div>
+                    <div id="submitButton">Absenden</div>
+                </div>
+            </div>
+
+            <div id="directorFigure">
+                <img src="../assets/images/DirectorWithSpeechBubble.png" alt="Director with Speech Bubble">
+            </div>
 
 
-        <h2 class="inputLabels">Beschreibung</h2>
-        <textarea id="descriptionField">
-
-        </textarea>
-
-
-        <h2 class="inputLabels">Foto</h2>
-        <form id="uploadForm" enctype="multipart/form-data" method="post">
-            <label for="imageInput" id="uploadImage" class="upload-button">
-                <i class="fa-solid fa-upload"></i>
-                <span>Bild(er) hochladen</span>
-            </label>
-            <input id="imageInput" type="file" accept="image/*" multiple hidden>
-        </form>
-        <div id="imagePreview" class="image-preview"></div>
-
-       
-
-        
-
-        <div id="submitFeedbackButton">
-            Feedback absenden
-        </div>
     </div>
+    
 </body>
 </html>
