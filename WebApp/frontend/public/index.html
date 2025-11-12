@@ -105,13 +105,10 @@
     
 
     <script defer>
-    document.addEventListener('keyup', (e) => {
-        if (!e.key || e.key.toLowerCase() !== 'a' || e.ctrlKey || e.altKey || e.metaKey) return;
-        const tgt = e.target;
-        const tag = tgt && tgt.tagName && tgt.tagName.toLowerCase();
-        if (tag === 'input' || tag === 'textarea' || (tgt && tgt.isContentEditable)) return;
-        const link = document.getElementById('seeAllFeedbacks');
-        if (link) link.click();
+    document.addEventListener('keydown', (e) => {
+       if (e.key === 'a') {
+           window.location.href = './html/allFeedback.html';
+       }
     });
     </script>
 
