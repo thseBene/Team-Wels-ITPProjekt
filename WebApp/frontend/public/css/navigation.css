@@ -3,7 +3,7 @@
 #nav{
     height: 50%;
     width: 50%;
-    font-size: var(--xl);
+    font-size: var(--sm);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -14,6 +14,7 @@
     background: linear-gradient(180deg, #FFF 0%, #F2F2F2 16.67%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(50px);
+
 }
 
 
@@ -24,6 +25,8 @@
 #nav > a {
     color: var(--fgrey);
  text-decoration: none;
+ text-transform: uppercase;
+ font-weight: bold;
 }
 
 header{
