@@ -98,7 +98,7 @@ scale: .7;
     background-clip: padding-box, border-box;
 }
 
-#placeholder{
+#blank{
     background-color: grey;
     height: 50%;
     width: 75%;
