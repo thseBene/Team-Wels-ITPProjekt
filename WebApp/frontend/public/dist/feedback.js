@@ -12,6 +12,7 @@ const submitButton = document.getElementById("submitButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
 const headerField = document.getElementById("headerField");
+const directorFigure = document.getElementById("directorFigure");
 setAtBeginning();
 // to store the uploaded images
 let savedImages = new Array();
@@ -105,6 +106,7 @@ function setAtBeginning() {
 // send Feedback to Server
 function sendFeedback(description, betreff) {
     return __awaiter(this, void 0, void 0, function* () {
+        directorFigure.style.display = "none";
         const feedback = {
             subject: betreff,
             description: description,

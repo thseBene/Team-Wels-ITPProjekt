@@ -2,7 +2,7 @@ const submitButton = document.getElementById("submitButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 const headerField = document.getElementById("headerField") as HTMLInputElement;
-
+const directorFigure = document.getElementById("directorFigure") as HTMLDivElement;
 setAtBeginning();
 
 
@@ -121,6 +121,7 @@ function setAtBeginning() {
 // send Feedback to Server
 async function sendFeedback(description: string, betreff: string) {
 
+  directorFigure.style.display = "none";
   const feedback = {
     subject: betreff, 
     description: description,
