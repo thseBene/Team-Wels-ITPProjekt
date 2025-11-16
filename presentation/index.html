@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Wels - IT Projekt Präsentation</title>
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css">
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section>
+                <h1>Team Wels</h1>
+                <h3>IT Projekt Präsentation</h3>
+                <p>
+                    <small>@jakobpeneder @simondokter @NFFabio</small>
+                </p>
+            </section>
+
+            <!-- Agenda -->
+            <section>
+                <h2>Agenda</h2>
+                <ul>
+                    <li>Projektübersicht</li>
+                    <li>Technologie Stack</li>
+                    <li>Architektur</li>
+                    <li>Demo</li>
+                    <li>Zusammenfassung</li>
+                </ul>
+            </section>
+
+            <!-- Project Overview -->
+            <section>
+                <h2>Projektübersicht</h2>
+                <p>Hier können Sie Ihre Projektbeschreibung einfügen</p>
+            </section>
+
+            <!-- Technology Stack -->
+            <section>
+                <h2>Technologie Stack</h2>
+                <ul>
+                    <li>Frontend: ...</li>
+                    <li>Backend: ...</li>
+                    <li>Datenbank: ...</li>
+                    <li>Container: Docker</li>
+                </ul>
+            </section>
+
+            <!-- Architecture -->
+            <section>
+                <h2>Architektur</h2>
+                <p>Ihre Architekturdiagramme hier einfügen</p>
+            </section>
+
+            <!-- Demo -->
+            <section>
+                <h2>Demo</h2>
+                <p>Live Demo oder Screenshots</p>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Zusammenfassung</h2>
+                <p>Wichtigste Erkenntnisse und nächste Schritte</p>
+            </section>
+
+            <!-- Thank You -->
+            <section>
+                <h1>Vielen Dank!</h1>
+                <p>Fragen?</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script src="node_modules/reveal.js/plugin/notes/notes.js"></script>
+    <script src="node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+            // Display controls in the bottom right corner
+            controls: true,
+            // Display a presentation progress bar
+            progress: true,
+            // Display the page number of the current slide
+            slideNumber: true,
+            // Add the current slide number to the URL hash
+            hash: true,
+            // Push each slide change to the browser history
+            history: true,
+            // Enable keyboard shortcuts for navigation
+            keyboard: true,
+            // Enable the slide overview mode
+            overview: true,
+            // Vertical centering of slides
+            center: true,
+            // Enables touch navigation on devices with touch input
+            touch: true,
+            // Loop the presentation
+            loop: false,
+            // Change the presentation direction to be RTL
+            rtl: false,
+            // Turns fragments on and off globally
+            fragments: true,
+            // Flags whether to include the current fragment in the URL
+            fragmentInURL: false,
+            // Flags if the presentation is running in an embedded mode
+            embedded: false,
+            // Number of milliseconds between automatically proceeding to the next slide
+            autoSlide: 0,
+            // Transition style
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            // Transition speed
+            transitionSpeed: 'default', // default/fast/slow
+            // Transition style for full page slide backgrounds
+            backgroundTransition: 'fade' // none/fade/slide/convex/concave/zoom
+        });
+    </script>
+</body>
+</html>
