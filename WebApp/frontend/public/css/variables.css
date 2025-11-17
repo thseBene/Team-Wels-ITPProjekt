@@ -41,9 +41,13 @@
 --md: 1rem;      /* 16px */
 --lg: 1.125rem;  /* 18px */
 --xl: 1.25rem;   /* 20px */
+<<<<<<< Updated upstream
 --xll: 1.5rem;   
 --xxl: 2rem;
 --xxxl: 5rem;   /* 24px */
+=======
+--xxl: 5rem;   /* 24px */
+>>>>>>> Stashed changes
 
 
 --leading-tight: 1.1;

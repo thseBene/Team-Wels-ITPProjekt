@@ -42,7 +42,11 @@ scale: .7;
         background-clip: text;
         color: transparent;
         display: inline-block;
+<<<<<<< Updated upstream
         font-size: var(--xxxl);
+=======
+        font-size: var(--xxl);
+>>>>>>> Stashed changes
         width: 45%;
         line-height: 0.9;
         padding-bottom: 0.12em;
@@ -86,7 +90,11 @@ scale: .7;
 }
 
 #buttonWrapper > a:last-child{
+<<<<<<< Updated upstream
 
+=======
+   
+>>>>>>> Stashed changes
     background: var(--light);
     color: var(--fdark);
     border: 2px solid transparent;
@@ -105,6 +113,7 @@ scale: .7;
     position: relative;
     top: 10%;
 
+<<<<<<< Updated upstream
 }
 
     .bubble {
@@ -138,4 +147,6 @@ scale: .7;
     border-top-color: inherit; /* Can't be included in the shorthand to work */
     bottom: -23px;
     margin-left: -23px;
+=======
+>>>>>>> Stashed changes
 }
