@@ -101,15 +101,18 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
-
-
+ feedbackContainer.innerHTML = `<div id="thankYouMessage" class="bubble">
+    <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
+    <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
+    <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
+</div>
+`;
 // send Feedback to Server
 feedbackContainer.addEventListener("submit", sendFeedback);
 
 async function sendFeedback(event: Event)
  {
   event.preventDefault();
-  directorFigure.style.display = "none";
   const betreff = headerField.value;
   const description = descriptionField.value; 
   const feedback = {
@@ -118,6 +121,8 @@ async function sendFeedback(event: Event)
     type: "Beschwerde"
   };
 
+
+ 
   console.log("Sende Feedback:", feedback);
   const response = await fetch("http://localhost:8080/api/feedback", {
     method: "POST",

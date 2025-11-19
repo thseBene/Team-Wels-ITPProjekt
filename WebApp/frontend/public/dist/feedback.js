@@ -90,12 +90,17 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
+feedbackContainer.innerHTML = `<div id="thankYouMessage" class="bubble">
+    <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
+    <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
+    <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
+</div>
+`;
 // send Feedback to Server
 feedbackContainer.addEventListener("submit", sendFeedback);
 function sendFeedback(event) {
     return __awaiter(this, void 0, void 0, function* () {
         event.preventDefault();
-        directorFigure.style.display = "none";
         const betreff = headerField.value;
         const description = descriptionField.value;
         const feedback = {
