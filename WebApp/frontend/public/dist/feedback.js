@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a;
 const submitButton = document.getElementById("submitButton");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
@@ -91,21 +90,10 @@ function setAtBeginning() {
     descriptionField.addEventListener('focus', moveCaretToStart);
     descriptionField.addEventListener('click', moveCaretToStart);
 }
-feedbackContainer.innerHTML = `<div id="thankYouMessage" class="bubble">
-    <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
-    <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
-    <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
-    <p id="errorMessageContact"></p>
-    <div id="buttonGrid">
-      <button id="saveContactButton" class="save">Nein danke</button>
-      <button id="submitContactButton"class="submit">Absenden</button>
-    </div>
-
-</div>
-`;
-(_a = document.getElementById("submitContactButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", sendContactInfo);
+// send contact info to server
 function sendContactInfo() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("Sende Kontaktinfo...");
         const errorMessageContact = document.getElementById("errorMessageContact");
         const contactField = document.getElementById("emailTelefonField");
         const contactInfo = contactField.value;
@@ -113,6 +101,8 @@ function sendContactInfo() {
         const digitsOnly = contactInfo.replace(/\D/g, '');
         const isEmail = emailRegex.test(contactInfo);
         const isPhone = digitsOnly.length >= 7 && digitsOnly.length <= 15;
+        let telefon = false;
+        let email = false;
         // empty is allowed (optional), otherwise require valid email or phone
         if (contactInfo && !isEmail && !isPhone) {
             if (errorMessageContact) {
@@ -122,13 +112,30 @@ function sendContactInfo() {
             return;
         }
         errorMessageContact.style.display = "none";
+        const contactType = isEmail ? "email" : isPhone ? "phone" : "unknown";
+        contactField.dataset.contactType = contactType;
+        if (contactType === "email") {
+            email = true;
+        }
+        else if (contactType === "phone") {
+            telefon = true;
+        }
+        console.log("Kontaktinfo Typ:", contactType);
         contactInfo.replace(/\s+/g, '');
+        let formData = new FormData();
+        if (email) {
+            formData.append("mail", contactInfo);
+        }
+        if (telefon) {
+            formData.append("tel", contactInfo);
+        }
+        console.log("FormData Kontaktinfo:", formData);
         // optional: send contact info to server
         try {
-            const response = yield fetch("http://localhost:8080/api/contact", {
+            const response = yield fetch("http://localhost:8080/api/benutzer", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contact: contactInfo })
+                body: JSON.stringify({ formData })
             });
             if (!response.ok) {
                 console.error("Fehler beim Senden der Kontaktinfo:", response.statusText);
@@ -146,6 +153,7 @@ function sendContactInfo() {
 feedbackContainer.addEventListener("submit", sendFeedback);
 function sendFeedback(event) {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         event.preventDefault();
         const betreff = headerField.value;
         const description = descriptionField.value;
@@ -154,6 +162,19 @@ function sendFeedback(event) {
             description: description,
             type: "Beschwerde"
         };
+        feedbackContainer.innerHTML = `<div id="thankYouMessage" class="bubble">
+    <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
+    <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
+    <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
+    <p id="errorMessageContact"></p>
+    <div id="buttonGrid">
+      <div id="saveContactButton" class="save">Nein danke</div>
+      <div id="submitContactButton" class="submit">Absenden</div>
+    </div>
+
+</div>
+`;
+        (_a = document.getElementById("submitContactButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", sendContactInfo);
         console.log("Sende Feedback:", feedback);
         const response = yield fetch("http://localhost:8080/api/feedback", {
             method: "POST",
