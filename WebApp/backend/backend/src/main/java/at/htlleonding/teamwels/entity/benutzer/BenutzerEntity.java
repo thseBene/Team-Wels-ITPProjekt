@@ -1,7 +1,8 @@
 package at.htlleonding.teamwels.entity.benutzer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -9,13 +10,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "benutzer")
-public class BenutzerEntity extends PanacheEntity {
+public class BenutzerEntity extends PanacheEntityBase {
 
-    @Column(name = "vorname", nullable = false)
-    public String vorname;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
-    @Column(name = "nachname", nullable = false)
-    public String nachname;
+    @Column(name = "mail", nullable = true)
+    public String mail;
+
+    @Column(name = "tel", nullable = true)
+    public String tel;
 
     @Column(name = "rolle", nullable = false)
     public String rolle;
