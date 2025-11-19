@@ -1,5 +1,5 @@
 const submitButton = document.getElementById("submitButton");
-const feedbackContainer = document.getElementById("feedbackContainer");
+const feedbackContainer = document.getElementById("feedbackContainer") as HTMLFormElement;
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 const headerField = document.getElementById("headerField") as HTMLInputElement;
 const directorFigure = document.getElementById("directorFigure") as HTMLDivElement;
@@ -10,22 +10,7 @@ setAtBeginning();
 
 // to store the uploaded images
 let savedImages = new Array<File>();
-if (submitButton && descriptionField && headerField) {
-  submitButton.addEventListener("click", () => {
-    const feedback = {
-      betreff: headerField.value,
-      description: descriptionField.value,
-      images: savedImages
-    };
-    
-    feedbackContainer!.innerHTML = "";
-    feedbackContainer!.innerHTML = "<h2 id='thankYouMessage'>Vielen Dank für Ihr Feedback!</h2>";
 
-    sendFeedback(feedback.description, feedback.betreff);
-    // Hier müssen dann die Daten an die Datenbank gesendet werden
-
-  });
-}
 
 const uploadForm = document.getElementById("uploadForm") as HTMLFormElement;
 const imageInput = document.getElementById("imageInput") as HTMLInputElement;
@@ -119,9 +104,14 @@ function setAtBeginning() {
 
 
 // send Feedback to Server
-async function sendFeedback(description: string, betreff: string) {
+feedbackContainer.addEventListener("submit", sendFeedback);
 
+async function sendFeedback(event: Event)
+ {
+  event.preventDefault();
   directorFigure.style.display = "none";
+  const betreff = headerField.value;
+  const description = descriptionField.value; 
   const feedback = {
     subject: betreff, 
     description: description,

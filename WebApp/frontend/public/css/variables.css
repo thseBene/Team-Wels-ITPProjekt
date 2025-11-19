@@ -31,7 +31,6 @@
   --spacing7: 160px;
 
   --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
-  --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
   --gradientTop: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 25%);
   --gradientBottom: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 75%);
 

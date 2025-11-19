@@ -16,19 +16,6 @@ const directorFigure = document.getElementById("directorFigure");
 setAtBeginning();
 // to store the uploaded images
 let savedImages = new Array();
-if (submitButton && descriptionField && headerField) {
-    submitButton.addEventListener("click", () => {
-        const feedback = {
-            betreff: headerField.value,
-            description: descriptionField.value,
-            images: savedImages
-        };
-        feedbackContainer.innerHTML = "";
-        feedbackContainer.innerHTML = "<h2 id='thankYouMessage'>Vielen Dank für Ihr Feedback!</h2>";
-        sendFeedback(feedback.description, feedback.betreff);
-        // Hier müssen dann die Daten an die Datenbank gesendet werden
-    });
-}
 const uploadForm = document.getElementById("uploadForm");
 const imageInput = document.getElementById("imageInput");
 const imagePreview = document.getElementById("imagePreview");
@@ -104,9 +91,13 @@ function setAtBeginning() {
     descriptionField.addEventListener('click', moveCaretToStart);
 }
 // send Feedback to Server
-function sendFeedback(description, betreff) {
+feedbackContainer.addEventListener("submit", sendFeedback);
+function sendFeedback(event) {
     return __awaiter(this, void 0, void 0, function* () {
+        event.preventDefault();
         directorFigure.style.display = "none";
+        const betreff = headerField.value;
+        const description = descriptionField.value;
         const feedback = {
             subject: betreff,
             description: description,

@@ -23,6 +23,7 @@ body{
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
 }
+
 #headerField {
     width: 100%;
     position: relative;
@@ -61,10 +62,11 @@ body{
     border: 2px solid #1B98E0;
     background: #FFF; 
     margin-right: 1vw;
+    color: var(--fgrey);
 }
 #submitButton {
     border-radius: 12px;
-    background: linear-gradient(182deg, #1B98E0 1.4%, #167CB6 98.42%);
+    background: linear-gradient(182deg, var(--colorLight) 1.4%, var(--colorDark) 98.42%);
     color: white;
 }
 #submitButton, #saveButton {
@@ -77,6 +79,8 @@ body{
 >>>>>>> Stashed changes
     text-align: center;
     padding: 4%;
+    font-weight: bold;
+    
 }
 .fa-images {
     text-align:center;
