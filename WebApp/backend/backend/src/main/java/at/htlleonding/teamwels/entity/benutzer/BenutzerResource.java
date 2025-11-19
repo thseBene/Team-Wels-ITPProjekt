@@ -27,6 +27,7 @@ public class BenutzerResource {
     @POST
     @Transactional
     public Response create(BenutzerEntity entity) {
+
         repo.persist(entity);
         return Response.status(Response.Status.OK)
                 .entity(entity).build();

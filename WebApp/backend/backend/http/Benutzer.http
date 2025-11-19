@@ -1,0 +1,18 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST http://localhost:8080/api/benutzer
+Content-Type: application/json
+
+{
+  "mail": null,
+  "tel": "dkfdklflsd"
+}
+
+###
+
+GET http://localhost:8080/api/benutzer
+Content-Type: */*
+
