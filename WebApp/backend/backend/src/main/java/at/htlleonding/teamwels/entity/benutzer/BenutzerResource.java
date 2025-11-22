@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -26,11 +27,15 @@ public class BenutzerResource {
 
     @POST
     @Transactional
-    public Response create(BenutzerEntity entity) {
+    public Response create(BenutzerPayload payload) {
 
-        repo.persist(entity);
-        return Response.status(Response.Status.OK)
-                .entity(entity).build();
+        BenutzerEntity benutzer = new BenutzerEntity();
+
+        benutzer.mail = payload.mail;
+        benutzer.tel = payload.tel;
+
+        repo.persist(benutzer);
+        return Response.created(URI.create("/api/benutzer" + benutzer.id)).build();
     }
     @PUT
     @Transactional
@@ -48,5 +53,9 @@ public class BenutzerResource {
     public Response delete(BenutzerEntity entity) {
         repo.delete(entity);
         return Response.noContent().build();
+    }
+    public static class BenutzerPayload{
+        public String mail;
+        public String tel;
     }
 }
