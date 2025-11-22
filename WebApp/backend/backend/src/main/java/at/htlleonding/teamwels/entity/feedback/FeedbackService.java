@@ -4,8 +4,6 @@ import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
 import at.htlleonding.teamwels.entity.kategorie.KategorieEntity;
 import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
-import at.htlleonding.teamwels.entity.status.StatusEntity;
-import at.htlleonding.teamwels.entity.status.StatusRepository;
 import at.htlleonding.teamwels.entity.thema.ThemaEntity;
 import at.htlleonding.teamwels.entity.thema.ThemaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -33,9 +31,7 @@ public class FeedbackService {
     @Inject
     ThemaRepository themaRepo;
 
-    @Inject
-    StatusRepository statusRepo;
-
+    // StatusRepository entfernt (nicht mehr benötigt)
     @Inject
     KategorieRepository kategorieRepo;
 
@@ -78,18 +74,18 @@ public class FeedbackService {
      * Ändert nur den Status eines Feedbacks
      */
     @Transactional
-    public FeedbackEntity updateStatus(Long feedbackId, Long statusId) {
+    public FeedbackEntity updateStatus(Long feedbackId, String statusValue) {
         FeedbackEntity feedback = feedbackRepo.findById(feedbackId);
         if (feedback == null) {
             throw new NotFoundException("Feedback mit ID " + feedbackId + " nicht gefunden");
         }
 
-        StatusEntity status = statusRepo.findById(statusId);
-        if (status == null) {
-            throw new NotFoundException("Status mit ID " + statusId + " nicht gefunden");
+        try {
+            feedback.status = Status.from(statusValue);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException("Ungültiger Status: " + statusValue);
         }
 
-        feedback.status = status;
         feedback.updatedAt = Instant.now();
 
         return feedback;
@@ -126,15 +122,11 @@ public class FeedbackService {
 
     // --- Private Hilfsmethoden ---
 
-    /**
-     * Validiert das Payload (kann erweitert werden)
-     */
     private void validatePayload(FeedbackPayload payload) {
         if (payload == null) {
             throw new BadRequestException("Payload darf nicht leer sein");
         }
 
-        // Weitere Validierungen
         if (payload.subject != null && payload.subject.trim().isEmpty()) {
             throw new BadRequestException("Betreff darf nicht leer sein");
         }
@@ -144,12 +136,7 @@ public class FeedbackService {
         }
     }
 
-    /**
-     * Mapped Payload-Daten auf Entity
-     * Diese Methode enthält die Business-Logik für die Zuordnung
-     */
     private void mapPayloadToEntity(FeedbackPayload payload, FeedbackEntity entity) {
-        // Einfache Felder
         if (payload.subject != null) {
             entity.subject = payload.subject.trim();
         }
@@ -162,13 +149,13 @@ public class FeedbackService {
             entity.type = payload.type;
         }
 
-        // Status-Beziehung
-        if (payload.statusId != null) {
-            StatusEntity status = statusRepo.findById(payload.statusId);
-            if (status == null) {
-                throw new NotFoundException("Status mit ID " + payload.statusId + " nicht gefunden");
+        // Neu: status als String/Enum
+        if (payload.status != null) {
+            try {
+                entity.status = Status.from(payload.status);
+            } catch (IllegalArgumentException e) {
+                throw new NotFoundException("Ungültiger Status: " + payload.status);
             }
-            entity.status = status;
         }
 
         // Benutzer-Beziehung
@@ -200,11 +187,6 @@ public class FeedbackService {
                 entity.kategorien.add(kategorie);
             }
         }
-
-        // Bilder (wenn implementiert)
-        if (payload.bilder != null && !payload.bilder.isEmpty()) {
-            // TODO: Bilder-Logik implementieren
-        }
     }
 
     // --- DTOs (können auch in eigene Klasse ausgelagert werden) ---
@@ -213,7 +195,8 @@ public class FeedbackService {
         public String subject;
         public String description;
         public String type;
-        public Long statusId;
+        // statt statusId verwenden wir status-String (Enum-Name oder Label)
+        public String status;
         public Long userId;
         public Long themaId;
         public List<Long> kategorieIds;

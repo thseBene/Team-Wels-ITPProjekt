@@ -31,10 +31,9 @@ public class FeedbackEntity extends PanacheEntityBase {
     @Column(name = "typ", nullable = false)
     public String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
-    @JsonIgnoreProperties({"feedbacks"})
-    public StatusEntity status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    public Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

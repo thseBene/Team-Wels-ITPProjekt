@@ -48,7 +48,7 @@ public class FeedbackResource {
     @PATCH
     @Path("{id}/status")
     public FeedbackEntity updateStatus(@PathParam("id") Long id, StatusUpdatePayload payload) {
-        return service.updateStatus(id, payload.statusId);
+        return service.updateStatus(id, payload.status);
     }
 
     @DELETE
@@ -60,6 +60,7 @@ public class FeedbackResource {
 
     // Minimales DTO für Status-Update
     public static class StatusUpdatePayload {
-        public Long statusId;
+        // jetzt String (z. B. "Neu" oder "IN_BEARBEITUNG")
+        public String status;
     }
 }
