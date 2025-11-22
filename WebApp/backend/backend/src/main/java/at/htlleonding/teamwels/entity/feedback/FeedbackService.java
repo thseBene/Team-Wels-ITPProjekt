@@ -4,6 +4,7 @@ import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
 import at.htlleonding.teamwels.entity.kategorie.KategorieEntity;
 import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
+import at.htlleonding.teamwels.entity.notification.NotificationEntity;
 import at.htlleonding.teamwels.entity.thema.ThemaEntity;
 import at.htlleonding.teamwels.entity.thema.ThemaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -88,7 +89,52 @@ public class FeedbackService {
 
         feedback.updatedAt = Instant.now();
 
+        // Benachrichtigungen erstellen wenn Benutzer zugeordnet ist
+        if (feedback.user != null) {
+            createNotifications(feedback);
+        }
+
         return feedback;
+    }
+
+    /**
+     * Erstellt Benachrichtigungen für den Benutzer basierend auf vorhandenen Kontaktdaten
+     */
+    private void createNotifications(FeedbackEntity feedback) {
+        BenutzerEntity user = feedback.user;
+        String statusLabel = feedback.status.getLabel();
+
+        // E-Mail-Benachrichtigung erstellen wenn E-Mail vorhanden
+        if (user.mail != null && !user.mail.trim().isEmpty()) {
+            NotificationEntity emailNotification = new NotificationEntity();
+            emailNotification.typ = "EMAIL";
+            emailNotification.betreffFeedback = feedback.subject;
+            emailNotification.benutzer = user;
+            emailNotification.nachricht = String.format(
+                "Sehr geehrte/r Benutzer,\n\n" +
+                "Ihr Feedback '%s' (ID: %d) hat den Status geändert zu: %s.\n\n" +
+                "Mit freundlichen Grüßen,\n" +
+                "Ihr Team Wels",
+                feedback.subject,
+                feedback.id,
+                statusLabel
+            );
+            emailNotification.persist();
+        }
+
+        // SMS-Benachrichtigung erstellen wenn Telefonnummer vorhanden
+        if (user.tel != null && !user.tel.trim().isEmpty()) {
+            NotificationEntity smsNotification = new NotificationEntity();
+            smsNotification.typ = "SMS";
+            smsNotification.betreffFeedback = feedback.subject;
+            smsNotification.benutzer = user;
+            smsNotification.nachricht = String.format(
+                "Feedback-Update: '%s' ist jetzt %s. Team Wels",
+                feedback.subject,
+                statusLabel
+            );
+            smsNotification.persist();
+        }
     }
 
     /**
