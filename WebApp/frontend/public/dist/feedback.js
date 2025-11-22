@@ -91,7 +91,7 @@ function setAtBeginning() {
     descriptionField.addEventListener('click', moveCaretToStart);
 }
 // send contact info to server
-function sendContactInfo() {
+function sendContactInfo(feedback) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("Sende Kontaktinfo...");
         const errorMessageContact = document.getElementById("errorMessageContact");
@@ -112,41 +112,53 @@ function sendContactInfo() {
             return;
         }
         errorMessageContact.style.display = "none";
-        const contactType = isEmail ? "email" : isPhone ? "phone" : "unknown";
-        contactField.dataset.contactType = contactType;
-        if (contactType === "email") {
-            email = true;
-        }
-        else if (contactType === "phone") {
-            telefon = true;
-        }
+        const contactType = isEmail ? "mail" : isPhone ? "tel" : "unknown";
         console.log("Kontaktinfo Typ:", contactType);
         contactInfo.replace(/\s+/g, '');
-        let formData = new FormData();
-        if (email) {
-            formData.append("mail", contactInfo);
-        }
-        if (telefon) {
-            formData.append("tel", contactInfo);
-        }
-        console.log("FormData Kontaktinfo:", formData);
         // optional: send contact info to server
         try {
+            const normalized = contactInfo.replace(/\s+/g, '');
+            const payload = {};
+            if (contactType === "mail") {
+                payload.mail = normalized;
+                payload.rolle = "User";
+                payload.tel = "";
+            }
+            else if (contactType === "tel") {
+                payload.mail = "";
+                payload.rolle = "User";
+                payload.tel = normalized;
+            }
+            console.log(payload);
             const response = yield fetch("http://localhost:8080/api/benutzer", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ formData })
+                body: JSON.stringify(payload)
             });
             if (!response.ok) {
                 console.error("Fehler beim Senden der Kontaktinfo:", response.statusText);
             }
             else {
+                console.log(response);
                 console.log("Kontaktinfo erfolgreich gesendet");
             }
         }
         catch (error) {
             console.error("Netzwerkfehler beim Senden der Kontaktinfo:", error);
         }
+        console.log("Sende Feedback:", feedback);
+        const response = yield fetch("http://localhost:8080/api/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(feedback)
+        });
+        if (!response.ok) {
+            console.error("Fehler beim Senden:", response.statusText);
+            return;
+        }
+        console.log("Feedback erfolgreich gesendet");
     });
 }
 // send Feedback to Server
@@ -174,19 +186,6 @@ function sendFeedback(event) {
 
 </div>
 `;
-        (_a = document.getElementById("submitContactButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", sendContactInfo);
-        console.log("Sende Feedback:", feedback);
-        const response = yield fetch("http://localhost:8080/api/feedback", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(feedback)
-        });
-        if (!response.ok) {
-            console.error("Fehler beim Senden:", response.statusText);
-            return;
-        }
-        console.log("Feedback erfolgreich gesendet");
+        (_a = document.getElementById("submitContactButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => sendContactInfo(feedback));
     });
 }
