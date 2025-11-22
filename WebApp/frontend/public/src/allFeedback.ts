@@ -1,32 +1,38 @@
     async function getAllFeedback() {
-  const response = await fetch("http://localhost:8080/api/feedback", {
-    method: "GET",
-    headers: {
-      "Accept": "application/json"
-    }
-  });
+        const response = await fetch("http://localhost:8080/api/feedback", {
+            method: "GET",
+            headers: {
+            "Accept": "application/json"
+            }
+        });
 
-  if (!response.ok) {
-    throw new Error(`Fehler beim Abrufen: ${response.status}`);
-  }
+        if (!response.ok) {
+            throw new Error(`Fehler beim Abrufen: ${response.status}`);
+        }
 
-  const feedbackList = await response.json();
-  console.log("Feedbacks:", feedbackList);
-  let html = '';
-  for (const feedback of feedbackList) {
-        html += `
-        <div class="feedbackItem">`;
-    
-        html += `<h3>${feedback.subject}</h3>`;
-        
-        html += `
-            <p>${feedback.description}</p>
+        const feedbackList = await response.json();
+        console.log("Feedbacks:", feedbackList);
+        let html = '';
+        for (const feedback of feedbackList) {
+                html += `
+                <div class="feedbackItem">`;
             
-        </div>
-        `;
-  }
-  document.getElementById('container')!.innerHTML = html;
-}
+                html += `<h3>${feedback.subject}</h3>`;
+                
+                if(feedback.status != null) {
+                    html += `<p>Status: ${feedback.status.bezeichnung}</p>`;
+                }
+                html += `
+                    <div class="editButton">Bearbeiten</div>
+                </div>
+                `;
+        }
+        document.getElementById('container')!.innerHTML = html;
+    }
+
+
+
+
 getAllFeedback();
 
 

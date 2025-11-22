@@ -13,7 +13,7 @@ const feedbackContainer = document.getElementById("feedbackContainer");
 const descriptionField = document.getElementById("descriptionField");
 const headerField = document.getElementById("headerField");
 const directorFigure = document.getElementById("directorFigure");
-const messageContat = document.getElementById("messageContact");
+const messageContact = document.getElementById("messageContact");
 setAtBeginning();
 // to store the uploaded images
 let savedImages = new Array();
@@ -145,6 +145,8 @@ function sendContactInfo(feedback) {
                     if (created && typeof created.id !== "undefined") {
                         userId = Number(created.id);
                     }
+                    setTimeout(() => {
+                    }, 5000);
                 }
                 catch (error) {
                     console.log("Error beim Parsen der Antwort:", error);
@@ -164,21 +166,20 @@ function sendContactInfo(feedback) {
             if (userId != null) {
                 feedbackPayload.userId = userId;
             }
-            const response = yield fetch("http://localhost:8080/api/feedback", {
+            const fbResp = yield fetch("http://localhost:8080/api/feedback", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(feedback)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(feedbackPayload)
             });
-            if (!response.ok) {
-                console.error("Fehler beim Senden:", response.statusText);
+            if (!fbResp.ok) {
+                console.error("Fehler beim Senden des Feedbacks:", fbResp.status, yield fbResp.text());
                 return;
             }
-            console.log("Feedback erfolgreich gesendet");
+            const createdFeedback = yield fbResp.json().catch(() => null);
+            console.log("Feedback erfolgreich gesendet. userId=", userId, "createdFeedback=", createdFeedback);
         }
-        catch (error) {
-            console.error("Netzwerkfehler beim Senden des Feedbacks:", error);
+        catch (err) {
+            console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
     });
 }
@@ -196,7 +197,7 @@ function sendFeedback(event) {
             type: "Beschwerde"
         };
         (_a = document.getElementById("gridContainer")) === null || _a === void 0 ? void 0 : _a.remove();
-        messageContat.innerHTML = `<div id="thankYouMessage" class="bubble">
+        messageContact.innerHTML = `<div id="thankYouMessage" class="bubble">
     <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
     <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
     <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
@@ -214,7 +215,7 @@ function sendFeedback(event) {
 /*
 document.getElementById("gridContainer")!.style.display = "none";
 
- messageContat.innerHTML = `
+ messageContact.innerHTML = `
     <div id="contactContainer">
         <div id="profile">
                 <svg width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,11 +270,24 @@ document.getElementById("gridContainer")!.style.display = "none";
 
                     <h1 class="directorTItle">Bürgermeister</h1>
 
-                    <p class="nowText"jetzt</p>
+                    <p class="nowText">jetzt</p>
 
 
         </div>
 
+        <p>Bürgermeistertext</p>
+
     </div>
+  
+    <div id="inputContainer">
+      <input type="text" id="inputContact" placeholder="E-Mail oder Telefonnummer (optional)" />
+      <div id="noThanksButton" >Nein danke</div>
+      <div id="submitContactButton" >Absenden</div>
+    </div>
+    <p id="errorMessageContact"></p>
+
+
+
+
 `;
 */ 

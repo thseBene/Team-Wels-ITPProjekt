@@ -3,7 +3,7 @@ const feedbackContainer = document.getElementById("feedbackContainer") as HTMLFo
 const descriptionField = document.getElementById("descriptionField") as HTMLTextAreaElement;
 const headerField = document.getElementById("headerField") as HTMLInputElement;
 const directorFigure = document.getElementById("directorFigure") as HTMLDivElement;
-const messageContat = document.getElementById("messageContact") as HTMLDivElement;
+const messageContact = document.getElementById("messageContact") as HTMLDivElement;
 setAtBeginning();
 
 
@@ -171,6 +171,10 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
           if (created && typeof created.id !== "undefined") {
             userId = Number(created.id);
           }
+
+          setTimeout(() => {
+          }, 5000);
+        
       }catch (error) {
         console.log("Error beim Parsen der Antwort:", error);
 
@@ -192,23 +196,22 @@ try {
       if (userId != null) {
         feedbackPayload.userId = userId;
       }
- const response = await fetch("http://localhost:8080/api/feedback", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(feedback)
-  });
+    const fbResp = await fetch("http://localhost:8080/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackPayload)
+    });
 
-  if (!response.ok) {
-    console.error("Fehler beim Senden:", response.statusText);
-    return;
+    if (!fbResp.ok) {
+      console.error("Fehler beim Senden des Feedbacks:", fbResp.status, await fbResp.text());
+      return;
+    }
+
+    const createdFeedback = await fbResp.json().catch(() => null);
+    console.log("Feedback erfolgreich gesendet. userId=", userId, "createdFeedback=", createdFeedback);
+  } catch (err) {
+    console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
-  console.log("Feedback erfolgreich gesendet");
-} catch(error) {
-
-  console.error("Netzwerkfehler beim Senden des Feedbacks:", error);
-}
 
 }
 
@@ -231,7 +234,7 @@ async function sendFeedback(event: Event)
 
   
 
- messageContat.innerHTML = `<div id="thankYouMessage" class="bubble">
+ messageContact.innerHTML = `<div id="thankYouMessage" class="bubble">
     <h2 id="thankYouMessageHeader">Vielen Dank für dein Feedback!</h2>
     <p>Möchtest du über den Bearbeitungsstatus deines Anliegen am Laufenden bleiben?</p>
     <input type="text" id="emailTelefonField" placeholder="E-Mail oder Telefonnummer (optional)" />
@@ -252,7 +255,7 @@ document.getElementById("submitContactButton")?.addEventListener("click", () => 
 /*
 document.getElementById("gridContainer")!.style.display = "none";
 
- messageContat.innerHTML = `
+ messageContact.innerHTML = `
     <div id="contactContainer">
         <div id="profile">
                 <svg width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,11 +310,24 @@ document.getElementById("gridContainer")!.style.display = "none";
 
                     <h1 class="directorTItle">Bürgermeister</h1>
 
-                    <p class="nowText"jetzt</p>
+                    <p class="nowText">jetzt</p>
 
 
         </div>
 
+        <p>Bürgermeistertext</p>
+
     </div>
+  
+    <div id="inputContainer">
+      <input type="text" id="inputContact" placeholder="E-Mail oder Telefonnummer (optional)" />
+      <div id="noThanksButton" >Nein danke</div>
+      <div id="submitContactButton" >Absenden</div>
+    </div>
+    <p id="errorMessageContact"></p>
+
+
+
+
 `;
 */

@@ -24,13 +24,15 @@ function getAllFeedback() {
         let html = '';
         for (const feedback of feedbackList) {
             html += `
-        <div class="feedbackItem">`;
+                <div class="feedbackItem">`;
             html += `<h3>${feedback.subject}</h3>`;
+            if (feedback.status != null) {
+                html += `<p>Status: ${feedback.status.bezeichnung}</p>`;
+            }
             html += `
-            <p>${feedback.description}</p>
-            
-        </div>
-        `;
+                    <div class="editButton">Bearbeiten</div>
+                </div>
+                `;
         }
         document.getElementById('container').innerHTML = html;
     });
