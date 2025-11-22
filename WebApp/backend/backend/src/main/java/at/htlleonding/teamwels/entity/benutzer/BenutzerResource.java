@@ -33,6 +33,7 @@ public class BenutzerResource {
 
         benutzer.mail = payload.mail;
         benutzer.tel = payload.tel;
+        benutzer.rolle = "nutzer";
 
         repo.persist(benutzer);
         return Response.created(URI.create("/api/benutzer" + benutzer.id)).build();
