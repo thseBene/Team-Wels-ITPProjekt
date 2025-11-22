@@ -6,7 +6,7 @@ Content-Type: application/json
   "subject": "Kaputte Tür im Raum 12",
   "description": "Die Tür klemmt stark und schließt nicht richtig. Bitte prüfen.",
   "type": "Beschwerde",
-  "statusId": 1,
+  "status": "NEU",
   "userId": 1,
   "themaId": 1,
   "kategorieIds": [2, 3]
@@ -22,7 +22,7 @@ Content-Type: application/json
   "subject": "Positives Feedback zur Mensa",
   "description": "Die Mensa war heute besonders sauber und freundlich.",
   "type": "Lob",
-  "statusId": 1,
+  "status":  "NEU",
   "userId": 2,
   "themaId": 2
 }
@@ -36,7 +36,7 @@ Accept: application/json
 ###
 
 ### Get feedback by id (ersetze 1 durch eine existierende ID)
-GET http://localhost:8080/api/feedback/4
+GET http://localhost:8080/api/feedback/5
 Accept: application/json
 
 ###
@@ -49,7 +49,7 @@ Content-Type: application/json
   "subject": "Kaputte Tür im Raum 12 (Nachtrag)",
   "description": "Tür klemmt weiterhin, Mechaniker wurde informiert.",
   "type": "Beschwerde",
-  "statusId": 2,
+  "status": "NEU",
   "userId": 1,
   "themaId": 1,
   "kategorieIds": [3]

@@ -2,7 +2,6 @@ package at.htlleonding.teamwels.entity.feedback;
 
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.thema.ThemaEntity;
-import at.htlleonding.teamwels.entity.status.StatusEntity;
 import at.htlleonding.teamwels.entity.kategorie.KategorieEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
