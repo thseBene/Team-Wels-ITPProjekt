@@ -36,7 +36,8 @@ public class BenutzerResource {
         benutzer.rolle = "nutzer";
 
         repo.persist(benutzer);
-        return Response.created(URI.create("/api/benutzer" + benutzer.id)).build();
+        URI location = URI.create("/api/benutzer/" + benutzer.id);
+        return Response.created(location).entity(benutzer).build();
     }
     @PUT
     @Transactional
