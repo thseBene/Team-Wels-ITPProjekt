@@ -89,7 +89,7 @@ public class FeedbackService {
 
         feedback.updatedAt = Instant.now();
 
-        // Benachrichtigungen erstellen wenn Benutzer zugeordnet ist
+        // Benachrichtigungen erstellen, wenn Benutzer zugeordnet ist
         if (feedback.user != null) {
             createNotifications(feedback);
         }
