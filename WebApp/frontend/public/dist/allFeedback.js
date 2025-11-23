@@ -10,12 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 function getAllFeedback() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("Fetching all feedback...");
         const response = yield fetch("http://localhost:8080/api/feedback", {
             method: "GET",
             headers: {
                 "Accept": "application/json"
             }
         });
+        console.log('Response:', response);
         if (!response.ok) {
             throw new Error(`Fehler beim Abrufen: ${response.status}`);
         }
@@ -27,7 +29,7 @@ function getAllFeedback() {
                 <div class="feedbackItem">`;
             html += `<h3>${feedback.subject}</h3>`;
             if (feedback.status != null) {
-                html += `<p>Status: ${feedback.status.bezeichnung}</p>`;
+                html += `<p>Status: ${feedback.status}</p>`;
             }
             html += `
                     <div class="editButton">Bearbeiten</div>

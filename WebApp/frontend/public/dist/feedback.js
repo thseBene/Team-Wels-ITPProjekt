@@ -212,10 +212,8 @@ function sendFeedback(event) {
         (_b = document.getElementById("submitContactButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => sendContactInfo(feedback));
     });
 }
-/*
-document.getElementById("gridContainer")!.style.display = "none";
-
- messageContact.innerHTML = `
+document.getElementById("gridContainer").style.display = "none";
+messageContact.innerHTML = `
     <div id="contactContainer">
         <div id="profile">
                 <svg width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -290,4 +288,3 @@ document.getElementById("gridContainer")!.style.display = "none";
 
 
 `;
-*/ 

@@ -196,17 +196,19 @@ i {
 #messageContact {
     width: 100%;
     position: relative;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
+    display: grid;
+    justify-items: center;
+    margin-top: 10vh;
 }
 #contactContainer {
+    position: relative;
     width: 70%;
     border-radius: 16px;
     border: 1px solid #FFF;
     background: linear-gradient(180deg, #FFF 0%, #E5E5E5 52.36%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
+    padding: 1%;
 }
 
 #profile {
@@ -215,7 +217,16 @@ i {
     align-items: center;
 }
 .nowText {
-    
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2%;
+    color: #CCC;
+    font-size: var(--md );
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 #inputContainer {
     width: 70%;
@@ -255,7 +266,7 @@ i {
     background: #1B98E0;
     text-align: center;
     color: #FFF;
-    padding: 4%;
+    padding: 17px;
     font-family: Inter;
     font-size: 20px;
     font-style: normal;
@@ -266,7 +277,7 @@ i {
     width: 100%;
     height: 5vh;
     resize: none;
-    padding: 4%;
+    padding: 30px;
     border: none;
     outline:none;
     overflow-x: hidden;

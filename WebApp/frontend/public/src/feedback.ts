@@ -252,7 +252,7 @@ document.getElementById("submitContactButton")?.addEventListener("click", () => 
 
 }
 
-/*
+
 document.getElementById("gridContainer")!.style.display = "none";
 
  messageContact.innerHTML = `
@@ -330,4 +330,3 @@ document.getElementById("gridContainer")!.style.display = "none";
 
 
 `;
-*/
