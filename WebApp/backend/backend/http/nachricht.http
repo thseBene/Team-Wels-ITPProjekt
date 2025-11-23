@@ -11,3 +11,9 @@ Content-Type: */*
 
 GET http://localhost:8080/api/notifications/benutzer/1
 Content-Type: application/json
+
+###
+
+GET http://localhost:8080/api/notifications/mail/alice.muster@htl.at
+Content-Type: application/json
+
