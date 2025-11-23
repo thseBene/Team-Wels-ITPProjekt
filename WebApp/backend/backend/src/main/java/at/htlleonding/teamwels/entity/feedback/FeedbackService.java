@@ -108,7 +108,7 @@ public class FeedbackService {
         if (user.mail != null && !user.mail.trim().isEmpty()) {
             NotificationEntity emailNotification = new NotificationEntity();
             emailNotification.typ = "EMAIL";
-            emailNotification.betreffFeedback = feedback.subject;
+            emailNotification.betreff = feedback.subject;
             emailNotification.benutzer = user;
             emailNotification.nachricht = String.format(
                 "Sehr geehrte/r Benutzer,\n\n" +
@@ -126,7 +126,7 @@ public class FeedbackService {
         if (user.tel != null && !user.tel.trim().isEmpty()) {
             NotificationEntity smsNotification = new NotificationEntity();
             smsNotification.typ = "SMS";
-            smsNotification.betreffFeedback = feedback.subject;
+            smsNotification.betreff = feedback.subject;
             smsNotification.benutzer = user;
             smsNotification.nachricht = String.format(
                 "Feedback-Update: '%s' ist jetzt %s. Team Wels",
