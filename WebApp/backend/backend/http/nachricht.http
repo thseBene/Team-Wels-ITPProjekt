@@ -14,14 +14,19 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/notifications/mail/alice.muster@htl.at
+PATCH http://localhost:8080/api/feedback/1/status
 Content-Type: application/json
 
+<<<<<<< HEAD
 ###
 PATCH http://localhost:8080/api/feedback/1/status
 Content-Type: application/json
 
 {
     "status" : "IN BEARBEITUNG"
+=======
+{
+    "status": "IN BEARBEITUNG"
+>>>>>>> 9a90d1210e76ed00b0e2cb621d4df224683ac3ab
 }
 

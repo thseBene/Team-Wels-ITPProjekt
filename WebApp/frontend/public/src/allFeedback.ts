@@ -1,4 +1,5 @@
     async function getAllFeedback() {
+        console.log("Fetching all feedback...");
         const response = await fetch("http://localhost:8080/api/feedback", {
             method: "GET",
             headers: {
@@ -6,6 +7,7 @@
             }
         });
 
+        console.log('Response:', response);
         if (!response.ok) {
             throw new Error(`Fehler beim Abrufen: ${response.status}`);
         }
@@ -20,7 +22,7 @@
                 html += `<h3>${feedback.subject}</h3>`;
                 
                 if(feedback.status != null) {
-                    html += `<p>Status: ${feedback.status.bezeichnung}</p>`;
+                    html += `<p>Status: ${feedback.status}</p>`;
                 }
                 html += `
                     <div class="editButton">Bearbeiten</div>
