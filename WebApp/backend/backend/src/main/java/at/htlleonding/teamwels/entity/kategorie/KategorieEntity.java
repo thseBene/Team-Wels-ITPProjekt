@@ -14,7 +14,5 @@ public class KategorieEntity extends PanacheEntity {
     @Column(name = "bezeichnung", nullable = false)
     public String bezeichnung;
 
-    @ManyToMany(mappedBy = "kategorien")
-    @JsonIgnore
-    public List<at.htlleonding.teamwels.entity.feedback.FeedbackEntity> feedbacks = new ArrayList<>();
+
 }

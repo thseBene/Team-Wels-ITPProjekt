@@ -2,30 +2,26 @@ package at.htlleonding.teamwels.entity.notification;
 
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
+
 import java.time.Instant;
 
 @Entity
 @Table(name = "notification")
-public class NotificationEntity extends PanacheEntityBase {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public Long id;
+public class NotificationEntity extends PanacheEntity {
 
     @Column(name = "typ", nullable = false)
-    public String typ; // "EMAIL" oder "SMS"
+    public String typ;
 
     @Column(name = "nachricht", columnDefinition = "text", nullable = false)
     public String nachricht;
 
-    @Column(name = "betreff")  // ← HIER WAR DAS PROBLEM! Muss "betreff" sein, nicht "betreff_feedback"
-    public String betreff; // nur für E-Mail relevant
+    @Column(name = "betreff")
+    public String betreff;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "benutzer_id")
+    @JoinColumn(name = "benutzer_id", nullable = false)
     @JsonIgnoreProperties({"feedbacks"})
     public BenutzerEntity benutzer;
 
@@ -43,10 +39,5 @@ public class NotificationEntity extends PanacheEntityBase {
         if (gelesen == null) {
             gelesen = false;
         }
-    }
-
-    // Hilfsmethoden für Abfragen
-    public static NotificationEntity findByIdOrNull(Long id) {
-        return findById(id);
     }
 }

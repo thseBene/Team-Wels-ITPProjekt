@@ -2,11 +2,8 @@ package at.htlleonding.teamwels.entity.feedback;
 
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
-import at.htlleonding.teamwels.entity.kategorie.KategorieEntity;
 import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
 import at.htlleonding.teamwels.entity.notification.NotificationEntity;
-import at.htlleonding.teamwels.entity.thema.ThemaEntity;
-import at.htlleonding.teamwels.entity.thema.ThemaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,7 +15,8 @@ import java.util.List;
 
 /**
  * Service-Layer für Feedback Business-Logik
- * Kapselt alle Geschäftsregeln und Datenbank-Operationen
+ * Anmerkung: Die Beziehungen zu Thema und Kategorie werden vorerst nicht gemappt,
+ * um Lazy-Loading Probleme zu vermeiden.
  */
 @ApplicationScoped
 public class FeedbackService {
@@ -29,15 +27,16 @@ public class FeedbackService {
     @Inject
     BenutzerRepository benutzerRepo;
 
-    @Inject
-    ThemaRepository themaRepo;
-
-    // StatusRepository entfernt (nicht mehr benötigt)
-    @Inject
-    KategorieRepository kategorieRepo;
+    // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
+    // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
+    // @Inject
+    // ThemaRepository themaRepo;
+    // @Inject
+    // KategorieRepository kategorieRepo;
 
     /**
      * Erstellt ein neues Feedback basierend auf dem Payload
+     * Hinweis: Thema/Kategorien werden aktuell nicht verknüpft.
      */
     @Transactional
     public FeedbackEntity createFeedback(FeedbackPayload payload) {
@@ -56,6 +55,7 @@ public class FeedbackService {
 
     /**
      * Aktualisiert ein bestehendes Feedback
+     * Hinweis: Thema/Kategorien werden aktuell nicht verknüpft.
      */
     @Transactional
     public FeedbackEntity updateFeedback(Long id, FeedbackPayload payload) {
@@ -89,52 +89,13 @@ public class FeedbackService {
 
         feedback.updatedAt = Instant.now();
 
-        // Benachrichtigungen erstellen, wenn Benutzer zugeordnet ist
+        // Benachrichtigung erstellen, wenn Status sich geändert hat
+        // (Alten Status wird nicht benötigt, für einfache Implementation hier weggelassen)
         if (feedback.user != null) {
-            createNotifications(feedback);
+            createNotifications(feedback, /* oldStatus */ Status.NEU);
         }
 
         return feedback;
-    }
-
-    /**
-     * Erstellt Benachrichtigungen für den Benutzer basierend auf vorhandenen Kontaktdaten
-     */
-    private void createNotifications(FeedbackEntity feedback) {
-        BenutzerEntity user = feedback.user;
-        String statusLabel = feedback.status.getLabel();
-
-        // E-Mail-Benachrichtigung erstellen wenn E-Mail vorhanden
-        if (user.mail != null && !user.mail.trim().isEmpty()) {
-            NotificationEntity emailNotification = new NotificationEntity();
-            emailNotification.typ = "EMAIL";
-            emailNotification.betreff = feedback.subject;
-            emailNotification.benutzer = user;
-            emailNotification.nachricht = String.format(
-                "Sehr geehrte/r Benutzer,\n\n" +
-                "Ihr Feedback '%s' (ID: %d) hat den Status geändert zu: %s.\n\n" +
-                "Mit freundlichen Grüßen,\n" +
-                "Ihr Team Wels",
-                feedback.subject,
-                feedback.id,
-                statusLabel
-            );
-            emailNotification.persist();
-        }
-
-        // SMS-Benachrichtigung erstellen wenn Telefonnummer vorhanden
-        if (user.tel != null && !user.tel.trim().isEmpty()) {
-            NotificationEntity smsNotification = new NotificationEntity();
-            smsNotification.typ = "SMS";
-            smsNotification.betreff = feedback.subject;
-            smsNotification.benutzer = user;
-            smsNotification.nachricht = String.format(
-                "Feedback-Update: '%s' ist jetzt %s. Team Wels",
-                feedback.subject,
-                statusLabel
-            );
-            smsNotification.persist();
-        }
     }
 
     /**
@@ -204,7 +165,7 @@ public class FeedbackService {
             }
         }
 
-        // Benutzer-Beziehung
+        // Benutzer-Beziehung bleibt erhalten
         if (payload.userId != null) {
             BenutzerEntity user = benutzerRepo.findById(payload.userId);
             if (user == null) {
@@ -213,30 +174,50 @@ public class FeedbackService {
             entity.user = user;
         }
 
-        // Thema-Beziehung
-        if (payload.themaId != null) {
-            ThemaEntity thema = themaRepo.findById(payload.themaId);
-            if (thema == null) {
-                throw new NotFoundException("Thema mit ID " + payload.themaId + " nicht gefunden");
-            }
-            entity.thema = thema;
+        // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
+    }
+
+    private void createNotifications(FeedbackEntity feedback, Status oldStatus) {
+        var benutzer = feedback.user;
+        if (benutzer == null) return;
+
+        String feedbackBetreff = feedback.subject != null ? feedback.subject : "(kein Betreff)";
+        String newStatus = feedback.status != null ? feedback.status.getLabel() : "unbekannt";
+        String altStatus = (oldStatus != null) ? oldStatus.getLabel() : "unbekannt";
+
+        // E-Mail Benachrichtigung erstellen (wenn E-Mail vorhanden)
+        if (benutzer.mail != null && !benutzer.mail.isEmpty()) {
+            NotificationEntity emailNotification = new NotificationEntity();
+            emailNotification.typ = "EMAIL";
+            emailNotification.betreff = "Feedback Status-Update: " + feedbackBetreff;
+            emailNotification.nachricht = String.format(
+                    "Sehr geehrte/r Benutzer,\n\n" +
+                            "Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
+                            "Alt: %s → Neu: %s\n\n" +
+                            "Mit freundlichen Grüßen,\n" +
+                            "Ihr Team Wels",
+                    feedbackBetreff, altStatus, newStatus
+            );
+            emailNotification.benutzer = benutzer;
+            emailNotification.persist();
         }
 
-        // Kategorien (ManyToMany)
-        if (payload.kategorieIds != null && !payload.kategorieIds.isEmpty()) {
-            entity.kategorien.clear();
-            for (Long kategorieId : payload.kategorieIds) {
-                KategorieEntity kategorie = kategorieRepo.findById(kategorieId);
-                if (kategorie == null) {
-                    throw new NotFoundException("Kategorie mit ID " + kategorieId + " nicht gefunden");
-                }
-                entity.kategorien.add(kategorie);
-            }
+        // SMS Benachrichtigung erstellen (wenn Telefonnummer vorhanden)
+        if (benutzer.tel != null && !benutzer.tel.isEmpty()) {
+            NotificationEntity smsNotification = new NotificationEntity();
+            smsNotification.typ = "SMS";
+            smsNotification.nachricht = String.format(
+                    "Feedback-Update: '%s' ist jetzt '%s' (vorher: %s)",
+                    feedbackBetreff.length() > 30 ? feedbackBetreff.substring(0, 30) + "..." : feedbackBetreff,
+                    newStatus,
+                    altStatus
+            );
+            smsNotification.benutzer = benutzer;
+            smsNotification.persist();
         }
     }
 
-    // --- DTOs (können auch in eigene Klasse ausgelagert werden) ---
-
+    // --- DTOs (angepasst: thema/kategorien entfernt) ---
     public static class FeedbackPayload {
         public String subject;
         public String description;
@@ -244,8 +225,7 @@ public class FeedbackService {
         // statt statusId verwenden wir status-String (Enum-Name oder Label)
         public String status;
         public Long userId;
-        public Long themaId;
-        public List<Long> kategorieIds;
+        // themaId und kategorieIds entfernt, weil Verknüpfungen aktuell nicht benötigt werden
         public List<BildPayload> bilder;
     }
 
