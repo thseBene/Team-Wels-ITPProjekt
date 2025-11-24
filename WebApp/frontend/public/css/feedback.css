@@ -96,11 +96,15 @@ body{
     line-height: normal;
     text-transform: uppercase;
 }
+#feedbackContainer div {
+    margin-bottom: 1vh;
+}
 #errorMessageContact {
     color: red;
     font-size: var(--md);
     margin-top: 1vh;
     text-align: left;
+    display: none;
 }
 #feedbackHeadline {
     font-size: var(--xxl);
@@ -229,18 +233,25 @@ i {
     line-height: normal;
 }
 #inputContainer {
-    width: 70%;
+    width: 100%;
     padding: 1%;
     padding-left: 2%;
     padding-right: 2%;
-    margin-top: 2vh;
     display: grid;
     grid-template-columns: 60% 20% 20%;
     box-sizing: border-box;
+    align-items: center;
+}
+#contactSection {
+    width: 70%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 5vh;
     border-radius: 16px;
+    margin-top: 2vh;
     background: linear-gradient(180deg, #FFF -520.25%, #E5E5E5 -260.29%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    align-items: center;
 }
 #noThanksButton, #submitContactButton, #inputContact {
     box-sizing: border-box;
@@ -287,10 +298,15 @@ i {
     background: #FFF;
     font-size: var(--lg);
     font-family: var(--ff);
+    
 }
+
+
+
+
 /*Preview*/
 #imagePreview {
-    background-color: white;
+    background-color: var(--colorLight);
     width: 100%;
     min-height: 10vh;
     display: none;

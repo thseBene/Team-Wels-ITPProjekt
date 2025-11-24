@@ -17,10 +17,10 @@ public class BenutzerEntity extends PanacheEntityBase {
     @Column(name = "id")
     public Long id;
 
-    @Column(name = "mail", unique = true)  // ← UNIQUE hinzugefügt
+    @Column(name = "mail", unique = true, nullable = true)  // ← UNIQUE hinzugefügt
     public String mail;
 
-    @Column(name = "tel", unique = true)   // ← UNIQUE hinzugefügt
+    @Column(name = "tel", unique = true, nullable = true)   // ← UNIQUE hinzugefügt
     public String tel;
 
     @Column(name = "rolle", nullable = false)

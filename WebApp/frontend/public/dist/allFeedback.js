@@ -30,13 +30,46 @@ function getAllFeedback() {
             html += `<h3>${feedback.subject}</h3>`;
             if (feedback.status != null) {
                 html += `<p>Status: ${feedback.status}</p>`;
+                if (feedback.status == "Neu") {
+                    html += `<div class="editStatus" onclick="updateByID(${feedback.id}, 'In Bearbeitung')">
+                            Jetzt bearbeiten
+                        </div>`;
+                }
+                else if (feedback.status == "In Bearbeitung") {
+                    html += `<div class="editStatus" onclick="updateByID(${feedback.id}, 'Erledigt')">
+                            Jetzt fertigstellen
+                        </div>`;
+                }
             }
             html += `
-                    <div class="editButton">Bearbeiten</div>
                 </div>
                 `;
         }
         document.getElementById('container').innerHTML = html;
+    });
+}
+function updateByID(id, newStatus) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const updatedFeedback = {
+            status: newStatus
+        };
+        fetch(`http://localhost:8080/api/feedback/${id}/status`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedFeedback)
+        })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error(`Fehler beim Aktualisieren: ${response.status}`);
+            }
+            console.log(`Feedback mit ID ${id} aktualisiert.`);
+            getAllFeedback(); // Refresh the feedback list after update
+        })
+            .catch(error => {
+            console.error('Fehler:', error);
+        });
     });
 }
 getAllFeedback();
@@ -64,28 +97,6 @@ function deleteByID(id) {
             throw new Error(`Fehler beim Löschen: ${response.status}`);
         }
         console.log(`Feedback mit ID ${id} gelöscht.`);
-    })
-        .catch(error => {
-        console.error('Fehler:', error);
-    });
-}
-function updateByID(id, newMessage) {
-    const updatedFeedback = {
-        author: "Anonym",
-        message: newMessage
-    };
-    fetch(`http://localhost:8080/api/feedback/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updatedFeedback)
-    })
-        .then(response => {
-        if (!response.ok) {
-            throw new Error(`Fehler beim Aktualisieren: ${response.status}`);
-        }
-        console.log(`Feedback mit ID ${id} aktualisiert.`);
     })
         .catch(error => {
         console.error('Fehler:', error);
