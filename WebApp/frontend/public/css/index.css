@@ -1,5 +1,6 @@
 body{
   font-family: var(--ff);  
+  overflow-y: hidden;
 }
 
 #blob1, #blob2, #blob3{
@@ -60,12 +61,15 @@ top: 50%;
     display: flex;
     flex-direction: column;
     width: 25%;
-    height: 20%;
+    height: 
+    15%;
     justify-content: space-evenly;
      position: absolute;
-     top: 40%;
-    left: 5%;
-
+     top: 69%;
+    left: 25%;
+    color: black;
+    text-align: center;
+    
 }
 
 #buttonWrapper > a{
@@ -83,22 +87,13 @@ top: 50%;
 
     font-weight: bold;
 }
-#buttonWrapper > a:first-child{
-    background-color:var(--fwhite);
-    color: var(--fwhite);
-    background: var(--gradientMid);
-}
 
-#buttonWrapper > a:last-child{
-    background: var(--light);
-    color: var(--fdark);
-    border: 2px solid transparent;
-    border-image: none;
-    border-radius: 17px;
-    background: linear-gradient(var(--light), var(--light)) padding-box,
-                linear-gradient(90deg, var(--colorLight), var(--colorDark)) border-box;
-    -webkit-background-clip: padding-box, border-box;
-    background-clip: padding-box, border-box;
+
+#buttonWrapper > a{
+
+   background-color: var(--colorLight);
+    background: linear-gradient(90deg, var(--colorLight), var(--colorDark));
+    color: white;
 }
 
 #blank{
@@ -141,5 +136,22 @@ top: 50%;
     border-top-color: inherit; /* Can't be included in the shorthand to work */
     bottom: -23px;
     margin-left: -23px;
+
+}
+
+#text{
+    color: var(--flgrey);
+    font-family: var(--ff);
+    font-style: italic;
+    font-size: 2.2rem ;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    line-height: 0.95;
+      color: black; /* Text schwarz */
+  text-decoration: underline;
+  text-decoration-color: hsla(202, 78%, 49%, 0.248); /* Unterstreichung blau */
+
 
 }
