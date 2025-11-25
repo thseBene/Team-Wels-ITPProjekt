@@ -73,7 +73,7 @@ body{
 .submit {
     border-radius: 12px;
     background: linear-gradient(182deg, var(--colorLight) 1.4%, var(--colorDark) 98.42%);
-    color: white;
+    color: var(--fwhite);
 }
 .submit, .save {
     cursor: pointer;
@@ -174,7 +174,7 @@ i {
     width: auto;
     margin-top: 2vh;
     margin-bottom: 1vh;
-    color: white;
+    color: var(--fwhite);
     padding: 1%;
     text-align: center;
     background-color: black;
@@ -300,9 +300,27 @@ i {
     font-family: var(--ff);
     
 }
+#mayorText {
+    font-size: var(--xxl);
+    margin-top: 5vh;
+    padding-left: 1%;
 
-
-
+}
+#backToHome {
+    width: 20%;
+    text-align: center;
+    margin-top: 3vh;
+    font-size: var(--lg);
+    background-color: var(--colorMedium);
+    padding: 1%;
+    border-radius: 12px;
+    color: var(--fwhite);
+    cursor: pointer;
+}
+.directorTitle {
+    font-size: var(--xxll);
+    font-weight: bold;
+}
 
 /*Preview*/
 #imagePreview {
@@ -336,7 +354,7 @@ i {
     right: -1vh;
     font-size: var(--xl);
     color: red;
-    background-color: white;
+    background-color: var(--fwhite);
     border-radius: 50%;
     padding: 4px;
     cursor: pointer;

@@ -11,19 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const inputElement = document.getElementById('nameInput');
 document.getElementById('nameInput').addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
-        readInput();
+        checkType();
     }
 });
-function readInput() {
-    const inputValue = inputElement.value;
-    console.log('Eingegebener Wert:', inputValue);
-    checkType();
-}
 const API_BASE = 'http://localhost:8080/api';
 // Lädt Benachrichtigungen basierend auf E-Mail
 function checkType() {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputValue = inputElement.value.trim();
+        var _a;
+        const rawValue = (_a = inputElement === null || inputElement === void 0 ? void 0 : inputElement.value) !== null && _a !== void 0 ? _a : '';
+        const inputValue = rawValue.replace(/\s+/g, '');
+        console.log('Eingegebener Wert:', inputValue);
         if (!inputValue) {
             showError('Bitte E-Mail-Adresse oder Telefonnummer eingeben');
             return;

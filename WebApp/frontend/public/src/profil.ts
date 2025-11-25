@@ -2,7 +2,7 @@ const inputElement = document.getElementById('nameInput') as HTMLInputElement;
 
 document.getElementById('nameInput')!.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
-        readInput();
+        checkType();
     }
 });
 interface Notification {
@@ -15,19 +15,14 @@ interface Notification {
 }
 
 
-function readInput() {
-    const inputValue = inputElement.value;
-
-    console.log('Eingegebener Wert:', inputValue);
-    checkType();
-
-}
-
 const API_BASE = 'http://localhost:8080/api';
 
 // Lädt Benachrichtigungen basierend auf E-Mail
 async function checkType() {
-    const inputValue = inputElement.value.trim();
+    const rawValue = inputElement?.value ?? '';
+    const inputValue = rawValue.replace(/\s+/g, '');
+    console.log('Eingegebener Wert:', inputValue);
+
     
     if (!inputValue) {
         showError('Bitte E-Mail-Adresse oder Telefonnummer eingeben');
