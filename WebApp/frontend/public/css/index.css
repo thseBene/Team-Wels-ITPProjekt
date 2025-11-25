@@ -2,6 +2,9 @@ body{
   font-family: var(--ff);  
 }
 
+#blob1, #blob2, #blob3{
+    display: none;
+}
 
 #blob1{
     fill: var(--colorLight);
@@ -29,10 +32,11 @@ body{
 
 #character{
 position: absolute;
-top: 20%;
-left: 60%;
+bottom: 0%;
+left: 65%;
 z-index: 4;
-scale: .7;
+scale: 2;
+top: 50%;
 }
 
 #greeting{
