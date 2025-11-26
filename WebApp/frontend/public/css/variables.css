@@ -46,7 +46,8 @@
 --xll: 1.5rem;   
 --xxl: 2rem;
 --xxll: 2.5rem;   /* 32px */
---xxxl: 5rem;   /* 24px */
+--xxxl: 5rem;
+--xxxll: 6.5rem;    /* 24px */
 
 
 --leading-tight: 1.1;
