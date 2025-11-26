@@ -73,39 +73,37 @@
 
 
     <div id="gridContainer">
-        <div id="feedbackContainer">
+        <form id="feedbackContainer" method="post" enctype="multipart/form-data">
 
-            <div>
-                <h2 class="inputLabels">Betreff</h2>
-                <input id="headerField" type="text"></input>
-            </div>
+                <div>
+                    <label for="headerField" class="inputLabels">Betreff</label>
+                    <input id="headerField" name="subject" type="text" autocomplete="off" required />
+                </div>
 
-            <div>
-                <h2 class="inputLabels">Anliegen</h2>
-                <textarea id="descriptionField">
+                <div>
+                    <label for="descriptionField" class="inputLabels">Anliegen</label>
+                    <textarea id="descriptionField" name="description" rows="6" placeholder="Beschreibe dein Anliegen..." required></textarea>
+                </div>
 
-                </textarea>
-            </div>
+                <div>
+                    <label class="inputLabels">Foto</label>
 
-            <div>
-                <h2 class="inputLabels">Foto</h2>
-                <form id="uploadForm" enctype="multipart/form-data" method="post">
+                    <div id="uploadForm" class="upload-form">
+                        <label for="imageInput" id="uploadImage" class="upload-button" title="Bilder auswählen">
+                            <i class="fa-solid fa-images"></i>
+                        </label>
+                        <input id="imageInput" name="images[]" type="file" accept="image/*" multiple hidden />
+                    </div>
 
-                    <label for="imageInput" id="uploadImage" class="upload-button">
-                        <i class="fa-solid fa-images"></i>
-                    </label>
-
-                    <input id="imageInput" type="file" accept="image/*" multiple hidden>
-                </form>
-                <div id="imagePreview" class="image-preview"></div>
-
-            </div>
+                    <div id="imagePreview" class="image-preview" aria-live="polite"></div>
+                </div>
 
                 <div id="buttonGrid">
-                    <div id="saveButton">Entwurf speichern</div>
-                    <div id="submitButton">Absenden</div>
+                    <button type="button" id="saveButton" class="save" name="saveDraft">Entwurf speichern</button>
+                    <button type="submit" id="submitButton" class="submit">Absenden</button>
                 </div>
-            </div>
+
+        </form>
 
             <div id="directorFigure">
 
@@ -169,6 +167,9 @@
 
 
     </div>
+
+
+    <div id="messageContact"></div>
     
 </body>
 </html>

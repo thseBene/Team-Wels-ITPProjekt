@@ -1,0 +1,93 @@
+.notification {
+    width: 80%;
+    margin: 2vh auto;
+    padding: 2%;
+    border-radius: 16px;
+
+    /* heller Hintergrund wie bei deinen Input-Feldern */
+    background: var(--light);
+
+    /* Gradient-Border wie bei deinen Feldern */
+    border: 2px solid transparent;
+    background: 
+        linear-gradient(var(--light), var(--light)) padding-box,
+        linear-gradient(90deg, var(--colorDark), var(--colorLight)) border-box;
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    color: var(--fdark);
+    font-family: var(--ff);
+}
+#nameInput {
+    width: 40%;
+    padding: 1%;
+    font-size: var(--md);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background: 
+        linear-gradient(var(--light), var(--light)) padding-box,
+        linear-gradient(90deg, var(--colorDark), var(--colorLight)) border-box;
+    box-sizing: border-box;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 2vh;
+}
+.notification.unread {
+    background-color: #FFF  ;
+    border-width: 3px;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--md);
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.notification-type {
+    text-transform: uppercase;
+    color: var(--colorDark);
+}
+
+.notification-time {
+    color: #777;
+    font-size: var(--sm);
+}
+
+.notification h4 {
+    font-size: var(--lg);
+    margin: 1vh 0;
+    color: var(--fdark);
+}
+
+.notification-message {
+    font-size: var(--md);
+    margin-bottom: 2vh;
+}
+
+.notification-actions {
+    display: flex;
+    gap: 1vh;
+}
+
+.notification button {
+    padding: 0.7rem 1rem;
+    font-size: var(--md);
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+}
+
+.mark-read-btn {
+    background: #FFF;
+    border: 2px solid var(--colorLight);
+    color: var(--fgrey);
+}
+
+.delete-btn {
+    background: linear-gradient(182deg, var(--colorLight), var(--colorDark));
+    color: var(--fwhite);
+}

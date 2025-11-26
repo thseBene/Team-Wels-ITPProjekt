@@ -14,3 +14,18 @@
     padding: 4%;
     border-radius: 12px;
 }
+.editStatus {
+    display: inline-block;
+    max-width: 85%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: break-word;
+    width: auto;
+    padding: 2%;
+    color: var(--fwhite);
+    border-radius: 12px;
+    margin-top: 1vh;
+    font-size: var(--md);
+    background-color: var(--colorLight);
+    cursor: pointer;
+}

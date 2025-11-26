@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: var(--ff);
 }
 @font-face {
     font-family: Inter;
@@ -12,10 +13,12 @@
   --colorLight: hsl(202, 78%, 49%);
   --colorMedium: hsl(202, 78%, 40%);
   --colorDark: hsl(202, 78%, 30%);
+
   --light:white;
 
   --fdark: hsl(0, 0%, 0%);
   --fgrey: hsl(0, 0%, 20%);
+  --flgrey: hsl(0, 0%, 25%);
   --fwhite: hsl(0,0%, 100%);
   --flighter: hsl(0, 0%, 80%);
 
@@ -31,7 +34,6 @@
   --spacing7: 160px;
 
   --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
-  --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
   --gradientTop: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 25%);
   --gradientBottom: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 75%);
 
@@ -41,13 +43,10 @@
 --md: 1rem;      /* 16px */
 --lg: 1.125rem;  /* 18px */
 --xl: 1.25rem;   /* 20px */
-<<<<<<< Updated upstream
 --xll: 1.5rem;   
 --xxl: 2rem;
+--xxll: 2.5rem;   /* 32px */
 --xxxl: 5rem;   /* 24px */
-=======
---xxl: 5rem;   /* 24px */
->>>>>>> Stashed changes
 
 
 --leading-tight: 1.1;

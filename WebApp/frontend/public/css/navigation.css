@@ -9,9 +9,9 @@
     justify-content: space-evenly;
     border-radius: 25px;
     border-radius: 25px;
-    border: 1px solid #FFF;
+    border: 1px solid var(--fwhite);
     opacity: 0.85;
-    background: linear-gradient(180deg, #FFF 0%, #F2F2F2 16.67%);
+    background: linear-gradient(180deg, var(--fwhite) 0%, #F2F2F2 16.67%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(50px);
     box-sizing: border-box;

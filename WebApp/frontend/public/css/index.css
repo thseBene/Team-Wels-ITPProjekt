@@ -1,7 +1,11 @@
 body{
   font-family: var(--ff);  
+  overflow-y: hidden;
 }
 
+#blob1, #blob2, #blob3{
+    display: none;
+}
 
 #blob1{
     fill: var(--colorLight);
@@ -29,10 +33,11 @@ body{
 
 #character{
 position: absolute;
-top: 20%;
-left: 60%;
+bottom: 0%;
+left: 65%;
 z-index: 4;
-scale: .7;
+scale: 2;
+top: 50%;
 }
 
 #greeting{
@@ -42,11 +47,7 @@ scale: .7;
         background-clip: text;
         color: transparent;
         display: inline-block;
-<<<<<<< Updated upstream
         font-size: var(--xxxl);
-=======
-        font-size: var(--xxl);
->>>>>>> Stashed changes
         width: 45%;
         line-height: 0.9;
         padding-bottom: 0.12em;
@@ -60,12 +61,15 @@ scale: .7;
     display: flex;
     flex-direction: column;
     width: 25%;
-    height: 20%;
+    height: 
+    15%;
     justify-content: space-evenly;
      position: absolute;
-     top: 40%;
-    left: 5%;
-
+     top: 69%;
+    left: 25%;
+    color: black;
+    text-align: center;
+    
 }
 
 #buttonWrapper > a{
@@ -83,27 +87,13 @@ scale: .7;
 
     font-weight: bold;
 }
-#buttonWrapper > a:first-child{
-    background-color: white;
-    color: var(--fwhite);
-    background: var(--gradientMid);
-}
 
-#buttonWrapper > a:last-child{
-<<<<<<< Updated upstream
 
-=======
-   
->>>>>>> Stashed changes
-    background: var(--light);
-    color: var(--fdark);
-    border: 2px solid transparent;
-    border-image: none;
-    border-radius: 17px;
-    background: linear-gradient(var(--light), var(--light)) padding-box,
-                linear-gradient(90deg, var(--colorLight), var(--colorDark)) border-box;
-    -webkit-background-clip: padding-box, border-box;
-    background-clip: padding-box, border-box;
+#buttonWrapper > a{
+
+   background-color: var(--colorLight);
+    background: linear-gradient(90deg, var(--colorLight), var(--colorDark));
+    color: white;
 }
 
 #blank{
@@ -113,7 +103,6 @@ scale: .7;
     position: relative;
     top: 10%;
 
-<<<<<<< Updated upstream
 }
 
     .bubble {
@@ -147,6 +136,22 @@ scale: .7;
     border-top-color: inherit; /* Can't be included in the shorthand to work */
     bottom: -23px;
     margin-left: -23px;
-=======
->>>>>>> Stashed changes
+
+}
+
+#text{
+    color: var(--flgrey);
+    font-family: var(--ff);
+    font-style: italic;
+    font-size: 2.2rem ;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    line-height: 0.95;
+      color: black; /* Text schwarz */
+  text-decoration: underline;
+  text-decoration-color: hsla(202, 78%, 49%, 0.248); /* Unterstreichung blau */
+
+
 }

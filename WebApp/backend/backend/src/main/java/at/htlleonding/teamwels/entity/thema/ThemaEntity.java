@@ -14,7 +14,5 @@ public class ThemaEntity extends PanacheEntity {
     @Column(name = "bezeichnung", nullable = false)
     public String bezeichnung;
 
-    @OneToMany(mappedBy = "thema", cascade = CascadeType.ALL)
-    @JsonIgnore
-    public List<at.htlleonding.teamwels.entity.feedback.FeedbackEntity> feedbacks = new ArrayList<>();
+
 }
