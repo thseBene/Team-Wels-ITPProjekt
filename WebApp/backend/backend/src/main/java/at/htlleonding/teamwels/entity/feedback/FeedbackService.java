@@ -50,6 +50,10 @@ public class FeedbackService {
         feedback.updatedAt = now;
 
         feedbackRepo.persist(feedback);
+
+        if (feedback.user != null){
+            createNotificationNew(feedback);
+        }
         return feedback;
     }
 
@@ -177,6 +181,41 @@ public class FeedbackService {
         // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
     }
 
+    private void createNotificationNew(FeedbackEntity feedback){
+        var benutzer = feedback.user;
+        if (benutzer == null) return;
+
+        String feedbackBetreff = feedback.subject != null ? feedback.subject : "(kein Betreff)";
+
+        // E-Mail Benachrichtigung erstellen (wenn E-Mail vorhanden)
+        if (benutzer.mail != null && !benutzer.mail.isEmpty()) {
+            NotificationEntity emailNotification = new NotificationEntity();
+            emailNotification.typ = "EMAIL";
+            emailNotification.betreff = "Feedback Status-Update: " + feedbackBetreff;
+            emailNotification.nachricht = String.format(
+                    "Sehr geehrte/r Benutzer,\n\n" +
+                            "Ihr Feedback '%s' ist bei uns angekommen:\n" +
+                            "Mit freundlichen Grüßen,\n" +
+                            "Ihr Team Wels",
+                    feedbackBetreff
+            );
+            emailNotification.benutzer = benutzer;
+            emailNotification.persist();
+        }
+
+        // SMS Benachrichtigung erstellen (wenn Telefonnummer vorhanden)
+        if (benutzer.tel != null && !benutzer.tel.isEmpty()) {
+            NotificationEntity smsNotification = new NotificationEntity();
+            smsNotification.typ = "SMS";
+            smsNotification.nachricht = String.format(
+                    "Feedback: '%s' ist bei uns angekommen",
+                    feedbackBetreff.length() > 30 ? feedbackBetreff.substring(0, 30) + "..." : feedbackBetreff
+
+            );
+            smsNotification.benutzer = benutzer;
+            smsNotification.persist();
+        }
+    }
     private void createNotifications(FeedbackEntity feedback, Status oldStatus) {
         var benutzer = feedback.user;
         if (benutzer == null) return;
