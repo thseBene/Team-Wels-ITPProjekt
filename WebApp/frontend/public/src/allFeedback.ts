@@ -24,6 +24,7 @@
                 if(feedback.status != null) {
                     html += `<p>Status: ${feedback.status}</p>`;
 
+                    
                     if (feedback.status == "Neu") {
                         html += `<div class="editStatus" onclick="updateByID(${feedback.id}, 'In Bearbeitung')">
                             Jetzt bearbeiten
@@ -35,7 +36,6 @@
                         </div>`;
                     }
                         
-
                 }
                 html += `
                 </div>

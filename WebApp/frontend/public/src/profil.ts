@@ -5,6 +5,9 @@ document.getElementById('nameInput')!.addEventListener('keyup', function(event) 
         checkType();
     }
 });
+document.getElementById('submitButton')!.addEventListener('click', function() {
+    checkType();
+});
 interface Notification {
     id: number;
     typ: string;
@@ -37,7 +40,7 @@ async function checkType() {
         try {
             await loadNotifications(inputValue, 'SMS');
         } catch (error) {
-            showError('Fehler beim Laden der Benachrichtigungen: ' + error);
+            showError('Keine Daten für diesen Benutzer gefunden');
         }
         return;
     }

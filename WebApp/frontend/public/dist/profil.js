@@ -14,6 +14,9 @@ document.getElementById('nameInput').addEventListener('keyup', function (event) 
         checkType();
     }
 });
+document.getElementById('submitButton').addEventListener('click', function () {
+    checkType();
+});
 const API_BASE = 'http://localhost:8080/api';
 // Lädt Benachrichtigungen basierend auf E-Mail
 function checkType() {
@@ -34,7 +37,7 @@ function checkType() {
                 yield loadNotifications(inputValue, 'SMS');
             }
             catch (error) {
-                showError('Fehler beim Laden der Benachrichtigungen: ' + error);
+                showError('Keine Daten für diesen Benutzer gefunden');
             }
             return;
         }
