@@ -32,6 +32,9 @@ public class FeedbackService {
     @Inject
     Mailer mailer;
 
+    @Inject
+    SmsService smsService;
+
     // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
     // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
     // @Inject
@@ -57,11 +60,16 @@ public class FeedbackService {
         feedbackRepo.persist(feedback);
 
 
-        Mail mail = Mail.withText(feedback.user.mail, "Test", "Testmail von mir").setFrom("teamwelstest@gmail.com");
+
 
         if (feedback.user != null){
             try {
-                mailer.send(mail);
+                if (feedback.user.mail != null){
+                    sendEmail(feedback);
+                }
+                if (feedback.user.tel != null){
+                    smsService.sendSms(feedback.user.tel, "Testnachricht");
+                }
             }
             catch (Exception e) {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
@@ -97,7 +105,7 @@ public class FeedbackService {
         if (feedback == null) {
             throw new NotFoundException("Feedback mit ID " + feedbackId + " nicht gefunden");
         }
-
+        Status oldStatus = feedback.status;
         try {
             feedback.status = Status.from(statusValue);
         } catch (IllegalArgumentException e) {
@@ -109,7 +117,7 @@ public class FeedbackService {
         // Benachrichtigung erstellen, wenn Status sich geändert hat
         // (Alten Status wird nicht benötigt, für einfache Implementation hier weggelassen)
         if (feedback.user != null) {
-            createNotifications(feedback, /* oldStatus */ Status.NEU);
+            sendEmailUpdatedStatus(feedback, oldStatus);
         }
 
         return feedback;
@@ -194,6 +202,37 @@ public class FeedbackService {
         // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
     }
 
+    private void sendEmail(FeedbackEntity feedback) {
+        String subject = "Anliegen: " + feedback.subject;
+        String body = String.format(
+                "Sehr geehrte/r Benutzer,\n\n" +
+                        "Ihr Feedback '%s' ist bei uns angekommen:\n" +
+                        "Mit freundlichen Grüßen\n" +
+                        "Ihr Team Wels",
+                feedback.subject);
+        Mail mail = Mail.withText(feedback.user.mail, subject,body);
+        try {
+            mailer.send(mail);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
+        }
+    }
+    private void sendEmailUpdatedStatus(FeedbackEntity feedback, Status altStatus) {
+        String subject = "Anliegen: " + feedback.subject;
+        String body = String.format("Sehr geehrte/r Benutzer,\n\n" +
+                        "Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
+                        "Alter Status: %s → Neuer Status: %s\n\n" +
+                        "Mit freundlichen Grüßen\n" +
+                        "Ihr Team Wels",
+                feedback.subject, altStatus, feedback.status);
+        Mail mail = Mail.withText(feedback.user.mail, subject, body);
+        try {
+            mailer.send(mail);
+        } catch (Exception e) {
+            throw new RuntimeException("Fehler beim Versenden der E-Mail", e);
+        }
+    }
     private void createNotificationNew(FeedbackEntity feedback){
         var benutzer = feedback.user;
         if (benutzer == null) return;
