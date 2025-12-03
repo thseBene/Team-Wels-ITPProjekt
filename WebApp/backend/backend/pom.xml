@@ -64,6 +64,19 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+
+    <!-- Quarkus Mailer -->
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-mailer</artifactId>
+    </dependency>
+
+    <!-- Twilio Java SDK -->
+    <dependency>
+        <groupId>com.twilio.sdk</groupId>
+        <artifactId>twilio</artifactId>
+        <version>8.34.0</version> <!-- oder aktuelle Version -->
+    </dependency>
     </dependencies>
 
     <build>

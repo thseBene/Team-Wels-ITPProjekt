@@ -4,6 +4,8 @@ import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
 import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
 import at.htlleonding.teamwels.entity.notification.NotificationEntity;
+import io.quarkus.mailer.Mail;
+import io.quarkus.mailer.Mailer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,6 +28,9 @@ public class FeedbackService {
 
     @Inject
     BenutzerRepository benutzerRepo;
+
+    @Inject
+    Mailer mailer;
 
     // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
     // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
@@ -51,8 +56,16 @@ public class FeedbackService {
 
         feedbackRepo.persist(feedback);
 
+
+        Mail mail = Mail.withText(feedback.user.mail, "Test", "Testmail von mir").setFrom("teamwelstest@gmail.com");
+
         if (feedback.user != null){
-            createNotificationNew(feedback);
+            try {
+                mailer.send(mail);
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
+            }
         }
         return feedback;
     }
