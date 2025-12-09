@@ -32,10 +32,7 @@ public class SmsService {
         }
     }
 
-    /**
-     * Sendet eine SMS. Liefert die Message SID zurück.
-     * Erwartet E.164 Format für 'toNumber' (z.B. +436661234567).
-     */
+
     public String sendSms(String toNumber, String body) {
         if (accountSid == null || accountSid.isBlank() || authToken == null || authToken.isBlank()) {
             throw new IllegalStateException("Twilio ist nicht konfiguriert (twilio.account-sid / twilio.auth-token fehlen)");

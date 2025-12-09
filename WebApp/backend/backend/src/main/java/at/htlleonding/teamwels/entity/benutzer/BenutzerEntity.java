@@ -17,10 +17,10 @@ public class BenutzerEntity extends PanacheEntityBase {
     @Column(name = "id")
     public Long id;
 
-    @Column(name = "mail", unique = true, nullable = true)  // ← UNIQUE hinzugefügt
+    @Column(name = "mail", unique = true, nullable = true)
     public String mail;
 
-    @Column(name = "tel", unique = true, nullable = true)   // ← UNIQUE hinzugefügt
+    @Column(name = "tel", unique = true, nullable = true)
     public String tel;
 
     @Column(name = "rolle", nullable = false)
@@ -30,12 +30,44 @@ public class BenutzerEntity extends PanacheEntityBase {
     @JsonIgnore
     public List<at.htlleonding.teamwels.entity.feedback.FeedbackEntity> feedbacks = new ArrayList<>();
 
-    // Hilfsmethode für Abfragen
+    // Hilfsmethode für Abfragen (normalisiert/vergleich in lower-case für Mail)
     public static BenutzerEntity findByMail(String mail) {
-        return find("mail", mail).firstResult();
+        if (mail == null) return null;
+        String normalized = normalizeMail(mail);
+        // query lower(mail) = ?1
+        return find("lower(mail) = ?1", normalized).firstResult();
     }
 
+    // Hilfsmethode für Telefonnummern (normalisiert auf + und Ziffern)
     public static BenutzerEntity findByTel(String tel) {
-        return find("tel", tel).firstResult();
+        if (tel == null) return null;
+        String normalized = normalizeTel(tel);
+        return find("tel = ?1", normalized).firstResult();
+    }
+
+    // Normalisierung: trim + toLowerCase (for mail)
+    public static String normalizeMail(String mail) {
+        if (mail == null) return null;
+        return mail.trim().toLowerCase();
+    }
+
+    // Normalisierung der Telefonnummer: behalte führendes + (falls vorhanden) und Ziffern
+    public static String normalizeTel(String tel) {
+        if (tel == null) return null;
+        String t = tel.trim();
+        // Falls führendes + vorhanden, behalten, sonst nur Ziffern
+        boolean startsWithPlus = t.startsWith("+");
+        // Entferne alle Zeichen außer + und Ziffern, dann falls + nicht an Anfang sondern irgendwo, entfernen
+        t = t.replaceAll("[^+0-9]", "");
+        if (startsWithPlus) {
+            // sicherstellen, dass + nur vorne steht
+            if (!t.startsWith("+")) {
+                t = "+" + t.replaceAll("\\+", "");
+            }
+        } else {
+            // entferne alle '+' falls vorhanden
+            t = t.replaceAll("\\+", "");
+        }
+        return t;
     }
 }

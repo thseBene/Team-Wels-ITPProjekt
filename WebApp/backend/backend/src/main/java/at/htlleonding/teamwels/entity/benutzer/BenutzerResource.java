@@ -1,16 +1,13 @@
 package at.htlleonding.teamwels.entity.benutzer;
 
-
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 import java.net.URI;
 import java.util.List;
-
 
 @Path("/api/benutzer")
 @Produces(MediaType.APPLICATION_JSON)
@@ -18,7 +15,6 @@ import java.util.List;
 public class BenutzerResource {
     @Inject
     BenutzerRepository repo;
-
 
     @GET
     public List<BenutzerEntity> getAllUser(){
@@ -54,11 +50,34 @@ public class BenutzerResource {
     @POST
     @Transactional
     public Response create(BenutzerPayload payload) {
+        if ((payload.mail == null || payload.mail.trim().isEmpty()) && (payload.tel == null || payload.tel.trim().isEmpty())) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("mail oder tel muss gesetzt sein").build();
+        }
 
+        String normalizedMail = payload.mail != null ? BenutzerEntity.normalizeMail(payload.mail) : null;
+        String normalizedTel = payload.tel != null ? BenutzerEntity.normalizeTel(payload.tel) : null;
+
+        // Prüfen ob Benutzer mit Mail existiert
+        if (normalizedMail != null && !normalizedMail.isEmpty()) {
+            BenutzerEntity existing = BenutzerEntity.findByMail(normalizedMail);
+            if (existing != null) {
+                // Return existing user (200 OK) — Frontend kann so immer den Benutzer-Objekt nutzen
+                return Response.ok(existing).build();
+            }
+        }
+
+        // Prüfen ob Benutzer mit Tel existiert
+        if (normalizedTel != null && !normalizedTel.isEmpty()) {
+            BenutzerEntity existing = BenutzerEntity.findByTel(normalizedTel);
+            if (existing != null) {
+                return Response.ok(existing).build();
+            }
+        }
+
+        // Anlegen, dabei normalisierte Werte setzen
         BenutzerEntity benutzer = new BenutzerEntity();
-
-        benutzer.mail = payload.mail;
-        benutzer.tel = payload.tel;
+        benutzer.mail = normalizedMail;
+        benutzer.tel = normalizedTel;
         benutzer.rolle = "nutzer";
 
         repo.persist(benutzer);
@@ -69,12 +88,36 @@ public class BenutzerResource {
     @PUT
     @Transactional
     @Path("{id}")
-    public BenutzerEntity update(@PathParam("id") Long id, BenutzerEntity entity){
+    public Response update(@PathParam("id") Long id, BenutzerEntity entity){
         BenutzerEntity existing = repo.findById(id);
-        existing.mail = entity.mail;
-        existing.tel = entity.tel;
+        if (existing == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Benutzer nicht gefunden").build();
+        }
 
-        return existing;
+        // Normalisiere neue Werte
+        String newMail = entity.mail != null ? BenutzerEntity.normalizeMail(entity.mail) : null;
+        String newTel = entity.tel != null ? BenutzerEntity.normalizeTel(entity.tel) : null;
+
+        // Prüfen Konflikte: Mail
+        if (newMail != null && !newMail.isEmpty()) {
+            BenutzerEntity byMail = BenutzerEntity.findByMail(newMail);
+            if (byMail != null && !byMail.id.equals(id)) {
+                return Response.status(Response.Status.CONFLICT).entity("E-Mail wird bereits von anderem Benutzer verwendet").build();
+            }
+        }
+
+        // Prüfen Konflikte: Tel
+        if (newTel != null && !newTel.isEmpty()) {
+            BenutzerEntity byTel = BenutzerEntity.findByTel(newTel);
+            if (byTel != null && !byTel.id.equals(id)) {
+                return Response.status(Response.Status.CONFLICT).entity("Telefonnummer wird bereits von anderem Benutzer verwendet").build();
+            }
+        }
+
+        existing.mail = newMail;
+        existing.tel = newTel;
+
+        return Response.ok(existing).build();
     }
 
     @DELETE

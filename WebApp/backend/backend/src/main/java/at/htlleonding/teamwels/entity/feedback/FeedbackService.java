@@ -59,16 +59,16 @@ public class FeedbackService {
 
         feedbackRepo.persist(feedback);
 
-
-
-
         if (feedback.user != null){
             try {
                 if (feedback.user.mail != null){
                     sendEmail(feedback);
                 }
                 if (feedback.user.tel != null){
-                    smsService.sendSms(feedback.user.tel, "Testnachricht");
+                    String body = String.format("\"Ihr Feedback '%s' ist bei uns angekommen:\\n\" +\n" +
+                            "                        \"Mit freundlichen Grüßen\\n\" +\n" +
+                            "                        \"Ihr Team Wels\",", feedback.subject);
+                    smsService.sendSms(feedback.user.tel, body);
                 }
             }
             catch (Exception e) {
@@ -117,7 +117,23 @@ public class FeedbackService {
         // Benachrichtigung erstellen, wenn Status sich geändert hat
         // (Alten Status wird nicht benötigt, für einfache Implementation hier weggelassen)
         if (feedback.user != null) {
-            sendEmailUpdatedStatus(feedback, oldStatus);
+
+            try {
+                if (feedback.user.mail != null){
+                    sendEmailUpdatedStatus(feedback, oldStatus);
+                }
+                if (feedback.user.tel != null){
+                    String body = String.format("Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
+                                    "Alter Status: %s → Neuer Status: %s\n\n" +
+                                    "Mit freundlichen Grüßen\n" +
+                                    "Ihr Team Wels",
+                            feedback.subject, oldStatus, feedback.status);
+                    smsService.sendSms(feedback.user.tel, body);
+                }
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
+            }
         }
 
         return feedback;
