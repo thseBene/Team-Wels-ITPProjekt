@@ -25,31 +25,62 @@ body{
     box-sizing: border-box;
 }
 #directorFigure {
-    position: relative;
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+#directorFigure svg {
+    position: absolute;
+}
 
+#fleckGreen {
+    position: absolute;
+    margin-top: 5vw;
+}
+
+#fleckBlue {
+    position: absolute;
+    margin-bottom: 10vw;
+}
+
+#fleckPink {
+    position: absolute;
+    margin-left: 10vw;
+ 
+}
+
+#checkBoxGeolocation {
+    margin-right: 1vw;
+    transform: scale(1.7);
+    fill: #D9D9D9;
+    border-radius: 999px;
+    margin-left: 1.5vw;
+}
+#geoText {
+    color: #000;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    
+}
 #headerField {
     width: 100%;
     position: relative;
     border-radius: 12px;
-    font-size: var(--xll);
+    font-size: 1.3rem;
     background: #fff;
     padding: 1.5%;
     z-index: 1;
-    background: var(--light);
-    color: var(--fdark);
-    border: 2px solid transparent;
-    border-image: none;
-    border-radius: 12px;
-    background: linear-gradient(var(--light), var(--light)) padding-box,
-                linear-gradient(90deg, var(--colorDark), var(--colorLight)) border-box;
-    -webkit-background-clip: padding-box, border-box;
-    background-clip: padding-box, border-box;
+
+   background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
 }
 
 
@@ -65,15 +96,20 @@ body{
 }
 .save {
     border-radius: 12px;
-    border: 2px solid #1B98E0;
-    background: #FFF; 
     margin-right: 1vw;
     color: var(--fgrey);
+    
+    background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
 }
 .submit {
     border-radius: 12px;
-    background: linear-gradient(182deg, var(--colorLight) 1.4%, var(--colorDark) 98.42%);
-    color: var(--fwhite);
+    background: var(--Blue, #55B9E1);
+    border:none;
+    color: white;
 }
 .submit, .save {
     cursor: pointer;
@@ -82,7 +118,6 @@ body{
     text-align: center;
     padding: 4%;
     font-weight: bold;
-    border: none;
 }
 .fa-images {
     text-align:center;
@@ -138,17 +173,15 @@ i {
     resize: none;
     overflow-x: hidden;
     padding: 1.5%;
-    background: var(--light);
-    color: var(--fdark);
     border: 2px solid transparent;
     border-image: none;
     border-radius: 12px;
-    background: linear-gradient(var(--light), var(--light)) padding-box,
-                linear-gradient(90deg, var(--colorDark), var(--colorLight)) border-box;
-    -webkit-background-clip: padding-box, border-box;
-    background-clip: padding-box, border-box;
-    font-size: var(--lg);
-    font-family: var(--ff);
+    font-size: 1.1rem;
+    background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
 }
 #emailTelefonField {
     width: 100%;
@@ -206,20 +239,21 @@ i {
 }
 #contactContainer {
     position: relative;
-    width: 70%;
-    border-radius: 16px;
+    border-radius: 59px;
     border: 1px solid #FFF;
-    background: linear-gradient(180deg, #FFF 0%, #E5E5E5 52.36%);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+background: #F2F2F2;
+
     box-sizing: border-box;
     padding: 1%;
 }
 
 #profile {
     display: grid;
-    grid-template-columns: 20% 60% 10%;
+    grid-template-columns: 12% 80%;
     align-items: center;
+    padding: 3%;
 }
+
 .nowText {
     text-align: right;
     position: absolute;
@@ -238,7 +272,7 @@ i {
     padding-left: 2%;
     padding-right: 2%;
     display: grid;
-    grid-template-columns: 60% 20% 20%;
+    grid-template-columns: 80% 10%;
     box-sizing: border-box;
     align-items: center;
 }
@@ -250,8 +284,12 @@ i {
     margin-bottom: 5vh;
     border-radius: 16px;
     margin-top: 2vh;
-    background: linear-gradient(180deg, #FFF -520.25%, #E5E5E5 -260.29%);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+#containerAllContact {
+    background-color: var(--Blue);
+    padding: 2%;
+    width: 50%;
+    border-radius: 59px;
 }
 #noThanksButton, #submitContactButton, #inputContact {
     box-sizing: border-box;
@@ -274,7 +312,7 @@ i {
 }
 #submitContactButton {
    border-radius: 12px;
-    background: #1B98E0;
+    background: var(--Green);
     text-align: center;
     color: #FFF;
     padding: 17px;
@@ -283,6 +321,7 @@ i {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-left: -2vw;
 }   
 #inputContact {
     width: 100%;
@@ -304,6 +343,12 @@ i {
     font-size: var(--xxl);
     margin-top: 5vh;
     padding-left: 1%;
+    color: var(--Acent-Text, #333);
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 87.645%; /* 21.035px */
 
 }
 #backToHome {
@@ -318,8 +363,15 @@ i {
     cursor: pointer;
 }
 .directorTitle {
-    font-size: var(--xxll);
+    font-size: 2rem;
     font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: -4vh;
+    background: linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
 
 /*Preview*/

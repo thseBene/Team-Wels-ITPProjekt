@@ -11,15 +11,23 @@
     border-radius: 25px;
     border: 1px solid var(--fwhite);
     opacity: 0.85;
-    background: linear-gradient(180deg, var(--fwhite) 0%, #F2F2F2 16.67%);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(50px);
     box-sizing: border-box;
-}
 
+     background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+}
+#logo {
+    width: 70%;
+    margin-left: 1vw;
+}
 
 .icon{
     transform: scale(.7);
+    color: var(--Purple);
 }
 
 #nav > a {
@@ -27,6 +35,7 @@
  text-decoration: none;
  text-transform: uppercase;
  font-weight: bold;
+ 
 }
 
 header{
