@@ -239,12 +239,14 @@ i {
 }
 #contactContainer {
     position: relative;
-    border-radius: 59px;
+    border-radius: 45px;
     border: 1px solid #FFF;
-background: #F2F2F2;
-
+    background: #F2F2F2;
     box-sizing: border-box;
     padding: 1%;
+    border: 1px solid #FFF;
+    background: #F2F2F2;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 #profile {
@@ -267,14 +269,18 @@ background: #F2F2F2;
     line-height: normal;
 }
 #inputContainer {
-    width: 100%;
+    width: 141%;
     padding: 1%;
-    padding-left: 2%;
-    padding-right: 2%;
     display: grid;
     grid-template-columns: 80% 10%;
     box-sizing: border-box;
     align-items: center;
+    border-radius: 25px;
+    border: 1px solid #FFF;
+    background: #FFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    left: 21%;
 }
 #contactSection {
     width: 70%;
@@ -289,12 +295,18 @@ background: #F2F2F2;
     background-color: var(--Blue);
     padding: 2%;
     width: 50%;
-    border-radius: 59px;
+    height: 72%;
+    border-radius: 55px;
+    position: relative;
+    left: -20%;
+    top: 20%;
 }
 #noThanksButton, #submitContactButton, #inputContact {
     box-sizing: border-box;
     
 }
+
+
 #noThanksButton {
     color: #999;
     font-family: Inter;
@@ -317,11 +329,11 @@ background: #F2F2F2;
     color: #FFF;
     padding: 17px;
     font-family: Inter;
-    font-size: 20px;
+    font-size: 25   px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    margin-left: -2vw;
+    position: relative;
+    left: 90%;
 }   
 #inputContact {
     width: 100%;
@@ -342,14 +354,18 @@ background: #F2F2F2;
 #mayorText {
     font-size: var(--xxl);
     margin-top: 5vh;
-    padding-left: 1%;
-    color: var(--Acent-Text, #333);
+    padding-left: .5%;
+    color: var(--Acent-Text, #404040);
     font-family: Inter;
-    font-size: 24px;
+    font-size: 22px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 87.645%; /* 21.035px */
 
+}
+#profile > svg {
+    scale: .8;
+    border-radius: 100px;
 }
 #backToHome {
     width: 20%;
@@ -365,7 +381,6 @@ background: #F2F2F2;
 .directorTitle {
     font-size: 2rem;
     font-weight: bold;
-    text-transform: uppercase;
     margin-bottom: -4vh;
     background: linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
     background-clip: text;

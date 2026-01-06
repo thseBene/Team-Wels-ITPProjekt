@@ -13,8 +13,8 @@ z-index: 4;
 top: 53%;
 transform-origin: center bottom;
 transform: scale(.3) rotate(30deg);
-top: 22%;
-left: 71.9%;
+top: 24%;
+left: 72%;
 z-index: -1;
 }
 
@@ -75,25 +75,36 @@ hr{
 
 #Button{
     position: relative;
-    top: 5%;
+    top: 10%;
     left: 37%;
     width: 20%;
-    height: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
     background:
     linear-gradient(white, white, white,white, white) padding-box,
     linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
-    border: 1.5px solid transparent;
+    border: 2px solid transparent;
     border-radius: 999px;
     box-shadow: 0 4px 16px rgba(0,0,0,.1);
     padding: 5px;
-    
+    height: 5vh;
     text-decoration: none;
     color: var(--Text);
     margin-top: 1.5%;
     font-weight: bold;
+}
+
+#Button{
+    background-size: 300% 100%, 300% 100%;
+    background-position: 0% 50%, 0% 50%;
+    will-change: background-position, transform;
+    transition: transform .18s ease;
+}
+
+#Button:hover{
+    animation: gradientMove 6s linear infinite;
+    cursor: pointer;
 }
 
 
