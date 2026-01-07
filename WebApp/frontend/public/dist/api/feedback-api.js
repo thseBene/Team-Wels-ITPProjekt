@@ -51,7 +51,5 @@ export function employeeLogin(username, password) {
         console.log(res);
         if (!res.ok)
             throw new Error(`Fehler beim Login: ${res.status}`);
-        const data = yield res.json();
-        return data.success;
     });
 }
