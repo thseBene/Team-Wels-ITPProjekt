@@ -16,7 +16,7 @@ public class MitarbeiterEntity extends PanacheEntityBase {
     // 1:1 Beziehung zu BenutzerEntity
     @OneToOne
     @MapsId
-    @JoinColumn()
+    @JoinColumn(name = "id")
     public BenutzerEntity benutzer;
 
     @Column(nullable = false, unique = true)
@@ -37,7 +37,7 @@ public class MitarbeiterEntity extends PanacheEntityBase {
     @Column(nullable = false)
     public Boolean aktiv = true;
 
-    @Column()
+    @Column(name = "letzter_login")
     public Instant letzterLogin;
 
     // Hilfsmethode für Login
