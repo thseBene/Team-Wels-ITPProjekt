@@ -198,14 +198,14 @@ INSERT INTO feedback (betreff, beschreibung, typ, status, user_id) VALUES
                                                                            'Defekte Straßenbeleuchtung',
                                                                            'Die Straßenbeleuchtung in der Hauptstraße 45 ist seit 3 Tagen defekt.',
                                                                            'Beschwerde',
-                                                                           'OFFEN',
+                                                                           'NEU',
                                                                            (SELECT id FROM benutzer WHERE mail = 'alice.muster@htl.at')
                                                                        ),
                                                                        (
                                                                            'Toller neuer Spielplatz',
                                                                            'Der neue Spielplatz im Stadtpark ist wirklich gelungen!  Meine Kinder lieben ihn.',
                                                                            'Lob',
-                                                                           'BEARBEITET',
+                                                                           'ERLEDIGT',
                                                                            (SELECT id FROM benutzer WHERE mail = 'bob.beispiel@htl. at')
                                                                        ),
                                                                        (
@@ -219,14 +219,14 @@ INSERT INTO feedback (betreff, beschreibung, typ, status, user_id) VALUES
                                                                            'Anfrage zu Öffnungszeiten',
                                                                            'Sind die Öffnungszeiten des Bürgerservices auch am Samstag? ',
                                                                            'Anfrage',
-                                                                           'OFFEN',
+                                                                           'NEU',
                                                                            (SELECT id FROM benutzer WHERE mail = 'diana.demo@gmail.com')
                                                                        ),
                                                                        (
                                                                            'Schlagloch in der Parkstraße',
                                                                            'Großes Schlagloch vor Hausnummer 12. Sehr gefährlich für Radfahrer! ',
                                                                            'Beschwerde',
-                                                                           'OFFEN',
+                                                                           'NEU',
                                                                            (SELECT id FROM benutzer WHERE mail = 'erik. example@outlook.com')
                                                                        );
 
