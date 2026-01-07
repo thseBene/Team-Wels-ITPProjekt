@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var _a;
+import { employeeLogin } from "./api/feedback-api.js";
 (_a = document.getElementById('loginForm')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', (event) => __awaiter(void 0, void 0, void 0, function* () {
     event.preventDefault();
     checkLoginData();
@@ -16,24 +16,12 @@ var _a;
 function checkLoginData() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    fetch('/api/employeeLogin', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-    })
-        .then(response => response.json())
-        .then(data => {
-        if (data.success) {
-            redirectToDashboard();
-        }
-        else {
-            alert('Invalid username or password. Please try again.');
-        }
+    employeeLogin(username, password)
+        .then(() => {
+        redirectToDashboard();
     })
         .catch((error) => {
-        console.error('Error:', error);
+        alert("Login fehlgeschlagen: " + error.message);
     });
 }
 function redirectToDashboard() {
