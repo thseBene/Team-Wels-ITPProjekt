@@ -46,10 +46,9 @@
     padding: 8%;
     border-radius: 12px;
     text-align: center;
-    cursor: pointer;
     align-self: center;
 }
-#submitButton:hover{
+#submitContactButton:hover{
     cursor: pointer;
 }
 .notification.unread {
