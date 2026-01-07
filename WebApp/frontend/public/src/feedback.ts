@@ -117,9 +117,6 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
   const isPhone = isValidPhoneNumber(contactInfo);
 
 
-  let telefon = false;
-  let email = false;
-
   // empty is allowed (optional), otherwise require valid email or phone
   if (contactInfo && !isEmail && !isPhone) {
 
@@ -208,10 +205,11 @@ try {
 
     const createdFeedback = await fbResp.json().catch(() => null);
     console.log("Feedback erfolgreich gesendet. userId=", userId, "createdFeedback=", createdFeedback);
-    showThankYouMessage();
   } catch (err) {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
+
+      showThankYouMessage();
 
 }
 
