@@ -49,6 +49,9 @@
     cursor: pointer;
     align-self: center;
 }
+#submitButton:hover{
+    cursor: pointer;
+}
 .notification.unread {
     background-color: #FFF  ;
     border-width: 3px;
