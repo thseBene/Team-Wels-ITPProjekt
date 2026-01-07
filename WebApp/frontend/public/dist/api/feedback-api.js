@@ -39,3 +39,19 @@ export function deleteByID(id) {
             throw new Error(`Fehler beim Löschen: ${res.status}`);
     });
 }
+export function employeeLogin(username, password) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch('http://localhost:8080/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        console.log(res);
+        if (!res.ok)
+            throw new Error(`Fehler beim Login: ${res.status}`);
+        const data = yield res.json();
+        return data.success;
+    });
+}
