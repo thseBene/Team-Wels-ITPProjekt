@@ -1,0 +1,20 @@
+#loginHeader {
+    color: var(--Blue, #55B9E1);
+    font-family: Inter;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+.loginInfo {
+    color: #AEABAB;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+}
+input {
+    
+}

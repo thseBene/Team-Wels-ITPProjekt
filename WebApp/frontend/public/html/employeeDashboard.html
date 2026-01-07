@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basics</title>
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/readMore.css">
-        <link rel="icon" type="image/x-icon" href="./WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
-
-
+    <title>AllFeedback</title>
+    <script type="module" src="../dist/allFeedback.js"></script>
+    <link rel="stylesheet" href=".././css/variables.css">
+    <link rel="stylesheet" href=".././css/navigation.css">
+    <link rel="stylesheet" href="../css/allFeedback.css">
+    <link rel="icon" type="image/x-icon" href="./WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
 </head>
 <body>
+
      <header id="head"><!-- Navigation Bar -->
 
         <a href="../../../../index.html" >
 
-          <svg class = "icon"viewBox="0 0 559 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <svg class = "icon"viewBox="0 0 559 540" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_101_10)">
 <path d="M326.08 2.9C324.05 1.08 321.38 0 318.51 0H240.78C237.92 0 235.25 1.08 233.21 2.89L233.19 2.9C231.67 4.26 230.51 6.03 229.89 8.08L219.93 41.12L156.88 250.74L110.65 404.43C112.65 406.13 115.23 407.13 117.99 407.13H195.72C198.5 407.13 201.09 406.12 203.1 404.4C204.48 403.22 205.59 401.71 206.29 399.96L279.63 156.16L326.08 2.9Z" fill="#4EB5E1"/>
 <path d="M557.81 40.01C556.81 37.09 554.64 34.61 551.63 33.29L516.9 18.05L484.27 3.73C481.9 2.69 479.31 2.53 476.9 3.15L432.49 150.54L402.35 250.73L356.12 404.42C358.12 406.11 360.7 407.12 363.46 407.12H441.19C443.96 407.12 446.56 406.11 448.57 404.39C449.95 403.2 451.06 401.69 451.76 399.94L536.14 119.42L537.88 113.64L557.94 46.96C558.65 44.61 558.55 42.19 557.8 40.01" fill="#E30613"/>
@@ -31,7 +31,6 @@
 </clipPath>
 </defs>
 </svg>
-
         </a>
 
         <div id="nav">
@@ -45,33 +44,17 @@
             <a href="" class="item">über Wels</a>
         </div>
 
-        <a href="profil.html">
-            <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href="./profil.html">
+             <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8751 17.5C21.8751 14.019 23.2579 10.6806 25.7193 8.21922C28.1808 5.75781 31.5192 4.375 35.0001 4.375C38.4811 4.375 41.8195 5.75781 44.2809 8.21922C46.7423 10.6806 48.1251 14.019 48.1251 17.5C48.1251 20.981 46.7423 24.3194 44.2809 26.7808C41.8195 29.2422 38.4811 30.625 35.0001 30.625C31.5192 30.625 28.1808 29.2422 25.7193 26.7808C23.2579 24.3194 21.8751 20.981 21.8751 17.5ZM10.9405 58.6396C11.0389 52.3235 13.617 46.2993 18.1183 41.8675C22.6197 37.4357 28.6832 34.9517 35.0001 34.9517C41.317 34.9517 47.3806 37.4357 51.8819 41.8675C56.3833 46.2993 58.9614 52.3235 59.0597 58.6396C59.0673 59.0648 58.9508 59.483 58.7244 59.843C58.498 60.203 58.1716 60.4893 57.7851 60.6667C50.6369 63.9441 42.8639 65.6356 35.0001 65.625C26.8743 65.625 19.1539 63.8517 12.2151 60.6667C11.8286 60.4893 11.5022 60.203 11.2758 59.843C11.0495 59.483 10.9329 59.0648 10.9405 58.6396Z" fill="#C9508B"/>
         </svg>
-
-
 
         </a>
 
     </header>
 
-    <div id="speachBubble">
-        <h1>Schön das du da bist!</h1>
+    <div id="container">
 
-        <h3>Wie gut passt die Stadt Gerade zu dir?</h3>
-
-        <input type="range" id="rating" name="rating" min="1" max="5" step="1" value="3" list="tickmarks" aria-label="Bewertung">
-        <datalist id="tickmarks">
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-            <option value="4"></option>
-            <option value="5"></option>
-        </datalist>
-        
-        
     </div>
-    
 </body>
 </html>
