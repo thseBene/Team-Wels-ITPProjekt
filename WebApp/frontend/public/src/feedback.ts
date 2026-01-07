@@ -209,8 +209,8 @@ try {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
 
-      showThankYouMessage();
-
+    // showThankYouMessage();
+    window.location.href ="../../../../index.html"
 }
 
 // send Feedback to Server
