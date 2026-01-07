@@ -11,6 +11,13 @@ body{
     padding-left: 3%;
     box-sizing: border-box;
 }
+#gridContainer1 {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    height: 70vh;
+    padding-left: 3%;
+    box-sizing: border-box;
+}
 #feedbackContainer {
     
     position: relative;
@@ -294,11 +301,11 @@ i {
 #containerAllContact {
     background-color: var(--Blue);
     padding: 2%;
-    width: 50%;
-    height: 72%;
+    width: 100%;
+    height: 43%;
     border-radius: 55px;
     position: relative;
-    left: -20%;
+    left: -25%;
     top: 20%;
 }
 #noThanksButton, #submitContactButton, #inputContact {
