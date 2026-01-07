@@ -73,6 +73,7 @@ hr{
     z-index: 10000;
 }
 
+
 #Button{
     position: relative;
     top: 10%;
@@ -83,7 +84,7 @@ hr{
     align-items: center;
     background:
     linear-gradient(white, white, white,white, white) padding-box,
-    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)  ) border-box;
     border: 2px solid transparent;
     border-radius: 999px;
     box-shadow: 0 4px 16px rgba(0,0,0,.1);
@@ -106,13 +107,16 @@ hr{
     animation: gradientMove 6s linear infinite;
     cursor: pointer;
 }
-
-
 @keyframes gradientMove{
-    0%{ background-position: 0% 50%; }
-    50%{ background-position: 100% 50%; }
-    100%{ background-position: 0% 50%; }
+    0%   { background-position: 0% 0%; }
+    25%  { background-position: 100% 0%; }
+    50%  { background-position: 100% 100%; }
+    75%  { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
 }
+
+
+
 
 #showoff{
   width: 70%;

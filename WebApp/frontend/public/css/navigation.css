@@ -29,12 +29,15 @@
     transform: scale(.6);
     color: var(--Purple);
 }
-
+#ati{
+    font-weight: bold;
+}
 #nav > a {
     color: var(--fgrey);
  text-decoration: none;
  text-transform: uppercase;
- font-weight: bold;
+    font-weight: 500;
+ 
  
 }
 
