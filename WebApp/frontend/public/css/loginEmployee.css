@@ -1,20 +1,83 @@
 #loginHeader {
     color: var(--Blue, #55B9E1);
     font-family: Inter;
-    font-size: 52px;
+    font-size: 3rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
 }
+#loginContainer {
+    position: relative;
+    width: 25%;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+    margin-top: 20vh;
+    justify-content: center;
+    border-radius: 16px;
+    background: #F2F2F2;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 2%;
+}
 .loginInfo {
     color: #AEABAB;
     font-family: Inter;
-    font-size: 20px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     text-transform: uppercase;
+    margin-top: 0.5vh;
+    margin-bottom: 10vh;
 }
 input {
-    
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    border-radius: 8px;
+
+    background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+
+    margin-bottom: 5vh;
+}
+label {
+    color: var(--Decent-Text, #595959);
+    font-family: Inter;
+    font-size: 1.15rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 1vh;
+}
+button {
+    outline: none;
+    border:none;
+    width: 100%;
+    padding: 2%;
+    border-radius: 8px;
+    background: var(--Blue);
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+button:hover {
+    cursor: pointer;
+    background: #339ACC;
+}
+.blueFleck {
+    position: absolute;
+}
+.pinkFleck {
+    position: absolute;
+}  
+.greenFleck {
+    position: absolute; 
 }
