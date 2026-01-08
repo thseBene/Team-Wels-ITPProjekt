@@ -1,5 +1,7 @@
 package at.htlleonding.teamwels.entity.mitarbeiter;
 
+import at.htlleonding.teamwels.entity.activitylog.ActivityLogService;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -12,6 +14,8 @@ import java.time.Instant;
 @Produces(MediaType. APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthResource {
+    @Inject
+    ActivityLogService activityLogService;
 
     @POST
     @Path("/login")
@@ -37,6 +41,8 @@ public class AuthResource {
 
         // 3. Update Login-Zeit
         mitarbeiter.letzterLogin = Instant.now();
+
+        activityLogService.logEmployeeLogin(mitarbeiter.id);
 
         // 4.  Erstelle Session/Token (später mit JWT)
         return Response.ok(new LoginResponse(

@@ -136,7 +136,7 @@ INSERT INTO benutzer (mail, tel, rolle) VALUES
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
-        (SELECT id FROM benutzer WHERE mail = 'lisa. tech@teamwels.at'),
+        (SELECT id FROM benutzer WHERE mail = 'lisa.tech@teamwels.at'),
         'lisa.tech',
         'techSupport2024',
         'Lisa',
@@ -177,7 +177,7 @@ INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilun
 
 -- Inaktiver Mitarbeiter (zum Testen)
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('ex. worker@teamwels.at', '+43 664 9990099', 'mitarbeiter');
+    ('ex.worker@teamwels.at', '+43 664 9990099', 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
@@ -227,7 +227,7 @@ INSERT INTO feedback (betreff, beschreibung, typ, status, user_id) VALUES
                                                                            'Großes Schlagloch vor Hausnummer 12. Sehr gefährlich für Radfahrer! ',
                                                                            'Beschwerde',
                                                                            'NEU',
-                                                                           (SELECT id FROM benutzer WHERE mail = 'erik. example@outlook.com')
+                                                                           (SELECT id FROM benutzer WHERE mail = 'erik.example@outlook.com')
                                                                        );
 
 -- -------------------------
@@ -239,14 +239,14 @@ INSERT INTO notification (typ, betreff, nachricht, gelesen, benutzer_id) VALUES
                                                                                  'Feedback Status-Update:  Defekte Straßenbeleuchtung',
                                                                                  'Sehr geehrte/r Benutzer, Ihr Feedback "Defekte Straßenbeleuchtung" ist bei uns angekommen. Mit freundlichen Grüßen, Ihr Team Wels',
                                                                                  false,
-                                                                                 (SELECT id FROM benutzer WHERE mail = 'alice. muster@htl.at')
+                                                                                 (SELECT id FROM benutzer WHERE mail = 'alice.muster@htl.at')
                                                                              ),
                                                                              (
                                                                                  'SMS',
                                                                                  null,
                                                                                  'Feedback:  "Defekte Straßenbeleuchtung" ist bei uns angekommen',
                                                                                  false,
-                                                                                 (SELECT id FROM benutzer WHERE mail = 'alice. muster@htl.at')
+                                                                                 (SELECT id FROM benutzer WHERE mail = 'alice.muster@htl.at')
                                                                              ),
                                                                              (
                                                                                  'EMAIL',

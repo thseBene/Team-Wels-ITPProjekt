@@ -33,7 +33,7 @@ public class SmsService {
     }
 
 
-    public String sendSms(String toNumber, String body) {
+    public void sendSms(String toNumber, String body) {
         if (accountSid == null || accountSid.isBlank() || authToken == null || authToken.isBlank()) {
             throw new IllegalStateException("Twilio ist nicht konfiguriert (twilio.account-sid / twilio.auth-token fehlen)");
         }
@@ -41,12 +41,12 @@ public class SmsService {
             throw new IllegalStateException("Twilio From-Nummer ist nicht konfiguriert (twilio.from)");
         }
         try {
-            Message message = Message.creator(
+            Message.creator(
                     new PhoneNumber(toNumber),
                     new PhoneNumber(fromNumber),
                     body
             ).create();
-            return message.getSid();
+
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Twilio-SMS-Versand: " + e.getMessage(), e);
         }
