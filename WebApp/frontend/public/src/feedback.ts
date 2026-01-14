@@ -356,13 +356,12 @@ function getBasePath(): string {
 function buildUrl(relativePath: string): string {
     let base = getBasePath();
     console.log("Base path:", base);
-    
     return base + relativePath;
 }
 
 // Now when you redirect:
 function redirectToDashboard() {
 
-    window.location.href = buildUrl('index.html');
+    console.log(buildUrl('index.html'));
 
 }

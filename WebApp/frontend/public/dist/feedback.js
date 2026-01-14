@@ -316,5 +316,5 @@ function buildUrl(relativePath) {
 }
 // Now when you redirect:
 function redirectToDashboard() {
-    window.location.href = buildUrl('index.html');
+    console.log(buildUrl('index.html'));
 }
