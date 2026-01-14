@@ -209,14 +209,12 @@ try {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
 
-  console.log("Es kracht");
+  console.log("Feedback erfolgreich versendet");
     // showThankYouMessage();
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        if (isGitHubPages) {
-          window.location.href = "/Team-Wels-ITPProjekt/index.html";
-        } else {
-          window.location.href = "index.html";
-        }
+    // Redirect to home page (works on both local server and GitHub Pages)
+    setTimeout(() => {
+      window.location.href = window.location.origin + window.location.pathname.replace(/feedback\.html/, "index.html");
+    }, 1500);
 }
 
 // send Feedback to Server
