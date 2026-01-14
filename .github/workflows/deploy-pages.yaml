@@ -1,4 +1,4 @@
-name: Deploy Pages
+name: Deploy GitHub Pages
 
 on:
   push:
@@ -7,27 +7,29 @@ on:
       - frontend
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decide target folder
+      - name: Decide output folder
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "TARGET_DIR=." >> $GITHUB_ENV
+            echo "OUT=site" >> $GITHUB_ENV
           else
-            echo "TARGET_DIR=frontend" >> $GITHUB_ENV
+            echo "OUT=site/frontend" >> $GITHUB_ENV
           fi
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          destination_dir: ${{ env.TARGET_DIR }}
-          keep_files: true
+      - name: Prepare output
+        run: |
+          mkdir -p $OUT
+          cp -r ./* $OUT
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
