@@ -178,6 +178,7 @@ function sendContactInfo(feedback) {
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
+        console.log("Es kracht");
         // showThankYouMessage();
         window.location.href = "/TeamWelsITPProjekt/index.html";
     });
