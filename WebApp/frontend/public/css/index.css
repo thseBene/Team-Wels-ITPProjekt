@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 @import url('variables.css');
 body{
   font-family: var(--ff);  
@@ -130,7 +129,6 @@ hr{
     margin-top: 5%;
 }
 
-=======
 body{
   font-family: var(--ff);  
 }
@@ -239,4 +237,3 @@ scale: .7;
     top: 10%;
 
 }
->>>>>>> Stashed changes

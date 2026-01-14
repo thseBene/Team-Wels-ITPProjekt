@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 @font-face {
     font-family: Inter;
     src: url(../assets/font/Inter-VariableFont_opsz\,wght.ttf);
@@ -31,7 +30,7 @@
     font-size: var(--md);
     background-color: var(--colorLight);
     cursor: pointer;
-=======
+}
 * {
     font-family: var(--ff);
 }
@@ -47,5 +46,4 @@
     margin: 2%;
     padding: 4%;
     border-radius: 12px;
->>>>>>> Stashed changes
 }
