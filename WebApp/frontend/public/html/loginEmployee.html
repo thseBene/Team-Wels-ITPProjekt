@@ -4,14 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Dynamic Base URL for GitHub Pages compatibility -->
+    <script>
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+            document.write('<base href="' + basePath + '">');
+        })();
+    </script>
+    
     <title>Feedback</title>
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="icon" type="image/x-icon" href="./WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/loginEmployee.css">
+    <link rel="stylesheet" href="WebApp/frontend/public/css/variables.css">
+    <link rel="icon" type="image/x-icon" href="WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
+    <link rel="stylesheet" href="WebApp/frontend/public/css/navigation.css">
+    <link rel="stylesheet" href="WebApp/frontend/public/css/loginEmployee.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="module" src="../dist/loginEmployee.js"></script>
+    <script type="module" src="WebApp/frontend/public/dist/loginEmployee.js"></script>
 
 
 </head> 
