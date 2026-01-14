@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Dynamic Base URL for GitHub Pages compatibility -->
+    <script>
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+            document.write('<base href="' + basePath + '">');
+        })();
+    </script>
+    
     <title>AllFeedback</title>
-    <script type="module" src="../dist/allFeedback.js"></script>
-    <link rel="stylesheet" href=".././css/variables.css">
-    <link rel="stylesheet" href=".././css/navigation.css">
-    <link rel="stylesheet" href="../css/allFeedback.css">
-    <link rel="icon" type="image/x-icon" href="../../../../Logo/LogoOhneTExt.png">
+    <script type="module" src="WebApp/frontend/public/dist/allFeedback.js"></script>
+    <link rel="stylesheet" href="WebApp/frontend/public/css/variables.css">
+    <link rel="stylesheet" href="WebApp/frontend/public/css/navigation.css">
+    <link rel="stylesheet" href="WebApp/frontend/public/css/allFeedback.css">
+    <link rel="icon" type="image/x-icon" href="WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
 </head>
 <body>
 
      <header id="head"><!-- Navigation Bar -->
 
-        <a href="../index.html" >
+        <a href="index.html" >
 
            <svg class="icon" width="116" height="87" viewBox="0 0 116 87" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_198_141)">
@@ -41,7 +51,7 @@
         </a>
 
         <div id="nav">
-            <a href="" class="item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <a href="index.html" class="item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.75 9.88992L9.01523 1.07413C9.42139 0.641956 10.0786 0.641956 10.4838 1.07413L18.75 9.88992M2.82692 7.67489V17.6425C2.82692 18.2538 3.29215 18.75 3.86538 18.75H7.67308V13.9508C7.67308 13.3394 8.13831 12.8433 8.71154 12.8433H10.7885C11.3617 12.8433 11.8269 13.3394 11.8269 13.9508V18.75H15.6346C16.2078 18.75 16.6731 18.2538 16.6731 17.6425V7.67489M6.28846 18.75H13.9038" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>

@@ -3,6 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dynamic Base URL for GitHub Pages compatibility -->
+  <script>
+    (function() {
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+      document.write('<base href="' + basePath + '">');
+    })();
+  </script>
+  
   <title>Team Wels – Bürgerbeteiligungs-System</title>
 
   <!-- Reveal.js CSS -->
@@ -319,7 +329,7 @@
         <section>
           <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
             <div style="width:420px;max-width:40vw;background:var(--light-bg);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-              <img src="./Img/ProjektAntrag.png" alt="Projektantrag (Portrait)" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <img src="Projekt-Doku/Img/ProjektAntrag.png" alt="Projektantrag (Portrait)" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <p style="max-width:720px;">Kurze Beschreibung des Projektantrags.</p>
           </div>
@@ -330,7 +340,7 @@
         <h2>Plakat für Tag der offenen Tür</h2>
         <div style="display:flex;justify-content:center;">
           <div style="width:20vw; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:12px; background:var(--light-bg); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-            <img src="Img/Plakat ITP.png" alt="Plakat ITP" style="width:auto; height:auto; display:block;">
+            <img src="Projekt-Doku/Img/Plakat ITP.png" alt="Plakat ITP" style="width:auto; height:auto; display:block;">
           </div>
         </div>
       </section>
@@ -341,32 +351,32 @@
         <section>
           <h3>Sprint Review #1 </h3>
           <p>12.11.2025</p>
-          <img src="./Img/Sprint1/clockify.png" alt="Zeitaufzeichnung">
+          <img src="Projekt-Doku/Img/Sprint1/clockify.png" alt="Zeitaufzeichnung">
         </section>
 
         <section>
           <h3>Verwendete Userstorys</h3>
-          <img src="./Img/Sprint1/userstory.png" style="width: 35%;" alt="Userstorys">
+          <img src="Projekt-Doku/Img/Sprint1/userstory.png" style="width: 35%;" alt="Userstorys">
         </section>
 
         <section>
           <h3>Frontend</h3>
-          <img src="./Img/Sprint1/frontend.png" style="width: 35%;" alt="Frontend">
+          <img src="Projekt-Doku/Img/Sprint1/frontend.png" style="width: 35%;" alt="Frontend">
         </section>
 
         <section>
           <h3>Backend</h3>
-          <img src="./Img/Sprint1/backend.png" style="width: 35%;" alt="Backend">
+          <img src="Projekt-Doku/Img/Sprint1/backend.png" style="width: 35%;" alt="Backend">
         </section>
 
         <section>
           <h3>ERD</h3>
-          <img src="../plantUML/public/ERD.svg" style="width: 35%;" alt="ERD">
+          <img src="plantUML/public/ERD.svg" style="width: 35%;" alt="ERD">
         </section>
 
         <section>
           <h3>Organisatorisch</h3>
-          <img src="./Img/Sprint1/organisatorisch.png" style="width: 40%;" alt="Organisatorisch">
+          <img src="Projekt-Doku/Img/Sprint1/organisatorisch.png" style="width: 40%;" alt="Organisatorisch">
         </section>
       </section>
 
