@@ -211,12 +211,7 @@ try {
 
   console.log("Es kracht");
     // showThankYouMessage();
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        if (isGitHubPages) {
-          window.location.href = "/Team-Wels-ITPProjekt/index.html";
-        } else {
-          window.location.href = "index.html";
-        }
+    redirectToDashboard();
 }
 
 // send Feedback to Server
@@ -350,4 +345,18 @@ function showThankYouMessage() {
       window.location.href = "../../../../index.html";
     });
   }
+}
+function getBasePath(): string {
+    const isGitHubPages = window. location.hostname.includes('github.io');
+    return isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+}
+
+function buildUrl(relativePath: string): string {
+    const base = getBasePath();
+    return base + relativePath;
+}
+
+// Now when you redirect:
+function redirectToDashboard() {
+    window.location.href = buildUrl('index.html');
 }
