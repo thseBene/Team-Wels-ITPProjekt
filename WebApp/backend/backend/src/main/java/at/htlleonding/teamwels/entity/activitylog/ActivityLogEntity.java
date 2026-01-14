@@ -28,9 +28,6 @@ public class ActivityLogEntity extends PanacheEntityBase {
     @JsonIgnoreProperties({"benutzer", "passwort", "letzterLogin"})
     public MitarbeiterEntity mitarbeiter;
 
-    @Column(name = "mitarbeiter_name")
-    public String mitarbeiterName;
-
     @Column(name = "feedback_id")
     public Long feedbackId;
 
