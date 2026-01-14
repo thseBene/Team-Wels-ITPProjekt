@@ -210,7 +210,7 @@ try {
   }
 
     // showThankYouMessage();
-    window.location.href = "../../../../index.html";
+    window.location.href = "../../../../../index.html";
 }
 
 // send Feedback to Server
@@ -341,7 +341,7 @@ function showThankYouMessage() {
       <div id="backToHome">Zurück zur Startseite</div>
     `;
     document.getElementById("backToHome")?.addEventListener("click", () => {
-      window.location.href = "../index.html";
+      window.location.href = "../../../../index.html";
     });
   }
 }
