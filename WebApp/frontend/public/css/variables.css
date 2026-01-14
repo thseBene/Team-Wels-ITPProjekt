@@ -1,0 +1,85 @@
+<<<<<<< Updated upstream
+
+@font-face {
+    font-family: Inter;
+    src: url(../assets/font/Inter-VariableFont_opsz\,wght.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--ff);
+}
+
+:root {
+  --Green: #B2C900FF;
+  --Blue: #55B9E1FF;
+  --Purple: #C9508BFF;
+  --Red: #E2001AFF;
+  --Yellow: #EAA100FF;
+  --Text: #000000FF;
+  --lighter-Text: #333333FF;
+
+  --ff:'Inter';
+
+  --font-title: 8rem;     
+  --font-subtitle: 4rem;     
+  --font-button: 2rem;       
+  --font-text: 1rem;       
+  --font-min: .5rem;     
+}
+=======
+
+/*reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: Inter;
+    src: url(../assets/font/Inter-VariableFont_opsz\,wght.ttf);
+}
+:root {
+  --colorLight: hsl(202, 78%, 49%);
+  --colorMedium: hsl(202, 78%, 40%);
+  --colorDark: hsl(202, 78%, 30%);
+  --light:white;
+
+  --fdark: hsl(0, 0%, 0%);
+  --fgrey: hsl(0, 0%, 20%);
+  --fwhite: hsl(0,0%, 100%);
+  --flighter: hsl(0, 0%, 80%);
+
+  --none: transparent;
+  --ff:'Inter';
+
+  --spacing1: 4px;
+  --spacing2: 8px;
+  --spacing3: 16px;
+  --spacing4: 20px;
+  --spacing5: 40px;
+  --spacing6: 80px;
+  --spacing7: 160px;
+
+  --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
+  --gradientMid: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 100%);
+  --gradientTop: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 25%);
+  --gradientBottom: linear-gradient(180deg, var(--colorLight) 0%, var(--colorDark) 75%);
+
+--xxs: 0.625rem; /* 10px */
+--xs: 0.75rem;   /* 12px */
+--sm: 0.875rem;  /* 14px */
+--md: 1rem;      /* 16px */
+--lg: 1.125rem;  /* 18px */
+--xl: 1.25rem;   /* 20px */
+--xxl: 5rem;   /* 24px */
+
+
+--leading-tight: 1.1;
+--leading-snug: 1.25;
+--leading-normal: 1.5;
+
+/*variable für adding und border radius und icon size*/
+
+  
+}
+>>>>>>> Stashed changes

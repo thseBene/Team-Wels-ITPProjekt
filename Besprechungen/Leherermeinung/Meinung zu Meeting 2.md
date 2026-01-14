@@ -1,0 +1,12 @@
+- Keine angst vorm Kunden -> wie amazon
+- Projektvision Differenzieren (Sicher, wenig Kunden / öffentlich, mehr potenzielle)
+	- nicht teil des MVP -> weniger wichtg ->  (Schritt 2)
+- Wenn email vorhanden -> Ticket erstellen -> gut
+- Standortfreigabe auf fotos -> gut
+- Automatischer arbeitsfluss: kann in nächsten Schritten gedacht werden ->  (Schritt 2)
+- Schnittstellen der Stadt nutzen  -> (Schritt 2)
+- weiterleiten von informationen -> (weiterleiten an richtige stelle, erzählen wo man weiterleiten kann, sagen man mus selbst weiterleiten, schreiben wir leiten es weiter) (am besten weiterleiten und informationen weitergeben zurücksenden)
+- Konkretisieren der Schnittstellen 
+- Testphase des produkts -> muss bürgermeister entscheiden
+- 2 wochenintervalle etwas viel
+	- Support ( Schritt 2: MVP wichtiger)c 

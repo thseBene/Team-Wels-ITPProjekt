@@ -1,0 +1,125 @@
+<<<<<<< Updated upstream
+### Create: vollständiges Feedback mit Kategorien und Bildern
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{
+  "subject": "Kaputte Tür im Raum 12",
+  "description": "Die Tür klemmt stark und schließt nicht richtig. Bitte prüfen.",
+  "type": "Beschwerde",
+  "status": "NEU",
+  "userId": 1,
+  "themaId": 1,
+  "kategorieIds": [2, 3]
+}
+
+###
+
+### Create: minimales Feedback (ohne Bilder / Kategorien)
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{
+  "subject": "Positives Feedback zur Mensa",
+  "description": "Die Mensa war heute besonders sauber und freundlich.",
+  "type": "Lob",
+  "status":  "NEU",
+  "userId": 2,
+  "themaId": 2
+}
+
+###
+
+### List all feedbacks
+GET http://localhost:8080/api/feedback
+Accept: application/json
+
+###
+
+### Get feedback by id (ersetze 1 durch eine existierende ID)
+GET http://localhost:8080/api/feedback/5
+Accept: application/json
+
+###
+
+### Update feedback (PUT) - Beispiel: aktualisiere status, Kategorien und füge Bild hinzu
+PUT http://localhost:8080/api/feedback/1
+Content-Type: application/json
+
+{
+  "subject": "Kaputte Tür im Raum 12 (Nachtrag)",
+  "description": "Tür klemmt weiterhin, Mechaniker wurde informiert.",
+  "type": "Beschwerde",
+  "status": "NEU",
+  "userId": 1,
+  "themaId": 1,
+  "kategorieIds": [3]
+}
+
+###
+
+### Delete feedback by id (ersetze 1 durch die zu löschende ID)
+DELETE http://localhost:8080/api/feedback/1
+=======
+### Create: vollständiges Feedback mit Kategorien und Bildern
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{
+  "subject": "Kaputte Tür im Raum 12",
+  "description": "Die Tür klemmt stark und schließt nicht richtig. Bitte prüfen.",
+  "type": "Beschwerde",
+  "statusId": 1,
+  "userId": 1,
+  "themaId": 1,
+  "kategorieIds": [2, 3]
+}
+
+###
+
+### Create: minimales Feedback (ohne Bilder / Kategorien)
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{
+  "subject": "Positives Feedback zur Mensa",
+  "description": "Die Mensa war heute besonders sauber und freundlich.",
+  "type": "Lob",
+  "statusId": 1,
+  "userId": 2,
+  "themaId": 2
+}
+
+###
+
+### List all feedbacks
+GET http://localhost:8080/api/feedback
+Accept: application/json
+
+###
+
+### Get feedback by id (ersetze 1 durch eine existierende ID)
+GET http://localhost:8080/api/feedback/4
+Accept: application/json
+
+###
+
+### Update feedback (PUT) - Beispiel: aktualisiere status, Kategorien und füge Bild hinzu
+PUT http://localhost:8080/api/feedback/1
+Content-Type: application/json
+
+{
+  "subject": "Kaputte Tür im Raum 12 (Nachtrag)",
+  "description": "Tür klemmt weiterhin, Mechaniker wurde informiert.",
+  "type": "Beschwerde",
+  "statusId": 2,
+  "userId": 1,
+  "themaId": 1,
+  "kategorieIds": [3]
+}
+
+###
+
+### Delete feedback by id (ersetze 1 durch die zu löschende ID)
+DELETE http://localhost:8080/api/feedback/1
+>>>>>>> Stashed changes

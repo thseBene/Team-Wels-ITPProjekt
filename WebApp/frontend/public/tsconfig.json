@@ -1,0 +1,30 @@
+<<<<<<< Updated upstream
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "ESNext",
+    "lib": ["es6", "dom"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "sourceMap": false,
+    "isolatedModules": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist"]
+=======
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "none",
+    "lib": ["es6", "dom"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "sourceMap": false,
+    "isolatedModules": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist"]
+>>>>>>> Stashed changes
+}

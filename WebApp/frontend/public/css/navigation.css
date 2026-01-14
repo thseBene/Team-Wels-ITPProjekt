@@ -1,0 +1,100 @@
+<<<<<<< Updated upstream
+
+
+#nav{
+    height: 50%;
+    width: 50%;
+    font-size: var(--sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 25px;
+    border-radius: 25px;
+    border: 1px solid var(--fwhite);
+    opacity: 0.85;
+    box-sizing: border-box;
+
+     background:
+    linear-gradient(white, white, white,white, white) padding-box,
+    linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
+    border: 1.5px solid transparent;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+}
+#logo {
+    width: 70%;
+    margin-left: 1vw;
+}
+
+.icon{
+    transform: scale(.6);
+    color: var(--Purple);
+}
+#ati{
+    font-weight: bold;
+}
+#nav > a {
+    color: var(--fgrey);
+ text-decoration: none;
+ text-transform: uppercase;
+    font-weight: 500;
+ 
+ 
+}
+
+header{
+    position: relative;
+    top: 0;
+    min-height: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 12.5fr 1fr;
+    grid-auto-rows: 1fr;
+    column-gap: 8px;
+    align-items: center;
+    
+=======
+
+
+#nav{
+    height: 50%;
+    width: 50%;
+    font-size: var(--sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 25px;
+    border-radius: 25px;
+    border: 1px solid #FFF;
+    opacity: 0.85;
+    background: linear-gradient(180deg, #FFF 0%, #F2F2F2 16.67%);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(50px);
+    box-sizing: border-box;
+}
+
+
+.icon{
+    transform: scale(.7);
+}
+
+#nav > a {
+    color: var(--fgrey);
+ text-decoration: none;
+ text-transform: uppercase;
+ font-weight: bold;
+}
+
+header{
+    position: relative;
+    top: 0;
+    min-height: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 12.5fr 1fr;
+    grid-auto-rows: 1fr;
+    column-gap: 8px;
+    align-items: center;
+    
+>>>>>>> Stashed changes
+}

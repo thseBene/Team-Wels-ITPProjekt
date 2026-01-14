@@ -1,0 +1,23 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+
+GET http://localhost:8080/api/notifications
+Content-Type: */*
+
+###
+
+GET http://localhost:8080/api/notifications/benutzer/1
+Content-Type: application/json
+
+###
+
+PATCH http://localhost:8080/api/feedback/1/status
+Content-Type: application/json
+
+{
+    "status": "IN BEARBEITUNG"
+}
+
