@@ -141,8 +141,6 @@ function sendContactInfo(feedback) {
                     if (created && typeof created.id !== "undefined") {
                         userId = Number(created.id);
                     }
-                    setTimeout(() => {
-                    }, 5000);
                 }
                 catch (error) {
                     console.log("Error beim Parsen der Antwort:", error);
@@ -276,7 +274,7 @@ function sendOnlyFeedback(feedback) {
             }
             const createdFeedback = yield fbResp.json().catch(() => null);
             console.log("Feedback erfolgreich gesendet. createdFeedback=", createdFeedback);
-            showThankYouMessage();
+            redirectToDashboard();
         }
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
@@ -307,11 +305,13 @@ function showThankYouMessage() {
     }
 }
 function getBasePath() {
-    const isGitHubPages = window.location.hostname.includes('github.io');
+    console.log("testBasePath");
+    let isGitHubPages = window.location.hostname.includes('github.io');
     return isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
 }
 function buildUrl(relativePath) {
-    const base = getBasePath();
+    let base = getBasePath();
+    console.log("Base path:", base);
     return base + relativePath;
 }
 // Now when you redirect:

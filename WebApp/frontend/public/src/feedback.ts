@@ -167,8 +167,7 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
             userId = Number(created.id);
           }
 
-          setTimeout(() => {
-          }, 5000);
+          
         
       }catch (error) {
         console.log("Error beim Parsen der Antwort:", error);
@@ -205,6 +204,7 @@ try {
 
     const createdFeedback = await fbResp.json().catch(() => null);
     console.log("Feedback erfolgreich gesendet. userId=", userId, "createdFeedback=", createdFeedback);
+
   } catch (err) {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
@@ -317,7 +317,7 @@ async function sendOnlyFeedback(feedback: {subject: string; description: string;
 
     const createdFeedback = await fbResp.json().catch(() => null);
     console.log("Feedback erfolgreich gesendet. createdFeedback=", createdFeedback);
-    showThankYouMessage();
+    redirectToDashboard();
   } catch (err) {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
@@ -356,10 +356,13 @@ function getBasePath(): string {
 function buildUrl(relativePath: string): string {
     let base = getBasePath();
     console.log("Base path:", base);
+    
     return base + relativePath;
 }
 
 // Now when you redirect:
 function redirectToDashboard() {
+
     window.location.href = buildUrl('index.html');
+
 }
