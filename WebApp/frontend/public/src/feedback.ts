@@ -210,7 +210,7 @@ try {
   }
 
     // showThankYouMessage();
-    window.location.href = "../../../../../index.html";
+    window.location.href = "/TeamWelsITPProjekt/index.html";
 }
 
 // send Feedback to Server
