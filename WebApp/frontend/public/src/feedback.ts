@@ -212,7 +212,7 @@ try {
 
   console.log("Es kracht");
     // showThankYouMessage();
-    window.location.href = "../../../../index.html";
+    window.location.href = "/Team-Wels-ITPProjekt/index.html";
 }
 
 // send Feedback to Server
