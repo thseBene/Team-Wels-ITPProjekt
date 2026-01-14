@@ -12,9 +12,11 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
+import org.eclipse.microprofile.context.ManagedExecutor;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Service-Layer für Feedback Business-Logik
@@ -38,6 +40,9 @@ public class FeedbackService {
 
     @Inject
     ActivityLogService activityLogService;
+
+    @Inject
+    ManagedExecutor executor;
 
     // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
     // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
@@ -65,7 +70,9 @@ public class FeedbackService {
         activityLogService.logFeedbackCreated(feedback.id, feedback.subject, feedback.user.id);
         feedbackRepo.persist(feedback);
 
-        if (feedback.user != null){
+        Long feedbackId = feedback.id;
+
+
             try {
                 if (feedback.user.mail != null){
                     activityLogService.logNotificationEmailSent(feedback.id, feedback.subject, feedback.user.mail, "Feedback erstellt");
@@ -82,7 +89,6 @@ public class FeedbackService {
             catch (Exception e) {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
-        }
         return feedback;
     }
 
@@ -138,14 +144,14 @@ public class FeedbackService {
                                     "Mit freundlichen Grüßen\n" +
                                     "Ihr Team Wels",
                             feedback.subject, oldStatus, feedback.status);
-                    smsService.sendSms(feedback.user.tel, body);
+                    //smsService.sendSms(feedback.user.tel, body);
                 }
             }
             catch (Exception e) {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
         }
-        activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
+       // activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
         return feedback;
     }
 

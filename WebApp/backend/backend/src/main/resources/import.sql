@@ -106,11 +106,11 @@ INSERT INTO kategorie (bezeichnung) VALUES
 -- Normale Benutzer (Bürger)
 -- -------------------------
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-                                            ('alice.muster@htl.at', '+43 664 1234567', 'nutzer'),
-                                            ('bob.beispiel@htl.at', '+43 664 2345678', 'nutzer'),
-                                            ('charlie.test@htl.at', '+43 664 3456789', 'nutzer'),
-                                            ('diana.demo@gmail.com', '+43 664 4567890', 'nutzer'),
-                                            ('erik.example@outlook.com', '+43 664 5678901', 'nutzer');
+                                            ('alice.muster@htl.at', null, 'nutzer'),
+                                            ('bob.beispiel@htl.at', null, 'nutzer'),
+                                            ('charlie.test@htl.at', null, 'nutzer'),
+                                            ('diana.demo@gmail.com', null, 'nutzer'),
+                                            ('erik.example@outlook.com', null, 'nutzer');
 
 -- -------------------------
 -- Mitarbeiter
@@ -118,7 +118,7 @@ INSERT INTO benutzer (mail, tel, rolle) VALUES
 
 -- Admin Mitarbeiter
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('admin@teamwels.at', '+43 664 9990001', 'mitarbeiter');
+    ('admin@teamwels.at', null, 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
@@ -133,7 +133,7 @@ INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilun
 
 -- IT Support Mitarbeiter
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('lisa.tech@teamwels.at', '+43 664 9990002', 'mitarbeiter');
+    ('lisa.tech@teamwels.at', null, 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
@@ -148,7 +148,7 @@ INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilun
 
 -- Facility Management Mitarbeiter
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('thomas.bau@teamwels.at', '+43 664 9990003', 'mitarbeiter');
+    ('thomas.bau@teamwels.at', null, 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
@@ -163,7 +163,7 @@ INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilun
 
 -- Service Desk Mitarbeiterin
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('anna.service@teamwels.at', '+43 664 9990004', 'mitarbeiter');
+    ('anna.service@teamwels.at', null, 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
@@ -178,7 +178,7 @@ INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilun
 
 -- Inaktiver Mitarbeiter (zum Testen)
 INSERT INTO benutzer (mail, tel, rolle) VALUES
-    ('ex.worker@teamwels.at', '+43 664 9990099', 'mitarbeiter');
+    ('ex.worker@teamwels.at', null, 'mitarbeiter');
 
 INSERT INTO mitarbeiter (id, benutzername, passwort, vorname, nachname, abteilung, aktiv) VALUES
     (
