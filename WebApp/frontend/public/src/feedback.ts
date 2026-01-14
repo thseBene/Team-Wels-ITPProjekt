@@ -348,12 +348,14 @@ function showThankYouMessage() {
   }
 }
 function getBasePath(): string {
-    const isGitHubPages = window. location.hostname.includes('github.io');
+  console.log("testBasePath");
+    let isGitHubPages = window.location.hostname.includes('github.io');
     return isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
 }
 
 function buildUrl(relativePath: string): string {
-    const base = getBasePath();
+    let base = getBasePath();
+    console.log("Base path:", base);
     return base + relativePath;
 }
 
