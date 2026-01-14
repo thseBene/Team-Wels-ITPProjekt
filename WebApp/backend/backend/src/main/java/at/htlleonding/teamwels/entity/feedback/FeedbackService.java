@@ -1,5 +1,6 @@
 package at.htlleonding.teamwels.entity.feedback;
 
+import at.htlleonding.teamwels.entity.activitylog.ActivityLogService;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
 import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
@@ -35,6 +36,9 @@ public class FeedbackService {
     @Inject
     SmsService smsService;
 
+    @Inject
+    ActivityLogService activityLogService;
+
     // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
     // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
     // @Inject
@@ -57,17 +61,21 @@ public class FeedbackService {
         feedback.createdAt = now;
         feedback.updatedAt = now;
 
+
+        activityLogService.logFeedbackCreated(feedback.id, feedback.subject, feedback.user.id);
         feedbackRepo.persist(feedback);
 
         if (feedback.user != null){
             try {
                 if (feedback.user.mail != null){
+                    activityLogService.logNotificationEmailSent(feedback.id, feedback.subject, feedback.user.mail, "Feedback erstellt");
                     sendEmail(feedback);
                 }
                 if (feedback.user.tel != null){
                     String body = String.format("\"Ihr Feedback '%s' ist bei uns angekommen:\\n\" +\n" +
                             "                        \"Mit freundlichen Grüßen\\n\" +\n" +
                             "                        \"Ihr Team Wels\",", feedback.subject);
+                    activityLogService.logNotificationSmsSent(feedback.id, feedback.subject, feedback.user.tel,"Feedback erstellt");
                     smsService.sendSms(feedback.user.tel, body);
                 }
             }
@@ -112,6 +120,8 @@ public class FeedbackService {
             throw new NotFoundException("Ungültiger Status: " + statusValue);
         }
 
+
+
         feedback.updatedAt = Instant.now();
 
         // Benachrichtigung erstellen, wenn Status sich geändert hat
@@ -135,7 +145,7 @@ public class FeedbackService {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
         }
-
+        activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
         return feedback;
     }
 

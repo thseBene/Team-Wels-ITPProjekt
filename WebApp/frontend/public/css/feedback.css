@@ -340,6 +340,7 @@ i {
     font-style: normal;
     font-weight: 700;
     position: relative;
+    cursor: pointer;
     left: 90%;
 }   
 #inputContact {
@@ -362,11 +363,11 @@ i {
     font-size: var(--xxl);
     margin-top: 5vh;
     padding-left: .5%;
-    color: var(--Acent-Text, #404040);
+    color: var(--Acent-Text, #606060);
     font-family: Inter;
     font-size: 22px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 45 0;
     line-height: 87.645%; /* 21.035px */
 
 }

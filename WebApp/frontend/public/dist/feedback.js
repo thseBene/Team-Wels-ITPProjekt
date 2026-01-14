@@ -179,7 +179,7 @@ function sendContactInfo(feedback) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
         // showThankYouMessage();
-        window.location.href = "../../../../index.html";
+        window.location.href = "/index.html";
     });
 }
 // send Feedback to Server
