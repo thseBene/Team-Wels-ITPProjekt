@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+        <script>
+    (function() {
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+        document.write('<base href="' + basePath + '">');
+    })();
+</script>
     <link rel="icon" type="image/x-icon" href="./WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg">
     <link rel="stylesheet" href="WebApp/frontend/public/css/variables.css">
     <link rel="stylesheet" href="WebApp/frontend/public/css/navigation.css">
