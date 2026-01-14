@@ -209,9 +209,16 @@ try {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
 
-  console.log("Es kracht");
+  console.log("Feedback erfolgreich versendet");
     // showThankYouMessage();
+<<<<<<< HEAD
     redirectToDashboard();
+=======
+    // Redirect to home page (works on both local server and GitHub Pages)
+    setTimeout(() => {
+      window.location.href = window.location.origin + window.location.pathname.replace(/feedback\.html/, "index.html");
+    }, 1500);
+>>>>>>> 3adf5237812d5204ed61e5012d1ff11b4c133dd7
 }
 
 // send Feedback to Server

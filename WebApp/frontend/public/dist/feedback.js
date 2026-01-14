@@ -178,7 +178,7 @@ function sendContactInfo(feedback) {
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
-        console.log("Es kracht");
+        console.log("Feedback erfolgreich versendet");
         // showThankYouMessage();
         redirectToDashboard();
     });
