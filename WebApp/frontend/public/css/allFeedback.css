@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @font-face {
     font-family: Inter;
     src: url(../assets/font/Inter-VariableFont_opsz\,wght.ttf);
@@ -30,4 +31,21 @@
     font-size: var(--md);
     background-color: var(--colorLight);
     cursor: pointer;
+=======
+* {
+    font-family: var(--ff);
+}
+#container {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    box-sizing: border-box;
+    padding: 2%;
+}
+.feedbackItem {
+    background-color:rgba(0, 0, 0, 0.086);
+    margin: 2%;
+    padding: 4%;
+    border-radius: 12px;
+>>>>>>> Stashed changes
 }

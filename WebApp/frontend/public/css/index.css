@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @import url('variables.css');
 body{
   font-family: var(--ff);  
@@ -129,3 +130,113 @@ hr{
     margin-top: 5%;
 }
 
+=======
+body{
+  font-family: var(--ff);  
+}
+
+
+#blob1{
+    fill: var(--colorLight);
+    position: absolute;
+    left: 65%;
+    top: 18%;
+    z-index: 3;
+}
+#blob2{
+    fill: var(--colorMedium);
+    position: absolute;
+    left: 60%;
+    top: 35%;
+    z-index: 2;
+}
+#blob3{
+    fill: var(--colorDark);
+    position: absolute;
+    left: 65%;
+    top: 25%;
+
+}
+
+
+
+#character{
+position: absolute;
+top: 20%;
+left: 60%;
+z-index: 4;
+scale: .7;
+}
+
+#greeting{
+        background: var(--gradientMid);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        display: inline-block;
+        font-size: var(--xxl);
+        width: 45%;
+        line-height: 0.9;
+        padding-bottom: 0.12em;
+        overflow: visible;
+        position: absolute;
+        top: 15%;
+        left: 5%;
+}
+
+#buttonWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 20%;
+    justify-content: space-evenly;
+     position: absolute;
+     top: 40%;
+    left: 5%;
+
+}
+
+#buttonWrapper > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 90%;
+   
+    padding: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 17px;
+
+    font-weight: bold;
+}
+#buttonWrapper > a:first-child{
+    background-color: white;
+    color: var(--fwhite);
+    background: var(--gradientMid);
+}
+
+#buttonWrapper > a:last-child{
+   
+    background: var(--light);
+    color: var(--fdark);
+    border: 2px solid transparent;
+    border-image: none;
+    border-radius: 17px;
+    background: linear-gradient(var(--light), var(--light)) padding-box,
+                linear-gradient(90deg, var(--colorLight), var(--colorDark)) border-box;
+    -webkit-background-clip: padding-box, border-box;
+    background-clip: padding-box, border-box;
+}
+
+#blank{
+    background-color: grey;
+    height: 50%;
+    width: 75%;
+    position: relative;
+    top: 10%;
+
+}
+>>>>>>> Stashed changes
