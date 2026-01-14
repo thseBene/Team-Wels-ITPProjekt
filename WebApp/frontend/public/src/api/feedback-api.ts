@@ -30,6 +30,7 @@ export async function deleteByID(id: number): Promise<void> {
     if (!res.ok) throw new Error(`Fehler beim Löschen: ${res.status}`);
 }
 
+
 export async function employeeLogin(benutzername: string, passwort: string): Promise<void> {
     const res = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
@@ -44,5 +45,5 @@ export async function employeeLogin(benutzername: string, passwort: string): Pro
     
     const data = await res.json();
     console.log('Daten ', data);
-  
+
 }

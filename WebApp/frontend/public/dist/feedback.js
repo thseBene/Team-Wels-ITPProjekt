@@ -179,8 +179,9 @@ function sendContactInfo(feedback) {
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
+        console.log("Es kracht");
         // showThankYouMessage();
-        window.location.href = "/index.html";
+        window.location.href = "../../../../index.html";
     });
 }
 // send Feedback to Server
@@ -302,7 +303,7 @@ function showThankYouMessage() {
       <div id="backToHome">Zurück zur Startseite</div>
     `;
         (_a = document.getElementById("backToHome")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            window.location.href = "../index.html";
+            window.location.href = "../../../../index.html";
         });
     }
 }
