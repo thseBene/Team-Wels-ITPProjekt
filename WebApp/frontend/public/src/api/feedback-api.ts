@@ -30,34 +30,20 @@ export async function deleteByID(id: number): Promise<void> {
     if (!res.ok) throw new Error(`Fehler beim Löschen: ${res.status}`);
 }
 
-<<<<<<< Updated upstream
+
 export async function employeeLogin(benutzername: string, passwort: string): Promise<void> {
-    const res = await fetch('http://localhost:8080/api/auth/login', {
-=======
-export async function employeeLogin(username: string, password: string): Promise<boolean> {
     const res = await fetch('http://localhost:8080/api/login', {
->>>>>>> Stashed changes
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-<<<<<<< Updated upstream
         body: JSON.stringify({ benutzername, passwort }),
-=======
-        body: JSON.stringify({ username, password }),
->>>>>>> Stashed changes
     });
 
     console.log(res);
     if (!res.ok) throw new Error(`Fehler beim Login: ${res.status}`);
-<<<<<<< Updated upstream
     
     const data = await res.json();
     console.log('Daten ', data);
-  
-=======
 
-    const data = await res.json();
-    return data.success;
->>>>>>> Stashed changes
 }
