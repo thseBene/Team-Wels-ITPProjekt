@@ -345,7 +345,8 @@ function showThankYouMessage() {
     document.getElementById("backToHome")?.addEventListener("click", () => {
       const isGitHubPages = window.location.hostname.includes('github.io');
       const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
-      window.location.href = basePath + 'index.html';
+      console.log(basePath + 'index.html' + " " + isGitHubPages);
+      //window.location.href = basePath + 'index.html';
     });
   }
 }
