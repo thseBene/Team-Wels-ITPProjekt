@@ -300,14 +300,16 @@ function showThankYouMessage() {
       <div id="backToHome">Zurück zur Startseite</div>
     `;
         (_a = document.getElementById("backToHome")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            window.location.href = "../../../../index.html";
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+            console.log(basePath + 'index.html' + " " + isGitHubPages);
+            //window.location.href = basePath + 'index.html';
         });
     }
 }
 function getBasePath() {
-    console.log("testBasePath");
-    let isGitHubPages = window.location.hostname.includes('github.io');
-    return isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    const baseTag = document.querySelector('base');
+    return baseTag ? baseTag.getAttribute('href') || '/' : '/';
 }
 function buildUrl(relativePath) {
     let base = getBasePath();
@@ -320,7 +322,7 @@ function redirectToDashboard() {
 }
 // After successful form submission
 function redirectToHome() {
-    const isGitHubPages = window.location.hostname.includes('github.io');
-    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    const baseTag = document.querySelector('base');
+    const basePath = baseTag ? baseTag.getAttribute('href') || '/' : '/';
     window.location.href = basePath + 'index.html';
 }
