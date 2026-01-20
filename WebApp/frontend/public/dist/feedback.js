@@ -293,5 +293,5 @@ function redirectToHome() {
     const isGitHubPages = window.location.hostname.includes('github.io');
     const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
     console.log(basePath + 'index.html' + " " + isGitHubPages);
-    //window.location.href = basePath + 'index.html';
+    window.location.href = basePath;
 }
