@@ -210,7 +210,6 @@ async function sendContactInfo(feedback: { subject: string; description: string;
   }
 
   console.log("Feedback erfolgreich versendet");
-  // showThankYouMessage();
   redirectToHome();
 
 }
@@ -333,43 +332,11 @@ function isValidPhoneNumber(phone: string): boolean {
   const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
   return phoneRegex.test(phone);
 }
-function showThankYouMessage() {
-  const mayorText = document.getElementById("mayorText");
-  const contactSection = document.getElementById("contactSection");
-  contactSection?.remove();
-  if (mayorText) {
-    mayorText.innerHTML = `
-      <p>Vielen Dank für Ihr Feedback!</p>
-      <div id="backToHome">Zurück zur Startseite</div>
-    `;
-    document.getElementById("backToHome")?.addEventListener("click", () => {
-      const isGitHubPages = window.location.hostname.includes('github.io');
-      const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
-      console.log(basePath + 'index.html' + " " + isGitHubPages);
-      //window.location.href = basePath + 'index.html';
-    });
-  }
-}
-function getBasePath(): string {
-  const baseTag = document.querySelector('base');
-  return baseTag ? baseTag.getAttribute('href') || '/' : '/';
-}
 
-function buildUrl(relativePath: string): string {
-  let base = getBasePath();
-  console.log("Base path:", base);
-  return base + relativePath;
-}
-
-// Now when you redirect:
-function redirectToDashboard() {
-
-  console.log(buildUrl('index.html'));
-
-}
 // After successful form submission
 function redirectToHome() {
-  const baseTag = document.querySelector('base');
-  const basePath = baseTag ? baseTag.getAttribute('href') || '/' : '/';
-  window.location.href = basePath + 'index.html';
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    console.log(basePath + 'index.html' + " " + isGitHubPages);
+    //window.location.href = basePath + 'index.html';
 }

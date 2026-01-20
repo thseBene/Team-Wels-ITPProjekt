@@ -177,7 +177,6 @@ function sendContactInfo(feedback) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
         console.log("Feedback erfolgreich versendet");
-        // showThankYouMessage();
         redirectToHome();
     });
 }
@@ -289,40 +288,10 @@ function isValidPhoneNumber(phone) {
     const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
     return phoneRegex.test(phone);
 }
-function showThankYouMessage() {
-    var _a;
-    const mayorText = document.getElementById("mayorText");
-    const contactSection = document.getElementById("contactSection");
-    contactSection === null || contactSection === void 0 ? void 0 : contactSection.remove();
-    if (mayorText) {
-        mayorText.innerHTML = `
-      <p>Vielen Dank für Ihr Feedback!</p>
-      <div id="backToHome">Zurück zur Startseite</div>
-    `;
-        (_a = document.getElementById("backToHome")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            const isGitHubPages = window.location.hostname.includes('github.io');
-            const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
-            console.log(basePath + 'index.html' + " " + isGitHubPages);
-            //window.location.href = basePath + 'index.html';
-        });
-    }
-}
-function getBasePath() {
-    const baseTag = document.querySelector('base');
-    return baseTag ? baseTag.getAttribute('href') || '/' : '/';
-}
-function buildUrl(relativePath) {
-    let base = getBasePath();
-    console.log("Base path:", base);
-    return base + relativePath;
-}
-// Now when you redirect:
-function redirectToDashboard() {
-    console.log(buildUrl('index.html'));
-}
 // After successful form submission
 function redirectToHome() {
-    const baseTag = document.querySelector('base');
-    const basePath = baseTag ? baseTag.getAttribute('href') || '/' : '/';
-    window.location.href = basePath + 'index.html';
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    console.log(basePath + 'index.html' + " " + isGitHubPages);
+    //window.location.href = basePath + 'index.html';
 }
