@@ -1,8 +1,8 @@
 name: Deploy GitHub Pages
 
-on:
+on: 
   push:
-    branches:
+    branches: 
       - main
       - frontend
 
@@ -11,12 +11,12 @@ permissions:
   pages: write
   id-token: write
 
-jobs:
+jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on:  ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    steps: 
+      - uses:  actions/checkout@v4
 
       - name: Decide output folder
         run: |
@@ -27,9 +27,9 @@ jobs:
           fi
 
       - name: Prepare output
-        run: |
+        run:  |
           mkdir -p $OUT
-          cp -r ./* $OUT
+          rsync -av --exclude='site' . / $OUT/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
