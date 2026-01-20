@@ -178,7 +178,7 @@ function sendContactInfo(feedback) {
         }
         console.log("Feedback erfolgreich versendet");
         // showThankYouMessage();
-        redirectToDashboard();
+        redirectToHome();
     });
 }
 // send Feedback to Server
@@ -274,7 +274,7 @@ function sendOnlyFeedback(feedback) {
             }
             const createdFeedback = yield fbResp.json().catch(() => null);
             console.log("Feedback erfolgreich gesendet. createdFeedback=", createdFeedback);
-            redirectToDashboard();
+            redirectToHome();
         }
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
@@ -317,4 +317,10 @@ function buildUrl(relativePath) {
 // Now when you redirect:
 function redirectToDashboard() {
     console.log(buildUrl('index.html'));
+}
+// After successful form submission
+function redirectToHome() {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    window.location.href = basePath + 'index.html';
 }
