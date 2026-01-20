@@ -343,14 +343,15 @@ function showThankYouMessage() {
       <div id="backToHome">Zurück zur Startseite</div>
     `;
     document.getElementById("backToHome")?.addEventListener("click", () => {
-      window.location.href = "../../../../index.html";
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+      window.location.href = basePath + 'index.html';
     });
   }
 }
 function getBasePath(): string {
-  console.log("testBasePath");
-  let isGitHubPages = window.location.hostname.includes('github.io');
-  return isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+  const baseTag = document.querySelector('base');
+  return baseTag ? baseTag.getAttribute('href') || '/' : '/';
 }
 
 function buildUrl(relativePath: string): string {
@@ -367,7 +368,7 @@ function redirectToDashboard() {
 }
 // After successful form submission
 function redirectToHome() {
-  const isGitHubPages = window.location.hostname.includes('github.io');
-  const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+  const baseTag = document.querySelector('base');
+  const basePath = baseTag ? baseTag.getAttribute('href') || '/' : '/';
   window.location.href = basePath + 'index.html';
 }
