@@ -1,3 +1,4 @@
+/* Log In Employee CSS */
 #loginHeader {
     color: var(--Blue, #55B9E1);
     font-family: Inter;
@@ -25,7 +26,6 @@
     box-shadow: 0 4px 16px rgba(0,0,0,.1);
     z-index: 11 ;
     box-sizing: border-box;
-
 }
 .loginInfo {
     color: #AEABAB;

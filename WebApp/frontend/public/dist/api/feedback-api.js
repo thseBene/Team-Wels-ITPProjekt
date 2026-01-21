@@ -58,7 +58,7 @@ export function employeeLogin(benutzername, passwort) {
 }
 export function getLogSystem() {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield fetch(`${baseUrl}/api/activityLog`, {
+        const res = yield fetch(`${baseUrl}/api/activitylog`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,6 +68,7 @@ export function getLogSystem() {
         if (!res.ok)
             throw new Error(`Fehler beim Abrufen der Logs: ${res.status}`);
         const data = yield res.json();
-        console.log('Logs ', data);
+        console.log('Log Daten ', data);
+        return data;
     });
 }

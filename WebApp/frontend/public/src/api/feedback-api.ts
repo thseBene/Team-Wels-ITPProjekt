@@ -3,6 +3,12 @@ export interface Feedback {
     subject: string;
     status: string;
 }
+export interface Activitylog {
+    id: number;
+    actionType: string;
+    details: string;
+    timestamp: string;
+}
 const baseUrl = "http://localhost:8080";
 
 // Holen aller Feedbacks
@@ -47,8 +53,8 @@ export async function employeeLogin(benutzername: string, passwort: string): Pro
     const data = await res.json();
     console.log('Daten ', data);
 }
-export async function getLogSystem() {
-    const res = await fetch(`${baseUrl}/api/activityLog`, {
+export async function getLogSystem(): Promise<Activitylog[]> {
+    const res = await fetch(`${baseUrl}/api/activitylog`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -59,5 +65,6 @@ export async function getLogSystem() {
     if (!res.ok) throw new Error(`Fehler beim Abrufen der Logs: ${res.status}`);
     
     const data = await res.json();
-    console.log('Logs ', data);
+    console.log('Log Daten ', data);
+    return data;
 }
