@@ -1,12 +1,12 @@
-package at.htlleonding.teamwels.entity.feedback;
+package at.htlleonding.teamwels.entity.feedback.services;
 
 import at.htlleonding.teamwels.entity.activitylog.ActivityLogService;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
-import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
+import at.htlleonding.teamwels.entity.feedback.FeedbackEntity;
+import at.htlleonding.teamwels.entity.feedback.FeedbackRepository;
+import at.htlleonding.teamwels.entity.feedback.Status;
 import at.htlleonding.teamwels.entity.notification.NotificationEntity;
-import io.quarkus.mailer.Mail;
-import io.quarkus.mailer.Mailer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,7 +16,6 @@ import org.eclipse.microprofile.context.ManagedExecutor;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 /**
  * Service-Layer für Feedback Business-Logik
@@ -33,10 +32,10 @@ public class FeedbackService {
     BenutzerRepository benutzerRepo;
 
     @Inject
-    Mailer mailer;
+    SmsService smsService;
 
     @Inject
-    SmsService smsService;
+    EmailService emailService;
 
     @Inject
     ActivityLogService activityLogService;
@@ -76,7 +75,7 @@ public class FeedbackService {
             try {
                 if (feedback.user.mail != null){
                     activityLogService.logNotificationEmailSent(feedback.id, feedback.subject, feedback.user.mail, "Feedback erstellt");
-                    sendEmail(feedback);
+                    emailService.sendEmail(feedback);
                 }
                 if (feedback.user.tel != null){
                     String body = String.format("\"Ihr Feedback '%s' ist bei uns angekommen:\\n\" +\n" +
@@ -136,7 +135,7 @@ public class FeedbackService {
 
             try {
                 if (feedback.user.mail != null){
-                    sendEmailUpdatedStatus(feedback, oldStatus);
+                    emailService.sendEmailUpdatedStatus(feedback, oldStatus);
                 }
                 if (feedback.user.tel != null){
                     String body = String.format("Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
@@ -234,37 +233,7 @@ public class FeedbackService {
         // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
     }
 
-    private void sendEmail(FeedbackEntity feedback) {
-        String subject = "Anliegen: " + feedback.subject;
-        String body = String.format(
-                "Sehr geehrte/r Benutzer,\n\n" +
-                        "Ihr Feedback '%s' ist bei uns angekommen:\n" +
-                        "Mit freundlichen Grüßen\n" +
-                        "Ihr Team Wels",
-                feedback.subject);
-        Mail mail = Mail.withText(feedback.user.mail, subject,body);
-        try {
-            mailer.send(mail);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
-        }
-    }
-    private void sendEmailUpdatedStatus(FeedbackEntity feedback, Status altStatus) {
-        String subject = "Anliegen: " + feedback.subject;
-        String body = String.format("Sehr geehrte/r Benutzer,\n\n" +
-                        "Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
-                        "Alter Status: %s → Neuer Status: %s\n\n" +
-                        "Mit freundlichen Grüßen\n" +
-                        "Ihr Team Wels",
-                feedback.subject, altStatus, feedback.status);
-        Mail mail = Mail.withText(feedback.user.mail, subject, body);
-        try {
-            mailer.send(mail);
-        } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Versenden der E-Mail", e);
-        }
-    }
+
     private void createNotificationNew(FeedbackEntity feedback){
         var benutzer = feedback.user;
         if (benutzer == null) return;

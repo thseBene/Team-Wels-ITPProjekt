@@ -16,7 +16,12 @@ services:
       - team-wels-network
 
   backend:
-    build: ./backend/backend
+    build:
+      context: ./backend/backend
+      dockerfile: Dockerfile
+      cache_from:
+      - webapp-backend:latest
+    image: webapp-backend:latest
     container_name: team-wels-backend
     ports:
       - "8080:8080"

@@ -16,3 +16,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/benutzer
 Content-Type: */*
 
+###
+
+POST http://localhost:8080/api/benutzer/verify-email?token=a86bc05c-926f-46e2-b0da-429de1278dac
+Content-Type: */*
