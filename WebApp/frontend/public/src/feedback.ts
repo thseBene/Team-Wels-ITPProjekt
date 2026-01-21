@@ -38,7 +38,7 @@ imageInput.addEventListener("change", () => {
     i.classList.add("fa-solid", "fa-circle-xmark");
     div.classList.add("preview-image");
     i.classList.add("remove-image");
-    
+
     img.src = URL.createObjectURL(file);
     div.appendChild(img);
     div.appendChild(i)
@@ -75,37 +75,37 @@ uploadForm.addEventListener("submit", async (e) => {
     formData.append("images", file);
   }
 
-  
+
 });
 
 
 // sets the caret at the beginning of the description field when focused or clicked
 function setAtBeginning() {
-    // remove accidental leading newlines from HTML formatting
-    descriptionField.value = descriptionField.value.replace(/^\n+/, '');
+  // remove accidental leading newlines from HTML formatting
+  descriptionField.value = descriptionField.value.replace(/^\n+/, '');
 
-    let initialized = false;
+  let initialized = false;
 
-    const moveCaretToStart = () => {
-        if (initialized) return; // only run once
-        // schedule after browser's default click/focus handling so our caret position wins
-        setTimeout(() => {
-            descriptionField.focus();
-            descriptionField.setSelectionRange(0, 0);
-        }, 0);
+  const moveCaretToStart = () => {
+    if (initialized) return; // only run once
+    // schedule after browser's default click/focus handling so our caret position wins
+    setTimeout(() => {
+      descriptionField.focus();
+      descriptionField.setSelectionRange(0, 0);
+    }, 0);
 
-        initialized = true;
-        descriptionField.removeEventListener('focus', moveCaretToStart);
-        descriptionField.removeEventListener('click', moveCaretToStart);
-    };
+    initialized = true;
+    descriptionField.removeEventListener('focus', moveCaretToStart);
+    descriptionField.removeEventListener('click', moveCaretToStart);
+  };
 
-    descriptionField.addEventListener('focus', moveCaretToStart);
-    descriptionField.addEventListener('click', moveCaretToStart);
+  descriptionField.addEventListener('focus', moveCaretToStart);
+  descriptionField.addEventListener('click', moveCaretToStart);
 }
 
 
 // send contact info to server
-async function sendContactInfo(feedback: {subject: string; description: string; type: string;}) {
+async function sendContactInfo(feedback: { subject: string; description: string; type: string; }) {
 
   console.log("Sende Kontaktinfo...");
   const errorMessageContact = document.getElementById("errorMessageContact");
@@ -124,19 +124,19 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
       errorMessageContact.textContent = "Bitte gültige E‑Mail-Adresse oder Telefonnummer eingeben.";
       errorMessageContact.style.display = "block";
     }
-    return; 
+    return;
   }
   errorMessageContact!.style.display = "none";
 
   const contactType = isEmail ? "mail" : isPhone ? "tel" : "unknown";
-  
+
   console.log("Kontaktinfo Typ:", contactType);
 
 
   contactInfo.replace(/\s+/g, '');
   let userId: number | null = null;
 
-  
+
   // optional: send contact info to server
   try {
     const normalized = contactInfo.replace(/\s+/g, '');
@@ -162,15 +162,14 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
     } else {
       try {
         const created = await response.json(); // falls Backend die Entity im Body zurückgibt
-          console.log("Benutzer erstellt (body):", created);
-          if (created && typeof created.id !== "undefined") {
-            userId = Number(created.id);
-          }
+        console.log("Benutzer erstellt (body):", created);
+        if (created && typeof created.id !== "undefined") {
+          userId = Number(created.id);
+        }
 
-          setTimeout(() => {
-          }, 5000);
-        
-      }catch (error) {
+
+
+      } catch (error) {
         console.log("Error beim Parsen der Antwort:", error);
 
       }
@@ -182,16 +181,16 @@ async function sendContactInfo(feedback: {subject: string; description: string; 
   // falls die zuvor empfangene id als globale Variable (z.B. window.id) verfügbar ist, an das Feedback anhängen
 
 
-try {
-  const feedbackPayload: any = {
-        subject: feedback.subject,
-        description: feedback.description,
-        type: feedback.type,
-        status: "Neu"
-      };
-      if (userId != null) {
-        feedbackPayload.userId = userId;
-      }
+  try {
+    const feedbackPayload: any = {
+      subject: feedback.subject,
+      description: feedback.description,
+      type: feedback.type,
+      status: "Neu"
+    };
+    if (userId != null) {
+      feedbackPayload.userId = userId;
+    }
     const fbResp = await fetch("http://localhost:8080/api/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -205,13 +204,14 @@ try {
 
     const createdFeedback = await fbResp.json().catch(() => null);
     console.log("Feedback erfolgreich gesendet. userId=", userId, "createdFeedback=", createdFeedback);
+
   } catch (err) {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
 
-  console.log("Es kracht");
-    // showThankYouMessage();
-    window.location.href = "/Team-Wels-ITPProjekt/index.html";
+  console.log("Feedback erfolgreich versendet");
+  redirectToHome();
+
 }
 
 // send Feedback to Server
@@ -220,14 +220,14 @@ feedbackContainer.addEventListener("submit", sendFeedback);
 async function sendFeedback(event: Event) {
   event.preventDefault();
   const betreff = headerField.value;
-  const description = descriptionField.value; 
+  const description = descriptionField.value;
   const feedback = {
-    subject: betreff, 
+    subject: betreff,
     description: description,
     type: "Beschwerde"
   };
- 
-  
+
+
 
   document.getElementById("gridContainer")!.style.display = "none";
 
@@ -291,18 +291,18 @@ async function sendFeedback(event: Event) {
 
   document.getElementById("submitContactButton")?.addEventListener("click", () => sendContactInfo(feedback));
 
- 
+
 
 }
-async function sendOnlyFeedback(feedback: {subject: string; description: string; type: string;}) {
+async function sendOnlyFeedback(feedback: { subject: string; description: string; type: string; }) {
   try {
-  const feedbackPayload: any = {
-        subject: feedback.subject,
-        description: feedback.description,
-        type: feedback.type,
-        status: "Neu"
-      };
-      
+    const feedbackPayload: any = {
+      subject: feedback.subject,
+      description: feedback.description,
+      type: feedback.type,
+      status: "Neu"
+    };
+
     const fbResp = await fetch("http://localhost:8080/api/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -316,7 +316,7 @@ async function sendOnlyFeedback(feedback: {subject: string; description: string;
 
     const createdFeedback = await fbResp.json().catch(() => null);
     console.log("Feedback erfolgreich gesendet. createdFeedback=", createdFeedback);
-    showThankYouMessage();
+    redirectToHome();
   } catch (err) {
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
@@ -332,17 +332,11 @@ function isValidPhoneNumber(phone: string): boolean {
   const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
   return phoneRegex.test(phone);
 }
-function showThankYouMessage() {
-  const mayorText = document.getElementById("mayorText");
-  const contactSection = document.getElementById("contactSection");
-  contactSection?.remove();
-  if (mayorText) {
-    mayorText.innerHTML = `
-      <p>Vielen Dank für Ihr Feedback!</p>
-      <div id="backToHome">Zurück zur Startseite</div>
-    `;
-    document.getElementById("backToHome")?.addEventListener("click", () => {
-      window.location.href = "../../../../index.html";
-    });
-  }
+
+// After successful form submission
+function redirectToHome() {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    console.log(basePath + 'index.html' + " " + isGitHubPages);
+    window.location.href = basePath;
 }

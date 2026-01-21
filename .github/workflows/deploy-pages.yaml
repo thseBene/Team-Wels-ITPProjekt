@@ -1,35 +1,32 @@
 name: Deploy GitHub Pages
 
-on:
+on:  
   push:
-    branches:
+    branches:  
       - main
       - frontend
 
 permissions:
-  contents: read
+  contents:  read
   pages: write
   id-token: write
 
-jobs:
-  build:
+jobs:  
+  deploy:
     runs-on: ubuntu-latest
+    
+    steps:  
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Decide output folder
-        run: |
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "OUT=site" >> $GITHUB_ENV
-          else
-            echo "OUT=site/frontend" >> $GITHUB_ENV
-          fi
-
-      - name: Prepare output
-        run: |
-          mkdir -p $OUT
-          cp -r ./* $OUT
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses:  actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

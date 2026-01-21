@@ -141,8 +141,6 @@ function sendContactInfo(feedback) {
                     if (created && typeof created.id !== "undefined") {
                         userId = Number(created.id);
                     }
-                    setTimeout(() => {
-                    }, 5000);
                 }
                 catch (error) {
                     console.log("Error beim Parsen der Antwort:", error);
@@ -178,9 +176,8 @@ function sendContactInfo(feedback) {
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
-        console.log("Es kracht");
-        // showThankYouMessage();
-        window.location.href = "/Team-Wels-ITPProjekt/index.html";
+        console.log("Feedback erfolgreich versendet");
+        redirectToHome();
     });
 }
 // send Feedback to Server
@@ -276,7 +273,7 @@ function sendOnlyFeedback(feedback) {
             }
             const createdFeedback = yield fbResp.json().catch(() => null);
             console.log("Feedback erfolgreich gesendet. createdFeedback=", createdFeedback);
-            showThankYouMessage();
+            redirectToHome();
         }
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
@@ -291,18 +288,10 @@ function isValidPhoneNumber(phone) {
     const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
     return phoneRegex.test(phone);
 }
-function showThankYouMessage() {
-    var _a;
-    const mayorText = document.getElementById("mayorText");
-    const contactSection = document.getElementById("contactSection");
-    contactSection === null || contactSection === void 0 ? void 0 : contactSection.remove();
-    if (mayorText) {
-        mayorText.innerHTML = `
-      <p>Vielen Dank für Ihr Feedback!</p>
-      <div id="backToHome">Zurück zur Startseite</div>
-    `;
-        (_a = document.getElementById("backToHome")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-            window.location.href = "../../../../index.html";
-        });
-    }
+// After successful form submission
+function redirectToHome() {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/Team-Wels-ITPProjekt/' : '/';
+    console.log(basePath + 'index.html' + " " + isGitHubPages);
+    window.location.href = basePath;
 }

@@ -1,4 +1,4 @@
-import { getAllFeedback } from "./api/feedback-api.js";
+import { getAllFeedback, getLogSystem } from "./api/feedback-api.js";
 import "./components/FeedbackView.js";
 
 async function renderFeedbackList() {
@@ -19,4 +19,13 @@ async function renderFeedbackList() {
 }
 
 // initial render
-renderFeedbackList();
+// renderFeedbackList();
+
+// logging System
+async function logFeedbackSystem() {
+      const container = document.getElementById("container");
+    if (!container) return;
+
+    const logList = await getLogSystem();
+}
+logFeedbackSystem();

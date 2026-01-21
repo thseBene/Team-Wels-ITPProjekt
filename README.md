@@ -1,210 +1,197 @@
-<<<<<<< Updated upstream
-# Team-Wels-ITPProjekt
+# Team Wels – Bürgerbeteiligungs-System 🏛️
 
-<!-- Logo -->
 <p align="center">
-  <img src="logo.svg" alt="Team-Wels-ITPProjekt Logo" width="200"/>
+  <img src="./WebApp/frontend/public/assets/images/RZ-Wels-Logo-schwarz.svg" alt="Team-Wels Logo" width="200"/>
 </p>
 
-## Kurzbeschreibung
+<p align="center">
+  <strong>Digitale Bürgerpartizipation für die Stadt Wels</strong><br/>
+  Ein modernes Feedback-Management-System für Lob, Beschwerden und Anliegen von Bürgern
+</p>
 
-Willkommen zum **Lob- und Beschwerdesystem** für die Stadt Wels! Dieses Projekt wurde im Rahmen des ITP-Kurses entwickelt und ermöglicht Bürgern, Feedback, Lob und Beschwerden an die Stadtverwaltung zu übermitteln. Das System bietet eine moderne Web-Oberfläche mit dem Slogan: *„Deine Stadt. Deine Meinung."*
+---
 
-## Kernpunkte & Features
+## 🌐 Live Demo
 
-- **Feedback-System**: Bürger können Lob, Beschwerden und Anliegen an die Stadt senden
-- **Kategorisierung**: Feedback kann nach Themen und Kategorien geordnet werden
-- **Statusverfolgung**: Feedback durchläuft verschiedene Status (z.B. offen, in Bearbeitung, erledigt)
-- **Benutzerprofile**: Angemeldete Nutzer können ihre eingereichten Anliegen verfolgen
-- **Modularer Aufbau**:
-  - `WebApp/frontend/` — TypeScript-basiertes Frontend
-  - `WebApp/backend/` — Quarkus-basiertes Java-Backend mit PostgreSQL
-  - `Projekt-Doku/` — Präsentation (reveal.js) und Projektunterlagen
+**👉 [Live Website](https://benediktlehner.github.io/Team-Wels-ITPProjekt)**
 
-## Technologie-Stack
+**📊 [Projekt-Dokumentation (Präsentation)](https://benediktlehner.github.io/Team-Wels-ITPProjekt/revealjs)**
 
-| Komponente | Technologie |
-|------------|-------------|
-| Backend | Quarkus (Java 17), Hibernate ORM mit Panache |
-| Datenbank | PostgreSQL 16 |
-| Frontend | TypeScript, HTML5, CSS3 |
-| Containerisierung | Docker, Docker Compose |
-| Präsentation | reveal.js |
-| Diagramme | PlantUML |
+**📋 [Miro-Board (Projektplanung)](https://miro.com/app/board/uXjVJ5z-XVY=/?share_link_id=979235064816)**
 
-## Schnellstart
+---
+
+## 🎯 Über das Projekt
+
+Das **Team Wels Bürgerbeteiligungs-System** ist eine vollständige Web-Applikation, die es Bürgern ermöglicht, Feedback, Lob und Beschwerden digital an die Stadtverwaltung Wels zu übermitteln.  Das System bietet eine transparente Statusverfolgung, automatisierte Benachrichtigungen und ein umfassendes Verwaltungs-Dashboard für Mitarbeiter.
+
+### ✨ Hauptfeatures
+
+#### Für Bürger 👥
+- **Einfache Feedback-Einreichung** per E-Mail oder Telefon
+- **Kategorisierung** nach Themen (z.B. Infrastruktur, Umwelt, Verwaltung)
+- **Statusverfolgung** in Echtzeit (Offen, In Bearbeitung, Erledigt, Abgelehnt)
+- **Automatische Benachrichtigungen** per E-Mail und SMS über Statusänderungen
+- **Anonyme oder authentifizierte** Einreichung möglich
+
+#### Für Mitarbeiter 🏢
+- **Admin-Dashboard** zur Verwaltung aller Feedbacks
+- **Aktivitätsprotokoll** zur Nachverfolgung aller Änderungen
+- **Statusmanagement** mit automatischer Benachrichtigung
+- **Benutzer- und Benachrichtigungsverwaltung**
+- **Filterbare Übersichten** nach Mitarbeiter, Feedback-Typ und Zeitraum
+
+---
+
+## 🏗️ Technologie-Stack
+
+### Backend
+| Technologie | Version | Beschreibung |
+|------------|---------|--------------|
+| **Quarkus** | 3.28.4 | Supersonic Subatomic Java Framework |
+| **Java** | 19+ | Programmiersprache |
+| **Hibernate ORM Panache** | - | Vereinfachte Datenbankabstraktion |
+| **PostgreSQL** | 16 Alpine | Relationale Datenbank |
+| **Quarkus Mailer** | - | E-Mail-Versand |
+| **Twilio SDK** | - | SMS-Benachrichtigungen |
+
+### Frontend
+- **TypeScript** – Typsichere Webentwicklung
+- **HTML5 / CSS3** – Modernes Webdesign mit kooperativem Design der Stadt Wels
+- **Vanilla JS** – Keine unnötigen Dependencies
+
+### DevOps & Tools
+- **Docker & Docker Compose** – Containerisierung
+- **Maven** – Build-Management
+- **reveal.js** – Präsentations-Framework
+- **PlantUML** – Diagrammerstellung
+- **GitHub Pages** – Hosting der Präsentation
+
+---
+
+## 🚀 Schnellstart
 
 ### Voraussetzungen
 
-- Docker & Docker Compose
-- Java 17+ (für lokale Backend-Entwicklung)
-- Node.js (für Frontend und Präsentation)
+- **Docker & Docker Compose**
+- **Git**
 
-### 1. Repository klonen
+### 1️⃣ Repository klonen
 
 ```bash
-git clone https://github.com/thseBene/Team-Wels-ITPProjekt.git
+git clone https://github.com/BenediktLehner/Team-Wels-ITPProjekt.git
 cd Team-Wels-ITPProjekt
 ```
 
-### 2. Datenbank mit Docker starten
+### 2️⃣ Mit Docker Compose starten
 
 ```bash
 cd WebApp
 docker-compose up -d
 ```
 
-Die PostgreSQL-Datenbank ist nun unter `localhost:5432` erreichbar:
-- Datenbank: `teamwels`
-- Benutzer: `teamwels`
-- Passwort: `teamwels`
+Das startet:
+- **PostgreSQL** auf `localhost:5432`
+- **Quarkus Backend** auf `localhost:8080`
 
-### 3. Backend (Quarkus) starten
+### 3️⃣ Frontend öffnen
 
+Öffne `index.html` im Browser oder nutze:
 ```bash
-cd WebApp/backend/backend
-./mvnw compile quarkus:dev
-# oder auf Windows:
-# mvnw.cmd compile quarkus:dev
+npx serve . 
 ```
 
-Das Backend ist unter [http://localhost:8080](http://localhost:8080) erreichbar.  
-Dev UI: [http://localhost:8080/q/dev/](http://localhost:8080/q/dev/)
+---
 
-### 4. Frontend öffnen
-
-Öffne `WebApp/frontend/public/index.html` im Browser.
-
-### 5. Präsentation lokal anzeigen
-
-```bash
-cd Projekt-Doku
-npx serve .
-# oder
-npx live-server .
-```
-
-## Projektstruktur
+## 📂 Projektstruktur
 
 ```
 Team-Wels-ITPProjekt/
-├── README.md                    # Diese Datei
-├── logo.svg                     # Projekt-Logo
-├── WebApp/
-│   ├── docker-compose.yml       # PostgreSQL-Datenbank-Setup
-│   ├── backend/
-│   │   └── backend/             # Quarkus-Backend
-│   │       ├── src/main/java/   # Java-Quellcode (Entities, Resources, Services)
-│   │       └── pom.xml          # Maven-Konfiguration
-│   └── frontend/
-│       └── public/              # Frontend (HTML, CSS, TypeScript)
-│           ├── index.html       # Startseite
-│           └── html/            # Weitere Seiten (Feedback, Profil, etc.)
-├── Projekt-Doku/                # Präsentation (reveal.js)
-├── Organisatorisches/           # Projektantrag, Pitch
-├── plantUML/                    # ERD und andere Diagramme
-├── Logo/                        # Logo-Dateien (verschiedene Formate)
-├── Farbthema/                   # Design-Farbschema
-└── How to work.txt              # Team-Arbeitsanleitung (Git, Scrum, Clockify)
+├── 📄 README.md                           # Diese Datei
+├── 🎨 logo.svg                            # Projekt-Logo
+├── 🌐 index.html                          # Hauptanwendung
+├── 📊 revealjs.html                       # Präsentation
+│
+├── 🖥️ WebApp/
+│   ├── 🐳 docker-compose.yml              # PostgreSQL & Backend Container
+│   ├── backend/backend/
+│   │   ├── Dockerfile                     # Backend Container Image
+│   │   ├── src/main/java/                 # Java Quellcode
+│   │   │   └── at/htlleonding/teamwels/
+│   │   │       └── entity/                # Entities & Resources
+│   │   └── pom.xml                        # Maven Dependencies
+│   └── frontend/public/                   # Frontend-Dateien
+│
+├── 📚 Projekt-Doku/                       # Dokumentation
+├── 📐 plantUML/                           # ERD und Diagramme
+└── 📝 How to work.txt                     # Team-Guidelines
 ```
 
-## Datenmodell
+---
+
+## 🗄️ Datenmodell
 
 Das System basiert auf folgenden Hauptentitäten:
 
-- **Benutzer**: Bürger, die Feedback einreichen
-- **Feedback**: Lob, Beschwerden oder Anliegen
-- **Thema**: Oberkategorie des Feedbacks
-- **Kategorie**: Detailkategorie für Feedback
-- **Status**: Aktueller Bearbeitungsstand
-- **Bild**: Optionale Bildanhänge zum Feedback
+| Entität | Beschreibung |
+|---------|--------------|
+| **Benutzer** | Bürger, die Feedback einreichen (E-Mail oder Telefon) |
+| **Feedback** | Eingereichte Anliegen mit Betreff, Beschreibung und Status |
+| **Mitarbeiter** | Stadtverwaltungsmitarbeiter mit Login und Admin-Rechten |
+| **Notification** | E-Mail- und SMS-Benachrichtigungen an Benutzer |
+| **ActivityLog** | Protokollierung aller Änderungen und Aktionen |
+| **Thema** | Oberkategorien (z.B. Verkehr, Umwelt) |
+| **Kategorie** | Detailkategorien für Feedbacks |
+| **Status** | Bearbeitungsstatus (OFFEN, IN_BEARBEITUNG, ERLEDIGT, ABGELEHNT) |
 
-Das vollständige ERD befindet sich in `plantUML/ERD.puml`.
+📊 **Entity-Relationship-Diagramm:** Siehe `plantUML/ERD.puml`
 
-## API-Endpunkte
+---
 
-Das Backend stellt REST-Endpunkte für folgende Ressourcen bereit:
+## 🔌 REST-API
 
-- `/feedback` — Feedback erstellen und abrufen
-- `/benutzer` — Benutzerverwaltung
-- `/notification` — Benachrichtigungen
+### Hauptendpunkte
 
-## Mitwirkende
+**Feedback**
+- `GET/POST /api/feedback` – Feedbacks abrufen/erstellen
+- `PUT/PATCH /api/feedback/{id}` – Feedback aktualisieren/Status ändern
 
-- Jakob Peneder (@jakobpeneder)
-- Simon Dokter (@simondokter)
-- Fabio (@NFFabio)
-- Weitere Mitwirkende: @thseBene (Repo-Owner)
+**Benutzer**
+- `GET /api/benutzer/mail/{mail}` – Benutzer per E-Mail finden
+- `GET /api/benutzer/tel/{tel}` – Benutzer per Telefon finden
 
-## Links & Ressourcen
+**Benachrichtigungen**
+- `GET /api/notifications` – Alle Benachrichtigungen
+- `GET /api/notifications/ungelesen` – Ungelesene Benachrichtigungen
 
-- [Miro-Board (Projektplanung)](https://miro.com/app/board/uXjVJ5z-XVY=/?share_link_id=979235064816)
-- [Quarkus](https://quarkus.io/)
-- [reveal.js](https://revealjs.com/)
-- [PostgreSQL](https://www.postgresql.org/)
-=======
-# Team-Wels-ITPProjekt
+**Mitarbeiter & Auth**
+- `POST /api/auth/login` – Mitarbeiter-Login
 
-<!-- Logo -->
+**Aktivitätsprotokolle**
+- `GET /api/activitylog` – Alle Logs mit optionalen Filtern
+
+---
+
+## 👥 Team
+
+**Projektleiter:**
+- **Benedikt Lehner** ([@BenediktLehner](https://github.com/BenediktLehner))
+
+**Entwickler-Team:**
+- **Jakob Peneder** ([@jakobpeneder](https://github.com/jakobpeneder))
+- **Simon Dokter** ([@simondokter](https://github.com/simondokter))
+- **Fabio Neundlinger** ([@NFFabio](https://github.com/NFFabio))
+
+---
+
+## 📚 Weitere Ressourcen
+
+- **Quarkus:** [https://quarkus.io/](https://quarkus.io/)
+- **PostgreSQL:** [https://www.postgresql.org/](https://www.postgresql.org/)
+- **Reveal.js:** [https://revealjs.com/](https://revealjs.com/)
+
+---
+
 <p align="center">
-  <img src="logo.svg" alt="Team-Wels-ITPProjekt Logo" width="200"/>
+  Entwickelt mit ❤️ von <strong>Team Wels</strong> für eine digitale Zukunft der Bürgerbeteiligung
 </p>
-
-## Kurzbeschreibung
-
-Willkommen zum Team-Wels ITP-Projekt. Dieses Repository enthält die Implementierung und Dokumentation unseres Projektteils im Rahmen des ITP-Kurses. Ziel ist es, eine Web-Anwendung mit Backend und Präsentationsmaterial bereitzustellen.
-
-## Kernpunkte & Features
-
-- Modularer Projektaufbau:
-  - WebApp/backend: Quarkus-basiertes Java-Backend
-  - Projekt-Doku: Präsentation (reveal.js) und Projektunterlagen
-- CI/CD & Dev-Setup: Hinweise und Startskripte im jeweiligen Unterordner
-- Ziel: Prototyp einer datengetriebenen Webanwendung mit sauberer Dokumentation
-
-## Schnellstart
-
-1. Repository klonen:
-
-```bash
-git clone https://github.com/thseBene/Team-Wels-ITPProjekt.git
-cd Team-Wels-ITPProjekt
-```
-
-2. Backend (Quarkus) lokal starten:
-
-```bash
-cd WebApp/backend
-./mvnw compile quarkus:dev
-# or on Windows
-# mvnw.cmd compile quarkus:dev
-```
-
-3. Präsentation lokal anzeigen:
-
-```bash
-cd Projekt-Doku
-npx serve .
-# or
-npx live-server .
-```
-
-## Projektstruktur (Kurz)
-
-- README.md — Diese Datei
-- Projekt-Doku/ — Präsentationsmaterial (reveal.js)
-- WebApp/backend/ — Quarkus-Backend, Build- und Run-Anleitung
-
-## Mitwirkende
-
-- Jakob Peneder (@jakobpeneder)
-- Simon Dokter (@simondokter)
-- Fabio (@NFFabio)
-- Weitere Mitwirkende: @thseBene (Repo-Owner)
-
-## Links & Ressourcen
-
-- Miro-Board (Projektplanung): https://miro.com/app/board/uXjVJ5z-XVY=/?share_link_id=979235064816
-- Quarkus: https://quarkus.io/
-- reveal.js: https://revealjs.com/
->>>>>>> Stashed changes
