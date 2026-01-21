@@ -13,9 +13,9 @@
 
 ## 🌐 Live Demo
 
-**👉 [https://benediktlehner.github.io/Team-Wels-ITPProjekt/](https://benediktlehner.github. io/Team-Wels-ITPProjekt/)**
+**👉 [Live Website](https://benediktlehner.github.io/Team-Wels-ITPProjekt)**
 
-**📊 [Projekt-Dokumentation (Präsentation)](https://benediktlehner.github.io/Team-Wels-ITPProjekt/revealjs. html)**
+**📊 [Projekt-Dokumentation (Präsentation)](https://benediktlehner.github.io/Team-Wels-ITPProjekt/revealjs)**
 
 **📋 [Miro-Board (Projektplanung)](https://miro.com/app/board/uXjVJ5z-XVY=/?share_link_id=979235064816)**
 
