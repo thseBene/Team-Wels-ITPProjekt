@@ -31,10 +31,21 @@ function renderFeedbackList() {
 // logging System
 function logFeedbackSystem() {
     return __awaiter(this, void 0, void 0, function* () {
+        const container = document.getElementById("container");
+        container === null || container === void 0 ? void 0 : container.style.setProperty("display", "none");
         const logContainer = document.getElementById("logContainer");
         const logList = yield getLogSystem();
         logContainer.innerHTML = "";
         logList.forEach(log => {
+            const prevDate = logContainer.dataset.lastDate;
+            const logDate = new Date(log.timestamp).toLocaleDateString();
+            if (prevDate !== logDate) {
+                const dateEl = document.createElement("div");
+                dateEl.className = "log-date";
+                dateEl.textContent = logDate;
+                logContainer.appendChild(dateEl);
+                logContainer.dataset.lastDate = logDate;
+            }
             const el = document.createElement("log-view");
             el.setAttribute("action", log.actionType);
             el.setAttribute("timestamp", log.timestamp);

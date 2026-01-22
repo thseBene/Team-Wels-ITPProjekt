@@ -55,7 +55,7 @@ class LogView extends HTMLElement {
             width: 100%;
             border-radius: 16px;
             display: grid;
-            grid-template-columns: 2% 85% 5% 3%;
+            grid-template-columns: 2% 85% 9% 3%;
             gap: 1vh;
             border-radius: 12px;
             border-left: 14px solid var(--Blue, #55B9E1);
@@ -85,9 +85,16 @@ class LogView extends HTMLElement {
         justify-self: center;
         }
         .openDetails {
-            justify-self: end;
             cursor: pointer;
             transition: transform 0.3s ease;
+        }   
+        .dateTimestamsp {
+        color: #000;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 87.645%; /* 12.27px */
+        opacity: 0.6;
         }
         
             </style>
@@ -104,10 +111,10 @@ class LogView extends HTMLElement {
             }
 
             <p>${this.getAttribute("details")}</p>
-            <p>${formattedTimestamp}</p>
+            <p class="dateTimestamsp">${formattedTimestamp}</p>
 
 
-            <svg class="openDetails"xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 12" fill="none">
+            <svg class="openDetails"xmlns="http://www.w3.org/2000/svg" onclick="openDetails(" width="19" height="12" viewBox="0 0 19 12" fill="none">
                 <path d="M17.5 1.5L9.5 10.5L1.5 1.5" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             </div>
