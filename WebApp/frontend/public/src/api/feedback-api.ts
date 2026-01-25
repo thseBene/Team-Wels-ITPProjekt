@@ -68,3 +68,18 @@ export async function getLogSystem(): Promise<Activitylog[]> {
     console.log('Log Daten ', data);
     return data;
 }
+export async function getLogById(id: number): Promise<Activitylog> {
+    const res = await fetch(`${baseUrl}/api/activitylog/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    console.log(res);
+    if (!res.ok) throw new Error(`Fehler beim Abrufen des Logs: ${res.status}`);
+    
+    const data = await res.json();
+    console.log('Log Daten ', data);
+    return data;
+}

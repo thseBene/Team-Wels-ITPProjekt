@@ -50,6 +50,7 @@ function logFeedbackSystem() {
             el.setAttribute("action", log.actionType);
             el.setAttribute("timestamp", log.timestamp);
             el.setAttribute("details", log.details);
+            el.setAttribute("id", log.id.toString());
             logContainer.appendChild(el);
         });
     });

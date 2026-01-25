@@ -72,3 +72,19 @@ export function getLogSystem() {
         return data;
     });
 }
+export function getLogById(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch(`${baseUrl}/api/activitylog/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(res);
+        if (!res.ok)
+            throw new Error(`Fehler beim Abrufen des Logs: ${res.status}`);
+        const data = yield res.json();
+        console.log('Log Daten ', data);
+        return data;
+    });
+}

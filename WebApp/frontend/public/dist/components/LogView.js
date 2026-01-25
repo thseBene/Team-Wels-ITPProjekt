@@ -1,7 +1,16 @@
-"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { getLogById } from "../api/feedback-api.js";
 class LogView extends HTMLElement {
     static get observedAttributes() {
-        return ["action", "timestamp", "details"];
+        return ["action", "timestamp", "details", "id"];
     }
     constructor() {
         super();
@@ -14,7 +23,7 @@ class LogView extends HTMLElement {
         this.render();
     }
     render() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         if (!this.shadowRoot)
             return;
         const rawTs = this.getAttribute("timestamp");
@@ -96,6 +105,14 @@ class LogView extends HTMLElement {
         line-height: 87.645%; /* 12.27px */
         opacity: 0.6;
         }
+        .rotated {
+            transform: rotate(180deg);
+        }
+        .expanded {
+            background-color: #f0f0f0;
+
+        }
+            
         
             </style>
 
@@ -117,6 +134,45 @@ class LogView extends HTMLElement {
             </svg>
             </div>
         `;
+        // attach event listener to the rendered item (do NOT rely on a global function)
+        const container = this.shadowRoot.querySelector('.logItem');
+        const id = (_d = this.getAttribute('id')) !== null && _d !== void 0 ? _d : "";
+        if (container) {
+            container.addEventListener('click', (ev) => __awaiter(this, void 0, void 0, function* () {
+                var _a;
+                ev.preventDefault();
+                console.log("Details opened for log with id:", id);
+                // const logDetails = await getLogById(Number(id));
+                (_a = container.querySelector('.openDetails')) === null || _a === void 0 ? void 0 : _a.classList.toggle('rotated');
+                container.classList.toggle('expanded');
+                let detailsEl = document.createElement('div');
+                if (container.classList.contains('expanded')) {
+                    // Fetch and show more details
+                    try {
+                        const logDetails = yield getLogById(Number(id));
+                        detailsEl.innerHTML = `
+                            <p><strong>Log ID:</strong> ${logDetails.id}</p>
+                            <p><strong>Action Type:</strong> ${logDetails.actionType}</p>
+                            <p><strong>Details:</strong> ${logDetails.details}</p>
+                            <p><strong>Timestamp:</strong> ${new Date(logDetails.timestamp).toLocaleString()}</p>
+                        `;
+                    }
+                    catch (error) {
+                        detailsEl.innerHTML = `<p>Error loading details.</p>`;
+                    }
+                    detailsEl.style.padding = "10px";
+                    detailsEl.style.backgroundColor = "#f9f9f9";
+                    container.appendChild(detailsEl);
+                }
+                else {
+                    // Remove details
+                    const existingDetails = container.querySelector('div');
+                    if (existingDetails) {
+                        container.removeChild(existingDetails);
+                    }
+                }
+            }));
+        }
     }
 }
 customElements.define("log-view", LogView);

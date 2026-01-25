@@ -1,6 +1,8 @@
+import { getLogById } from "../api/feedback-api.js";
+
 class LogView extends HTMLElement {
     static get observedAttributes() {
-        return ["action", "timestamp", "details"];
+        return ["action", "timestamp", "details", "id"];
     }
 
     constructor() {
@@ -96,6 +98,14 @@ class LogView extends HTMLElement {
         line-height: 87.645%; /* 12.27px */
         opacity: 0.6;
         }
+        .rotated {
+            transform: rotate(180deg);
+        }
+        .expanded {
+            background-color: #f0f0f0;
+
+        }
+            
         
             </style>
 
@@ -114,13 +124,53 @@ class LogView extends HTMLElement {
             <p class="dateTimestamsp">${formattedTimestamp}</p>
 
 
-            <svg class="openDetails"xmlns="http://www.w3.org/2000/svg" onclick="openDetails(" width="19" height="12" viewBox="0 0 19 12" fill="none">
+            <svg class="openDetails"xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 12" fill="none">
                 <path d="M17.5 1.5L9.5 10.5L1.5 1.5" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             </div>
         `;
+
+        // attach event listener to the rendered item (do NOT rely on a global function)
+        const container = this.shadowRoot!.querySelector('.logItem') as HTMLElement | null;
+        const id = this.getAttribute('id') ?? "";
+        if (container) {
+            container.addEventListener('click', async (ev) => {
+                ev.preventDefault();
+                console.log("Details opened for log with id:", id);
+                // const logDetails = await getLogById(Number(id));
+                container.querySelector('.openDetails')?.classList.toggle('rotated');
+                container.classList.toggle('expanded');
+                let detailsEl = document.createElement('div');
+                if (container.classList.contains('expanded')) {
+                    // Fetch and show more details
+                    try {
+                        const logDetails = await getLogById(Number(id));
+                        detailsEl.innerHTML = `
+                            <p><strong>Log ID:</strong> ${logDetails.id}</p>
+                            <p><strong>Action Type:</strong> ${logDetails.actionType}</p>
+                            <p><strong>Details:</strong> ${logDetails.details}</p>
+                            <p><strong>Timestamp:</strong> ${new Date(logDetails.timestamp).toLocaleString()}</p>
+                        `;
+                    } catch (error) {
+                        detailsEl.innerHTML = `<p>Error loading details.</p>`;
+                    }
+                    detailsEl.style.padding = "10px";
+                    detailsEl.style.backgroundColor = "#f9f9f9";
+                    container.appendChild(detailsEl);
+                } else {
+                    // Remove details
+                    const existingDetails = container.querySelector('div');
+                    if (existingDetails) {
+                        container.removeChild(existingDetails);
+                    }
+                }
+            });
+        }
     }
+    
 }
+
+
 
 customElements.define("log-view", LogView);
 
