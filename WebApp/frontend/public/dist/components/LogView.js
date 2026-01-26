@@ -112,6 +112,12 @@ class LogView extends HTMLElement {
             background-color: #f0f0f0;
 
         }
+        .logDetails {
+            width: 99%;
+            grid-column: 1 / -1;
+            border-top: 1px solid #ccc;
+            box-sizing: border-box;
+        }
             
         
             </style>
@@ -139,7 +145,7 @@ class LogView extends HTMLElement {
         const id = (_d = this.getAttribute('id')) !== null && _d !== void 0 ? _d : "";
         if (container) {
             container.addEventListener('click', (ev) => __awaiter(this, void 0, void 0, function* () {
-                var _a;
+                var _a, _b, _c, _d;
                 ev.preventDefault();
                 console.log("Details opened for log with id:", id);
                 // const logDetails = await getLogById(Number(id));
@@ -150,18 +156,49 @@ class LogView extends HTMLElement {
                     // Fetch and show more details
                     try {
                         const logDetails = yield getLogById(Number(id));
+                        const ts = logDetails.timestamp
+                            ? new Date(logDetails.timestamp).toLocaleString()
+                            : "";
+                        let mitarbeiterHtml = "";
+                        {
+                            const escape = (input) => String(input !== null && input !== void 0 ? input : "")
+                                .replace(/&/g, "&amp;")
+                                .replace(/</g, "&lt;")
+                                .replace(/>/g, "&gt;")
+                                .replace(/"/g, "&quot;")
+                                .replace(/'/g, "&#39;");
+                            const parts = [];
+                            if (logDetails.mitarbeiter) {
+                                const m = logDetails.mitarbeiter;
+                                parts.push(`<p style="margin-top: 1vh;"><strong>Mitarbeiter:</strong> ${escape(m.vorname)} ${escape(m.nachname)} ${m.benutzername ? `(${escape(m.benutzername)})` : ""}</p>`);
+                                parts.push(`<p><strong>Abteilung:</strong> ${escape(m.abteilung)}</p>`);
+                                parts.push(`<p><strong>Aktiv:</strong> ${m.aktiv ? "Ja" : "Nein"}</p>`);
+                            }
+                            // Show old/new values (useful for mails or other changes)
+                            if (logDetails.oldValue != null || logDetails.newValue != null) {
+                                if (logDetails.oldValue != null) {
+                                    parts.push(`<p style="margin-top: 1vh;"><strong>Alter Wert:</strong> ${escape(logDetails.oldValue)}</p>`);
+                                }
+                                if (logDetails.newValue != null) {
+                                    parts.push(`<p><strong>Mail: </strong> ${escape(logDetails.newValue)}</p>`);
+                                }
+                            }
+                            mitarbeiterHtml = parts.join("\n");
+                        }
                         detailsEl.innerHTML = `
-                            <p><strong>Log ID:</strong> ${logDetails.id}</p>
-                            <p><strong>Action Type:</strong> ${logDetails.actionType}</p>
-                            <p><strong>Details:</strong> ${logDetails.details}</p>
-                            <p><strong>Timestamp:</strong> ${new Date(logDetails.timestamp).toLocaleString()}</p>
+                            <p><strong>Log ID:</strong> ${(_b = logDetails.id) !== null && _b !== void 0 ? _b : ""}</p>
+                            <p><strong>Action Type:</strong> ${(_c = logDetails.actionType) !== null && _c !== void 0 ? _c : ""}</p>
+                            <p><strong>Details:</strong> ${(_d = logDetails.details) !== null && _d !== void 0 ? _d : ""}</p>
+                            <p><strong>Timestamp:</strong> ${ts}</p>
+                            ${mitarbeiterHtml}
                         `;
                     }
                     catch (error) {
                         detailsEl.innerHTML = `<p>Error loading details.</p>`;
+                        console.error(error);
                     }
+                    detailsEl.classList.add('logDetails');
                     detailsEl.style.padding = "10px";
-                    detailsEl.style.backgroundColor = "#f9f9f9";
                     container.appendChild(detailsEl);
                 }
                 else {

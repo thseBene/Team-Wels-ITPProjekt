@@ -13,26 +13,34 @@ import "./components/LogView.js";
 function renderFeedbackList() {
     return __awaiter(this, void 0, void 0, function* () {
         const container = document.getElementById("container");
+        const headline = document.getElementById("headline");
+        headline.textContent = "Verwaltung";
         if (!container)
             return;
         const feedbackList = yield getAllFeedback();
+        console.log(feedbackList);
         container.innerHTML = ""; // leeren
         feedbackList.forEach(fb => {
+            console.log(fb);
             const feedbackEl = document.createElement("feedback-view");
-            feedbackEl.feedbackId = fb.id;
-            feedbackEl.subject = fb.subject;
-            feedbackEl.status = fb.status;
+            feedbackEl.setAttribute("feedback-id", fb.id.toString());
+            feedbackEl.setAttribute("subject", fb.subject);
+            feedbackEl.setAttribute("userMail", fb.userMail);
+            feedbackEl.setAttribute("status", fb.status);
+            feedbackEl.setAttribute("datetime", new Date(fb.updatedAt).toLocaleDateString());
             container.appendChild(feedbackEl);
         });
     });
 }
 // initial render
-// renderFeedbackList();
+renderFeedbackList();
 // logging System
 function logFeedbackSystem() {
     return __awaiter(this, void 0, void 0, function* () {
         const container = document.getElementById("container");
         container === null || container === void 0 ? void 0 : container.style.setProperty("display", "none");
+        const headline = document.getElementById("headline");
+        headline.textContent = "Logging";
         const logContainer = document.getElementById("logContainer");
         const logList = yield getLogSystem();
         logContainer.innerHTML = "";
@@ -55,4 +63,4 @@ function logFeedbackSystem() {
         });
     });
 }
-logFeedbackSystem();
+//logFeedbackSystem();

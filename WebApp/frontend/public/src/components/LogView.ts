@@ -105,6 +105,12 @@ class LogView extends HTMLElement {
             background-color: #f0f0f0;
 
         }
+        .logDetails {
+            width: 99%;
+            grid-column: 1 / -1;
+            border-top: 1px solid #ccc;
+            box-sizing: border-box;
+        }
             
         
             </style>
@@ -145,17 +151,64 @@ class LogView extends HTMLElement {
                     // Fetch and show more details
                     try {
                         const logDetails = await getLogById(Number(id));
+
+                        const ts = logDetails.timestamp
+                            ? new Date(logDetails.timestamp).toLocaleString()
+                            : "";
+
+                        let mitarbeiterHtml = "";
+                        {
+                            const escape = (input: any) =>
+                                String(input ?? "")
+                                    .replace(/&/g, "&amp;")
+                                    .replace(/</g, "&lt;")
+                                    .replace(/>/g, "&gt;")
+                                    .replace(/"/g, "&quot;")
+                                    .replace(/'/g, "&#39;");
+
+                            const parts: string[] = [];
+
+                            if (logDetails.mitarbeiter) {
+                                const m = logDetails.mitarbeiter;
+                                parts.push(
+                                    `<p style="margin-top: 1vh;"><strong>Mitarbeiter:</strong> ${escape(m.vorname)} ${escape(
+                                        m.nachname
+                                    )} ${m.benutzername ? `(${escape(m.benutzername)})` : ""}</p>`
+                                );
+                                parts.push(`<p><strong>Abteilung:</strong> ${escape(m.abteilung)}</p>`);
+                                parts.push(`<p><strong>Aktiv:</strong> ${m.aktiv ? "Ja" : "Nein"}</p>`);
+                            }
+
+                            // Show old/new values (useful for mails or other changes)
+                            if (logDetails.oldValue != null || logDetails.newValue != null) {
+                                if (logDetails.oldValue != null) {
+                                    parts.push(
+                                        `<p style="margin-top: 1vh;"><strong>Alter Wert:</strong> ${escape(logDetails.oldValue)}</p>`
+                                    );
+                                }
+                                if (logDetails.newValue != null) {
+                                    parts.push(
+                                        `<p><strong>Mail: </strong> ${escape(logDetails.newValue)}</p>`
+                                    );
+                                }
+                            }
+
+                            mitarbeiterHtml = parts.join("\n");
+                        }
+
                         detailsEl.innerHTML = `
-                            <p><strong>Log ID:</strong> ${logDetails.id}</p>
-                            <p><strong>Action Type:</strong> ${logDetails.actionType}</p>
-                            <p><strong>Details:</strong> ${logDetails.details}</p>
-                            <p><strong>Timestamp:</strong> ${new Date(logDetails.timestamp).toLocaleString()}</p>
+                            <p><strong>Log ID:</strong> ${logDetails.id ?? ""}</p>
+                            <p><strong>Action Type:</strong> ${logDetails.actionType ?? ""}</p>
+                            <p><strong>Details:</strong> ${logDetails.details ?? ""}</p>
+                            <p><strong>Timestamp:</strong> ${ts}</p>
+                            ${mitarbeiterHtml}
                         `;
                     } catch (error) {
                         detailsEl.innerHTML = `<p>Error loading details.</p>`;
+                        console.error(error);
                     }
+                    detailsEl.classList.add('logDetails');
                     detailsEl.style.padding = "10px";
-                    detailsEl.style.backgroundColor = "#f9f9f9";
                     container.appendChild(detailsEl);
                 } else {
                     // Remove details

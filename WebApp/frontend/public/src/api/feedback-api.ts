@@ -1,6 +1,9 @@
 export interface Feedback {
     id: number;
     subject: string;
+    userMail: string;
+    message: string;
+    updatedAt: string;
     status: string;
 }
 export interface Activitylog {
@@ -8,6 +11,16 @@ export interface Activitylog {
     actionType: string;
     details: string;
     timestamp: string;
+    oldValue?: string;
+    newValue?: string;
+    mitarbeiter?: {
+        id: number;
+        benutzername: string;
+        vorname: string;
+        nachname: string;
+        abteilung: string;
+        aktiv: boolean;
+    };
 }
 const baseUrl = "http://localhost:8080";
 

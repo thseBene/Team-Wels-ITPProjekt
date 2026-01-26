@@ -8,21 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { updateByID } from "../api/feedback-api.js";
-export class FeedbackView extends HTMLElement {
+class FeedbackView extends HTMLElement {
     static get observedAttributes() {
-        return ["feedback-id", "status", "subject"];
+        return ["feedback-id", "status", "subject", "userMail", "datetime"];
     }
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
     }
-    // Getter/Setter für typsichere API
-    get feedbackId() { return Number(this.getAttribute("feedback-id")); }
-    set feedbackId(value) { this.setAttribute("feedback-id", value.toString()); }
-    get status() { return this.getAttribute("status") || ""; }
-    set status(value) { this.setAttribute("status", value); }
-    get subject() { return this.getAttribute("subject") || ""; }
-    set subject(value) { this.setAttribute("subject", value); }
     connectedCallback() {
         this.render();
     }
@@ -30,8 +23,14 @@ export class FeedbackView extends HTMLElement {
         this.render();
     }
     render() {
+        var _a, _b, _c, _d, _e;
         if (!this.shadowRoot)
             return;
+        const feedbackId = Number((_a = this.getAttribute("feedback-id")) !== null && _a !== void 0 ? _a : "0");
+        const status = (_b = this.getAttribute("status")) !== null && _b !== void 0 ? _b : "";
+        const subject = (_c = this.getAttribute("subject")) !== null && _c !== void 0 ? _c : "";
+        const userMail = (_d = this.getAttribute("userMail")) !== null && _d !== void 0 ? _d : "";
+        const datetime = (_e = this.getAttribute("datetime")) !== null && _e !== void 0 ? _e : "";
         this.shadowRoot.innerHTML = `
             <style>
     :host {
@@ -41,22 +40,23 @@ export class FeedbackView extends HTMLElement {
     }
 
     .feedbackItem {
-        border-radius: 16px;
-        padding: 2%;
-        background: linear-gradient(var(--light), var(--light)) padding-box,
-                    linear-gradient(90deg, var(--colorDark), var(--colorLight)) border-box;
-        border: 2px solid transparent;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-        display: grid;
-        gap: 1vh;
-        
+        border-radius: 12px;
+        border-left: 14px solid var(--Blue, #55B9E1);
+        background: #FFF;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+        padding: 1%;
+        padding-left: 2%;
+        padding-bottom: 7%;
     }
 
     h3 {
-        font-size: var(--xl);
-        margin: 0;
-        color: var(--fdark);
+        color: #000;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
         font-weight: 700;
+        line-height: 87.645%;
+        margin-bottom: 0;
     }
 
     p {
@@ -65,9 +65,19 @@ export class FeedbackView extends HTMLElement {
         color: var(--fgrey);
     }
 
-    .statusText {
-        text-transform: uppercase;
-        font-weight: bold;
+    .subline {
+       color: var(--Decent-Text, #595959);
+        font-family: Inter;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 600;
+        line-height: 87.645%;
+        margin-top: 1vh;
+    }
+    .gridHead {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .editStatusButton {
@@ -75,17 +85,38 @@ export class FeedbackView extends HTMLElement {
         padding: 10px 14px;
         font-size: var(--lg);
         cursor: pointer;
-        font-weight: bold;
         text-align: center;
         border: none;
-        transition: 0.25s transform;
     }
 
     .editStatusButton:hover {
-        transform: translateY(3px);
+        }
+        .editStatusButton {
+            position: relative;
+        }
+        .editStatusButton::after {
+            content: "Bearbeiten";
+            position: absolute;
+            top: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity .12s ease, transform .12s ease;
+        }
+        .editStatusButton:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
     }
 
-    /* Status-spezifisches Button-Styling */
     .neu {
         background: linear-gradient(182deg, var(--colorLight), var(--colorDark));
         color: var(--fwhite);
@@ -97,30 +128,48 @@ export class FeedbackView extends HTMLElement {
         color: var(--fgrey);
     }
 
-    .erledigt {
-        background: #CCC;
-        color: var(--fdark);
-    }
+  
 </style>
 
-
     <div class="feedbackItem">
-        <h3>${this.subject}</h3>
-        <p class="statusText">Status: ${this.status}</p>
+        <div class="gridHead">
+            <h3>${subject}</h3>
 
-        ${this.status === "Neu"
-            ? `<button class="editStatusButton neu" data-status="In Bearbeitung">Jetzt bearbeiten</button>`
-            : this.status === "In Bearbeitung"
-                ? `<button class="editStatusButton bearbeitung" data-status="Erledigt">Jetzt fertigstellen</button>`
-                : `<button class="editStatusButton erledigt" disabled>Erledigt</button>`}
+            ${status === "Neu"
+            ? `<svg class="editStatusButton neu" data-status="In Bearbeitung" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                        <circle cx="9.5" cy="9.5" r="9.5" fill="#E2001A"/>
+                    </svg>`
+            : status === "In Bearbeitung"
+                ? `<svg class="editStatusButton bearbeitung" data-status="Erledigt" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                            <circle cx="9.5" cy="9.5" r="9.5" fill="#EAA100"/>
+                    </svg>`
+                : `<svg class="editStatusButton erledigt" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                        <circle cx="9.5" cy="9.5" r="9.5" fill="#B2C900"/>
+                    </svg>`}
         </div>
+        <p class="subline">von ${userMail}, ${datetime}</p>
+
+
+        
+
+        
+    </div>
         `;
-        this.shadowRoot.querySelectorAll(".editStatusButton").forEach(btn => {
+        // attach event listeners
+        const buttons = this.shadowRoot.querySelectorAll(".editStatusButton");
+        buttons.forEach(btn => {
             btn.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
                 const newStatus = btn.getAttribute("data-status");
-                // Custom Event feuern statt direkt API? Hier direkt nutzen
-                yield updateByID(this.feedbackId, newStatus);
-                this.status = newStatus; // UI automatisch aktualisieren
+                if (!newStatus)
+                    return;
+                try {
+                    yield updateByID(feedbackId, newStatus);
+                    // update attribute so attributeChangedCallback / render reflect change
+                    this.setAttribute("status", newStatus);
+                }
+                catch (err) {
+                    console.error("Failed to update feedback status:", err);
+                }
             }));
         });
     }
