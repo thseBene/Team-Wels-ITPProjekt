@@ -1,5 +1,6 @@
 package at.htlleonding.teamwels.entity.feedback;
 
+import at.htlleonding.teamwels.entity.feedback.services.FeedbackService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;

@@ -1,18 +1,14 @@
-package at.htlleonding.teamwels.entity.feedback;
+package at.htlleonding.teamwels.entity.feedback.services;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import com.twilio.Twilio;
+import com.twilio. Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
+import com.twilio. type.PhoneNumber;
 
-/**
- * Einfacher Twilio-basierter SMS-Service für Quarkus.
- * Konfiguration über application.properties / Umgebungsvariablen:
- *  - twilio.account-sid
- *  - twilio.auth-token
- *  - twilio.from
- */
+import java.security.SecureRandom;
+
 @ApplicationScoped
 public class SmsService {
 
@@ -27,11 +23,10 @@ public class SmsService {
 
     @PostConstruct
     void init() {
-        if (accountSid != null && !accountSid.isBlank() && authToken != null && !authToken.isBlank()) {
+        if (accountSid != null && ! accountSid.isBlank() && authToken != null && !authToken.isBlank()) {
             Twilio.init(accountSid, authToken);
         }
     }
-
 
     public void sendSms(String toNumber, String body) {
         if (accountSid == null || accountSid.isBlank() || authToken == null || authToken.isBlank()) {
@@ -50,5 +45,21 @@ public class SmsService {
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Twilio-SMS-Versand: " + e.getMessage(), e);
         }
+    }
+
+    // NEU: SMS-Verifizierungscode senden
+    public void sendVerificationSms(String toNumber, String code) {
+        String body = String.format(
+                "Team Wels Verifizierung:\n\nIhr Code lautet: %s\n\nDieser Code ist 10 Minuten gültig.",
+                code
+        );
+        sendSms(toNumber, body);
+    }
+
+    // NEU: 6-stelligen Verifizierungscode generieren
+    public static String generateVerificationCode() {
+        SecureRandom random = new SecureRandom();
+        int code = 100000 + random.nextInt(900000); // 6-stellig
+        return String.valueOf(code);
     }
 }

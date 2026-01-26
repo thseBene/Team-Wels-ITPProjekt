@@ -1,19 +1,19 @@
-package at.htlleonding.teamwels.entity.benutzer;
+package at.htlleonding.teamwels.entity. benutzer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "benutzer")
 public class BenutzerEntity extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType. IDENTITY)
     @Column(name = "id")
     public Long id;
 
@@ -26,46 +26,91 @@ public class BenutzerEntity extends PanacheEntityBase {
     @Column(name = "rolle", nullable = false)
     public String rolle;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    // E-Mail-Verifizierung (mit Token/Link)
+    @Column(name = "email_verified", nullable = false)
+    public Boolean emailVerified = false;
+
+    @Column(name = "email_verification_token")
+    public String emailVerificationToken;
+
+    @Column(name = "email_verification_token_created_at")
+    public LocalDateTime emailVerificationTokenCreatedAt;
+
+    // Telefon-Verifizierung (mit 6-stelligem Code)
+    @Column(name = "tel_verified", nullable = false)
+    public Boolean telVerified = false;
+
+    @Column(name = "tel_verification_code")
+    public String telVerificationCode;
+
+    @Column(name = "tel_verification_code_created_at")
+    public LocalDateTime telVerificationCodeCreatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType. ALL)
     @JsonIgnore
     public List<at.htlleonding.teamwels.entity.feedback.FeedbackEntity> feedbacks = new ArrayList<>();
 
-    // Hilfsmethode für Abfragen (normalisiert/vergleich in lower-case für Mail)
+    // E-Mail-Verifizierung
+    public void generateEmailVerificationToken() {
+        this.emailVerificationToken = UUID. randomUUID().toString();
+        this.emailVerificationTokenCreatedAt = LocalDateTime.now();
+    }
+
+    public boolean isEmailVerificationTokenValid() {
+        if (emailVerificationToken == null || emailVerificationTokenCreatedAt == null) {
+            return false;
+        }
+        return emailVerificationTokenCreatedAt.plusHours(24).isAfter(LocalDateTime.now());
+    }
+
+    // Telefon-Verifizierung (10 Minuten gültig)
+    public void generateTelVerificationCode(String code) {
+        this.telVerificationCode = code;
+        this.telVerificationCodeCreatedAt = LocalDateTime.now();
+    }
+
+    public boolean isTelVerificationCodeValid() {
+        if (telVerificationCode == null || telVerificationCodeCreatedAt == null) {
+            return false;
+        }
+        return telVerificationCodeCreatedAt.plusMinutes(10).isAfter(LocalDateTime.now());
+    }
+
+    // Prüfen ob User vollständig verifiziert ist
+    public boolean isFullyVerified() {
+        boolean emailOk = (mail == null || mail.isEmpty() || emailVerified);
+        boolean telOk = (tel == null || tel.isEmpty() || telVerified);
+        return emailOk && telOk;
+    }
+
+    // Bestehende Methoden
     public static BenutzerEntity findByMail(String mail) {
         if (mail == null) return null;
         String normalized = normalizeMail(mail);
-        // query lower(mail) = ?1
         return find("lower(mail) = ?1", normalized).firstResult();
     }
 
-    // Hilfsmethode für Telefonnummern (normalisiert auf + und Ziffern)
     public static BenutzerEntity findByTel(String tel) {
         if (tel == null) return null;
         String normalized = normalizeTel(tel);
         return find("tel = ?1", normalized).firstResult();
     }
 
-    // Normalisierung: trim + toLowerCase (for mail)
     public static String normalizeMail(String mail) {
         if (mail == null) return null;
         return mail.trim().toLowerCase();
     }
 
-    // Normalisierung der Telefonnummer: behalte führendes + (falls vorhanden) und Ziffern
     public static String normalizeTel(String tel) {
         if (tel == null) return null;
         String t = tel.trim();
-        // Falls führendes + vorhanden, behalten, sonst nur Ziffern
         boolean startsWithPlus = t.startsWith("+");
-        // Entferne alle Zeichen außer + und Ziffern, dann falls + nicht an Anfang sondern irgendwo, entfernen
         t = t.replaceAll("[^+0-9]", "");
         if (startsWithPlus) {
-            // sicherstellen, dass + nur vorne steht
-            if (!t.startsWith("+")) {
-                t = "+" + t.replaceAll("\\+", "");
+            if (! t.startsWith("+")) {
+                t = "+" + t. replaceAll("\\+", "");
             }
         } else {
-            // entferne alle '+' falls vorhanden
             t = t.replaceAll("\\+", "");
         }
         return t;

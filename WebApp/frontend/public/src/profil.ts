@@ -1,4 +1,4 @@
-const inputElement = document.getElementById('nameInput') as HTMLInputElement;
+/*const inputElement = document.getElementById('nameInput') as HTMLInputElement;
 
 document.getElementById('nameInput')!.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
@@ -16,7 +16,6 @@ interface Notification {
     gelesen: boolean;
     createdAt: string;
 }
-
 
 const API_BASE = 'http://localhost:8080/api';
 
@@ -179,7 +178,7 @@ async function deleteNotification(notificationId : number) {
         showError('Fehler: ' + error);
     }
 }
-*/
+
 // Hilfsfunktionen
 function formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -193,4 +192,4 @@ function showError(message : string) {
 function clearError() {
     document.getElementById('error')!.textContent = '';
 }
-    
+    */

@@ -7,10 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const baseUrl = "http://localhost:8080";
 // Holen aller Feedbacks
 export function getAllFeedback() {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield fetch("http://localhost:8080/api/feedback");
+        const res = yield fetch(`${baseUrl}/api/feedback`);
         console.log(res);
         if (!res.ok)
             throw new Error(`Fehler beim Abrufen: ${res.status}`);
@@ -20,7 +21,7 @@ export function getAllFeedback() {
 // Update Status
 export function updateByID(id, newStatus) {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield fetch(`http://localhost:8080/api/feedback/${id}/status`, {
+        const res = yield fetch(`${baseUrl}/api/feedback/${id}/status`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status: newStatus })
@@ -33,7 +34,7 @@ export function updateByID(id, newStatus) {
 // Delete
 export function deleteByID(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield fetch(`http://localhost:8080/api/feedback/${id}`, { method: "DELETE" });
+        const res = yield fetch(`${baseUrl}/api/feedback/${id}`, { method: "DELETE" });
         console.log(res);
         if (!res.ok)
             throw new Error(`Fehler beim Löschen: ${res.status}`);
@@ -41,7 +42,7 @@ export function deleteByID(id) {
 }
 export function employeeLogin(benutzername, passwort) {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield fetch('http://localhost:8080/api/auth/login', {
+        const res = yield fetch(`${baseUrl}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,5 +54,37 @@ export function employeeLogin(benutzername, passwort) {
             throw new Error(`Fehler beim Login: ${res.status}`);
         const data = yield res.json();
         console.log('Daten ', data);
+    });
+}
+export function getLogSystem() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch(`${baseUrl}/api/activitylog`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(res);
+        if (!res.ok)
+            throw new Error(`Fehler beim Abrufen der Logs: ${res.status}`);
+        const data = yield res.json();
+        console.log('Log Daten ', data);
+        return data;
+    });
+}
+export function getLogById(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch(`${baseUrl}/api/activitylog/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(res);
+        if (!res.ok)
+            throw new Error(`Fehler beim Abrufen des Logs: ${res.status}`);
+        const data = yield res.json();
+        console.log('Log Daten ', data);
+        return data;
     });
 }

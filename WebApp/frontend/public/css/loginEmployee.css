@@ -1,3 +1,4 @@
+/* Log In Employee CSS */
 #loginHeader {
     color: var(--Blue, #55B9E1);
     font-family: Inter;
@@ -8,7 +9,7 @@
 }
 #loginContainer {
     position: relative;
-    width: 25%;
+    width: 27%;
     display: grid;
     grid-template-rows: auto auto auto auto auto;
     margin-top: 20vh;
@@ -18,6 +19,13 @@
     margin-right: auto;
     margin-left: auto;
     padding: 2%;
+   background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(110deg,var(--Blue), var(--Purple)) border-box;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    z-index: 11 ;
+    box-sizing: border-box;
 }
 .loginInfo {
     color: #AEABAB;
@@ -31,11 +39,12 @@
     margin-bottom: 10vh;
 }
 input {
+    width: 100%;
     outline: none;
     border: none;
-    font-size: 2rem;
+    font-size: 1.3rem;
     border-radius: 8px;
-
+    padding: 2%;
     background:
     linear-gradient(white, white, white,white, white) padding-box,
     linear-gradient(90deg, var(--Green), var(--Blue), var(--Purple), var(--Red), var(--Yellow)) border-box;
@@ -43,6 +52,8 @@ input {
     box-shadow: 0 4px 16px rgba(0,0,0,.1);
 
     margin-bottom: 5vh;
+    box-sizing: border-box;
+    
 }
 label {
     color: var(--Decent-Text, #595959);
@@ -72,12 +83,22 @@ button:hover {
     cursor: pointer;
     background: #339ACC;
 }
+
+
+/* Flecks Positioning */
 .blueFleck {
     position: absolute;
+    top: 3vh;
+    left: 25vw;
+    z-index: 10 ;
 }
 .pinkFleck {
     position: absolute;
+    left: 40vw;
+    top: 27 vh;
 }  
 .greenFleck {
     position: absolute; 
+    left: 30vw;
+    top: 25vh;
 }

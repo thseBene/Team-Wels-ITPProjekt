@@ -6,6 +6,21 @@
 * {
     font-family: var(--ff);
 }
+#headline {
+   color: #55B9E1;
+    font-family: Inter;
+    font-size: var(--font-subtitle);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 87.645%; 
+    text-align: right;
+    margin-right: 1vw;
+}
+hr {
+    border: 0.5px solid #B3B3B3;
+
+}
+/* View of all feedback */
 #container {
     width: 100vw;
     display: grid;
@@ -30,4 +45,30 @@
     font-size: var(--md);
     background-color: var(--colorLight);
     cursor: pointer;
+}
+* {
+    font-family: var(--ff);
+}
+#container {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    box-sizing: border-box;
+    padding: 2%;
+}
+.feedbackItem {
+    background-color:rgba(0, 0, 0, 0.086);
+    margin: 2%;
+    padding: 4%;
+    border-radius: 12px;
+}
+
+
+/* View of logs */
+#logContainer {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    box-sizing: border-box;
+    padding: 2%;
 }

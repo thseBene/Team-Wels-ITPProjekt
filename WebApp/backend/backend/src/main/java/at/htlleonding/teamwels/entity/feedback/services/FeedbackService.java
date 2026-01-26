@@ -1,17 +1,18 @@
-package at.htlleonding.teamwels.entity.feedback;
+package at.htlleonding.teamwels.entity.feedback.services;
 
 import at.htlleonding.teamwels.entity.activitylog.ActivityLogService;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
 import at.htlleonding.teamwels.entity.benutzer.BenutzerRepository;
-import at.htlleonding.teamwels.entity.kategorie.KategorieRepository;
+import at.htlleonding.teamwels.entity.feedback.FeedbackEntity;
+import at.htlleonding.teamwels.entity.feedback.FeedbackRepository;
+import at.htlleonding.teamwels.entity.feedback.Status;
 import at.htlleonding.teamwels.entity.notification.NotificationEntity;
-import io.quarkus.mailer.Mail;
-import io.quarkus.mailer.Mailer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
+import org.eclipse.microprofile.context.ManagedExecutor;
 
 import java.time.Instant;
 import java.util.List;
@@ -31,13 +32,16 @@ public class FeedbackService {
     BenutzerRepository benutzerRepo;
 
     @Inject
-    Mailer mailer;
-
-    @Inject
     SmsService smsService;
 
     @Inject
+    EmailService emailService;
+
+    @Inject
     ActivityLogService activityLogService;
+
+    @Inject
+    ManagedExecutor executor;
 
     // ThemaRepository und KategorieRepository werden derzeit nicht verwendet
     // (falls in Projekt noch referenziert, bitte entfernen/kommentieren)
@@ -65,11 +69,13 @@ public class FeedbackService {
         activityLogService.logFeedbackCreated(feedback.id, feedback.subject, feedback.user.id);
         feedbackRepo.persist(feedback);
 
-        if (feedback.user != null){
+        Long feedbackId = feedback.id;
+
+
             try {
                 if (feedback.user.mail != null){
                     activityLogService.logNotificationEmailSent(feedback.id, feedback.subject, feedback.user.mail, "Feedback erstellt");
-                    sendEmail(feedback);
+                    emailService.sendEmail(feedback);
                 }
                 if (feedback.user.tel != null){
                     String body = String.format("\"Ihr Feedback '%s' ist bei uns angekommen:\\n\" +\n" +
@@ -82,7 +88,6 @@ public class FeedbackService {
             catch (Exception e) {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
-        }
         return feedback;
     }
 
@@ -130,7 +135,7 @@ public class FeedbackService {
 
             try {
                 if (feedback.user.mail != null){
-                    sendEmailUpdatedStatus(feedback, oldStatus);
+                    emailService.sendEmailUpdatedStatus(feedback, oldStatus);
                 }
                 if (feedback.user.tel != null){
                     String body = String.format("Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
@@ -138,14 +143,14 @@ public class FeedbackService {
                                     "Mit freundlichen Grüßen\n" +
                                     "Ihr Team Wels",
                             feedback.subject, oldStatus, feedback.status);
-                    smsService.sendSms(feedback.user.tel, body);
+                    //smsService.sendSms(feedback.user.tel, body);
                 }
             }
             catch (Exception e) {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
         }
-        activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
+       // activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
         return feedback;
     }
 
@@ -228,37 +233,7 @@ public class FeedbackService {
         // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
     }
 
-    private void sendEmail(FeedbackEntity feedback) {
-        String subject = "Anliegen: " + feedback.subject;
-        String body = String.format(
-                "Sehr geehrte/r Benutzer,\n\n" +
-                        "Ihr Feedback '%s' ist bei uns angekommen:\n" +
-                        "Mit freundlichen Grüßen\n" +
-                        "Ihr Team Wels",
-                feedback.subject);
-        Mail mail = Mail.withText(feedback.user.mail, subject,body);
-        try {
-            mailer.send(mail);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
-        }
-    }
-    private void sendEmailUpdatedStatus(FeedbackEntity feedback, Status altStatus) {
-        String subject = "Anliegen: " + feedback.subject;
-        String body = String.format("Sehr geehrte/r Benutzer,\n\n" +
-                        "Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
-                        "Alter Status: %s → Neuer Status: %s\n\n" +
-                        "Mit freundlichen Grüßen\n" +
-                        "Ihr Team Wels",
-                feedback.subject, altStatus, feedback.status);
-        Mail mail = Mail.withText(feedback.user.mail, subject, body);
-        try {
-            mailer.send(mail);
-        } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Versenden der E-Mail", e);
-        }
-    }
+
     private void createNotificationNew(FeedbackEntity feedback){
         var benutzer = feedback.user;
         if (benutzer == null) return;

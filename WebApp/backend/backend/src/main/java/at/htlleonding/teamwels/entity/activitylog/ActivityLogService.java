@@ -43,17 +43,31 @@ public class ActivityLogService {
     @Transactional
     public void logFeedbackStatusChanged(Long mitarbeiterId, Long feedbackId,
                                          String feedbackSubject, String oldStatus, String newStatus) {
-        MitarbeiterEntity mitarbeiter = getMitarbeiter(mitarbeiterId);
-
         ActivityLogEntity log = new ActivityLogEntity();
-        log.actionType = ActionType. FEEDBACK_STATUS_CHANGED;
-        log.mitarbeiter = mitarbeiter;
+        log.actionType = ActionType.FEEDBACK_STATUS_CHANGED;
+
+        // Mitarbeiter ist optional
+        if (mitarbeiterId != null) {
+            try {
+                MitarbeiterEntity mitarbeiter = mitarbeiterRepo.findById(mitarbeiterId);
+                if (mitarbeiter != null) {
+                    log.mitarbeiter = mitarbeiter;
+                    log.details = String.format("Mitarbeiter %s %s hat Status von '%s' auf '%s' geändert",
+                            mitarbeiter.vorname, mitarbeiter.nachname, oldStatus, newStatus);
+                } else {
+                    log.details = String.format("Status wurde von '%s' auf '%s' geändert", oldStatus, newStatus);
+                }
+            } catch (Exception e) {
+                log.details = String.format("Status wurde von '%s' auf '%s' geändert", oldStatus, newStatus);
+            }
+        } else {
+            log.details = String.format("Status wurde von '%s' auf '%s' geändert", oldStatus, newStatus);
+        }
+
         log.feedbackId = feedbackId;
         log.feedbackSubject = feedbackSubject;
         log.oldValue = oldStatus;
-        log.newValue = newStatus;
-        log.details = String.format("Mitarbeiter %s %s hat Status von '%s' auf '%s' geändert",
-                mitarbeiter. vorname, mitarbeiter.nachname, oldStatus, newStatus);
+        log. newValue = newStatus;
 
         activityLogRepo.persist(log);
     }
@@ -139,6 +153,14 @@ public class ActivityLogService {
      */
     public List<ActivityLogEntity> getAllLogs() {
         return activityLogRepo.findAllSorted();
+    }
+
+    public ActivityLogEntity getLogById(Long id){
+        ActivityLogEntity log = activityLogRepo.findById(id);
+        if (log == null){
+            throw new NotFoundException();
+        }
+        return log;
     }
 
     /**

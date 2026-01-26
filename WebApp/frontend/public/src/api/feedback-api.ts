@@ -3,10 +3,17 @@ export interface Feedback {
     subject: string;
     status: string;
 }
+export interface Activitylog {
+    id: number;
+    actionType: string;
+    details: string;
+    timestamp: string;
+}
+const baseUrl = "http://localhost:8080";
 
 // Holen aller Feedbacks
 export async function getAllFeedback(): Promise<Feedback[]> {
-    const res = await fetch("http://localhost:8080/api/feedback");
+    const res = await fetch(`${baseUrl}/api/feedback`);
     console.log(res);
     if (!res.ok) throw new Error(`Fehler beim Abrufen: ${res.status}`);
     return res.json();
@@ -14,7 +21,7 @@ export async function getAllFeedback(): Promise<Feedback[]> {
 
 // Update Status
 export async function updateByID(id: number, newStatus: string): Promise<void> {
-    const res = await fetch(`http://localhost:8080/api/feedback/${id}/status`, {
+    const res = await fetch(`${baseUrl}/api/feedback/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus })
@@ -25,14 +32,14 @@ export async function updateByID(id: number, newStatus: string): Promise<void> {
 
 // Delete
 export async function deleteByID(id: number): Promise<void> {
-    const res = await fetch(`http://localhost:8080/api/feedback/${id}`, { method: "DELETE" });
+    const res = await fetch(`${baseUrl}/api/feedback/${id}`, { method: "DELETE" });
     console.log(res);
     if (!res.ok) throw new Error(`Fehler beim Löschen: ${res.status}`);
 }
 
 
 export async function employeeLogin(benutzername: string, passwort: string): Promise<void> {
-    const res = await fetch('http://localhost:8080/api/auth/login', {
+    const res = await fetch(`${baseUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -45,5 +52,34 @@ export async function employeeLogin(benutzername: string, passwort: string): Pro
     
     const data = await res.json();
     console.log('Daten ', data);
+}
+export async function getLogSystem(): Promise<Activitylog[]> {
+    const res = await fetch(`${baseUrl}/api/activitylog`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
+    console.log(res);
+    if (!res.ok) throw new Error(`Fehler beim Abrufen der Logs: ${res.status}`);
+    
+    const data = await res.json();
+    console.log('Log Daten ', data);
+    return data;
+}
+export async function getLogById(id: number): Promise<Activitylog> {
+    const res = await fetch(`${baseUrl}/api/activitylog/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    console.log(res);
+    if (!res.ok) throw new Error(`Fehler beim Abrufen des Logs: ${res.status}`);
+    
+    const data = await res.json();
+    console.log('Log Daten ', data);
+    return data;
 }
