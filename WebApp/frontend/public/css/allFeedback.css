@@ -20,6 +20,55 @@ hr {
     border: 0.5px solid #B3B3B3;
 
 }
+/* Navigation bar for employee dashboard */
+#employeeNavContainer {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 35% 10% 55%;
+    align-items: center;
+    padding-left: 1%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+}
+.fa-solid {
+    font-size: var(--font-button);
+    margin-right: 1vw;
+    padding: 4%;
+}
+#viewIcons {
+    display: flex;
+    justify-content: flex-end;
+}
+.selectedView {
+    background-color: rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+#viewIcons i {
+    cursor: pointer;
+}
+#viewOptions {
+    position: fixed;
+    display: none;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+    z-index: 1000;
+    display: flex;
+    gap: 6px;
+}
+#searchBar {
+    width: 90%;
+    height: 5vh;
+    border-radius: 12px;
+    border: 1px solid #B3B3B3;
+    padding-left: 1vw;
+    font-size: var(--font-text);
+    box-sizing: border-box;
+}
+
 /* View of all feedback */
 #container {
     width: 100vw;
