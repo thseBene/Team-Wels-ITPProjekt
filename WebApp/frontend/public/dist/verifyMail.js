@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const API_BASE_VERFIY = 'http://localhost:8080/api';
 // Automatisch beim Laden verifizieren
 document.addEventListener('DOMContentLoaded', () => {
     verifyEmail();
@@ -18,12 +17,13 @@ function verifyEmail() {
         // Token aus URL holen
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
+        console.log('Token:', token);
         if (!token) {
             showError('Kein Token gefunden');
             return;
         }
         try {
-            const response = yield fetch(`${API_BASE_VERIFY}/benutzer/verify-email?token=${token}`, {
+            const response = yield fetch(`http://localhost:8080/api/benutzer/verify-email?token=${token}`, {
                 method: 'POST'
             });
             const data = yield response.json();

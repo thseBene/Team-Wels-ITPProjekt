@@ -1,4 +1,3 @@
-const API_BASE_VERIFY = 'http://localhost:8080/api';
 let phoneNumber = '';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,7 +65,7 @@ async function verifyCode() {
     
     try {
         const response = await fetch(
-            `${API_BASE_VERIFY}/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`,
+            `http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`,
             { method: 'POST' }
         );
         

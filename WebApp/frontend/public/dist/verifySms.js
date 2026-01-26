@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const API_BASE_VERIFY = 'http://localhost:8080/api';
 let phoneNumber = '';
 document.addEventListener('DOMContentLoaded', () => {
     var _a;
@@ -62,7 +61,7 @@ function verifyCode() {
         errorMsg.classList.remove('show');
         successMsg.classList.remove('show');
         try {
-            const response = yield fetch(`${API_BASE_VERIFY}/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`, { method: 'POST' });
+            const response = yield fetch(`http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`, { method: 'POST' });
             const data = yield response.json();
             if (response.ok) {
                 // Erfolg

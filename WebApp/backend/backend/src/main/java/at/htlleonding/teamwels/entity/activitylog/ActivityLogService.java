@@ -155,6 +155,14 @@ public class ActivityLogService {
         return activityLogRepo.findAllSorted();
     }
 
+    public ActivityLogEntity getLogById(Long id){
+        ActivityLogEntity log = activityLogRepo.findById(id);
+        if (log == null){
+            throw new NotFoundException();
+        }
+        return log;
+    }
+
     /**
      * Gibt Logs für ein spezifisches Feedback zurück
      */

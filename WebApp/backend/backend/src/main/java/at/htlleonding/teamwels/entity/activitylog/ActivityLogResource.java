@@ -51,6 +51,18 @@ public class ActivityLogResource {
                     .build();
         }
     }
+    @GET
+    @Path("{id}")
+    public Response getLogsById(@PathParam("id") Long id){
+        ActivityLogEntity log = activityLogService.getLogById(id);
+        return Response.ok(log).build();
+    }
+
+    @GET
+    @Path("/all")
+    public Response getAll(){
+        return Response.ok(activityLogService.getAllLogs()).build();
+    }
 
     /**
      * GET /api/activitylog/feedback/{feedbackId} - Logs für ein spezifisches Feedback
