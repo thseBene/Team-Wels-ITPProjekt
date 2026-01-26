@@ -23,6 +23,8 @@ services:
       - webapp-backend:latest
     image: webapp-backend:latest
     container_name: team-wels-backend
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     environment:
