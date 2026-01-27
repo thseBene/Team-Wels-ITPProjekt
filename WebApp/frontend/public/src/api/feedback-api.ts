@@ -1,7 +1,12 @@
 export interface Feedback {
     id: number;
+    createdAt: string;
+    description: string;
+    type: string;
     subject: string;
+    userId: number;
     userMail: string;
+    userTel: string;
     message: string;
     updatedAt: string;
     status: string;

@@ -13,8 +13,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 87.645%; 
-    text-align: right;
     margin-right: 1vw;
+    text-align: right;
 }
 hr {
     border: 0.5px solid #B3B3B3;
@@ -24,7 +24,7 @@ hr {
 #employeeNavContainer {
     width: 100vw;
     display: grid;
-    grid-template-columns: 35% 10% 55%;
+    grid-template-columns: 35% 10% 15% 40%;
     align-items: center;
     padding-left: 1%;
     box-sizing: border-box;
@@ -44,8 +44,16 @@ hr {
     background-color: rgba(0, 0, 0, 0.19);
     border-radius: 10px;
 }
+.selectedLog {
+    color: var(--Purple);
+}
 #viewIcons i {
+    color: #000;
     cursor: pointer;
+}
+#logIcon {
+    cursor: pointer;
+    text-align: center;
 }
 #viewOptions {
     position: fixed;
@@ -53,11 +61,11 @@ hr {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 6px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
     z-index: 1000;
     display: flex;
     gap: 6px;
+    box-sizing: border-box;
 }
 #searchBar {
     width: 90%;
@@ -68,7 +76,15 @@ hr {
     font-size: var(--font-text);
     box-sizing: border-box;
 }
-
+#sortSelect {
+    height: 5vh;
+    border-radius: 12px;
+    border: 1px solid #B3B3B3;
+    font-size: var(--font-text);
+    box-sizing: border-box;
+    margin-left: 4vw;
+    padding-left: 1vw;
+}
 /* View of all feedback */
 #container {
     width: 100vw;
