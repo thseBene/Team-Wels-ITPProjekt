@@ -166,6 +166,14 @@ function sendContactInfo(feedback) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(feedbackPayload)
             });
+            let data = yield fbResp.json();
+            if (data.code == 403) {
+                document.getElementById("errorMessageContact").innerText = "Bitte verifizieren Sie Ihre E‑Mail-Adresse, bevor Sie Feedback senden.";
+            }
+            else {
+                console.log("Feedback erfolgreich versendet");
+                redirectToHome();
+            }
             if (!fbResp.ok) {
                 console.error("Fehler beim Senden des Feedbacks:", fbResp.status, yield fbResp.text());
                 return;
@@ -176,8 +184,6 @@ function sendContactInfo(feedback) {
         catch (err) {
             console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
         }
-        console.log("Feedback erfolgreich versendet");
-        redirectToHome();
     });
 }
 // send Feedback to Server

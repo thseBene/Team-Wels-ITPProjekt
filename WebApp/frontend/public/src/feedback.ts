@@ -197,6 +197,16 @@ async function sendContactInfo(feedback: { subject: string; description: string;
       body: JSON.stringify(feedbackPayload)
     });
 
+    let data = await fbResp.json();
+
+    if(data.code == 403) {
+      document.getElementById("errorMessageContact")!.innerText = "Bitte verifizieren Sie Ihre E‑Mail-Adresse, bevor Sie Feedback senden.";
+    }else {
+      console.log("Feedback erfolgreich versendet");
+
+      redirectToHome();
+    }
+
     if (!fbResp.ok) {
       console.error("Fehler beim Senden des Feedbacks:", fbResp.status, await fbResp.text());
       return;
@@ -209,8 +219,6 @@ async function sendContactInfo(feedback: { subject: string; description: string;
     console.error("Netzwerkfehler beim Senden des Feedbacks:", err);
   }
 
-  console.log("Feedback erfolgreich versendet");
-  redirectToHome();
 
 }
 
