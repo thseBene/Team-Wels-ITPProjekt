@@ -3,7 +3,7 @@ let phoneNumber = '';
 document.addEventListener('DOMContentLoaded', () => {
     // Telefonnummer aus URL holen
     const urlParams = new URLSearchParams(window.location.search);
-    phoneNumber = urlParams.get('tel') || '';
+    phoneNumber = (urlParams.get('tel') || '').replace(/\s+/g, '+');
     
     if (!phoneNumber) {
         alert('Keine Telefonnummer angegeben');
@@ -65,7 +65,7 @@ async function verifyCode() {
     console.log(`Verifiziere Code ${code} für Telefonnummer ${phoneNumber}`);
     try {
         const response = await fetch(
-            `http://localhost:8080/api/benutzer/verify-tel?tel=+${phoneNumber}&code=${code}`,
+            `http://localhost:8080/api/benutzer/verify-tel?tel=${phoneNumber}&code=${code}`,
             { method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
