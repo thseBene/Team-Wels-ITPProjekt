@@ -51,7 +51,7 @@ function setupCodeInput() {
 }
 
 async function verifyCode() {
-    const inputs = document.querySelectorAll('. code-digit') as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll('.code-digit') as NodeListOf<HTMLInputElement>;
     const code = Array.from(inputs).map(i => i.value).join('');
     const verifyBtn = document.getElementById('verifyBtn') as HTMLButtonElement;
     const errorMsg = document.getElementById('error')!;
