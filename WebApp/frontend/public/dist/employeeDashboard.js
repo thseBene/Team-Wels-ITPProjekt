@@ -11,6 +11,7 @@ var _a, _b;
 import { getAllFeedback, getLogSystem } from "./api/feedback-api.js";
 import "./components/FeedbackView.js";
 import "./components/LogView.js";
+import "./components/ListViewFeedback.js";
 (_a = document.getElementById('listView')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
     var _a, _b;
     renderFeedbackList();
@@ -30,6 +31,8 @@ function renderFeedbackBox() {
         headline.textContent = "Verwaltung";
         if (!container)
             return;
+        const cols = Number(sessionStorage.getItem('dashboardCols')) || 3;
+        container.style = `display: grid; grid-template-columns: repeat(${cols}, 1fr);`; // reset style
         const feedbackList = yield getAllFeedback();
         console.log(feedbackList);
         container.innerHTML = ""; // leeren
@@ -55,34 +58,17 @@ function renderFeedbackList() {
         const feedbackList = yield getAllFeedback();
         console.log(feedbackList);
         container.innerHTML = ""; // leeren
-        const table = document.createElement("table");
-        const headerRow = document.createElement("tr");
-        ["ID", "Betreff", "E-Mail", "Status", "Datum"].forEach(headerText => {
-            const th = document.createElement("th");
-            th.textContent = headerText;
-            headerRow.appendChild(th);
-        });
-        table.appendChild(headerRow);
+        container.style = 'display: grid; grid-template-columns: 1fr;';
         feedbackList.forEach(fb => {
-            const row = document.createElement("tr");
-            const idCell = document.createElement("td");
-            idCell.textContent = fb.id.toString();
-            row.appendChild(idCell);
-            const subjectCell = document.createElement("td");
-            subjectCell.textContent = fb.subject;
-            row.appendChild(subjectCell);
-            const emailCell = document.createElement("td");
-            emailCell.textContent = fb.userMail;
-            row.appendChild(emailCell);
-            const statusCell = document.createElement("td");
-            statusCell.textContent = fb.status;
-            row.appendChild(statusCell);
-            const dateCell = document.createElement("td");
-            dateCell.textContent = new Date(fb.updatedAt).toLocaleDateString();
-            row.appendChild(dateCell);
-            table.appendChild(row);
+            console.log(fb);
+            const feedbackEl = document.createElement("list-view-feedback");
+            feedbackEl.setAttribute("feedback-id", fb.id.toString());
+            feedbackEl.setAttribute("subject", fb.subject);
+            feedbackEl.setAttribute("userMail", fb.userMail);
+            feedbackEl.setAttribute("status", fb.status);
+            feedbackEl.setAttribute("datetime", new Date(fb.updatedAt).toLocaleDateString());
+            container.appendChild(feedbackEl);
         });
-        container.appendChild(table);
     });
 }
 // initial render
@@ -166,6 +152,7 @@ function logFeedbackSystem() {
         if (!btn)
             return;
         const cols = Number(btn.dataset.cols) || 3;
+        sessionStorage.setItem('dashboardCols', cols.toString());
         container.style.display = 'grid';
         container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         // mark chosen button visually

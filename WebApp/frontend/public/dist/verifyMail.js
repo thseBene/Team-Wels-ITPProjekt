@@ -31,7 +31,7 @@ function verifyEmail() {
                 showSuccess();
                 // Nach 3 Sekunden weiterleiten
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'https://benediktlehner.github.io/Team-Wels-ITPProjekt/index.html';
                 }, 3000);
             }
             else {
