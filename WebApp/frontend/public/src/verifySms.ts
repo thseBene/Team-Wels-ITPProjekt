@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupCodeInput() {
-    const inputs = document.querySelectorAll('. code-digit') as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll('.code-digit') as NodeListOf<HTMLInputElement>;
     const verifyBtn = document.getElementById('verifyBtn') as HTMLButtonElement;
     
     inputs.forEach((input, index) => {

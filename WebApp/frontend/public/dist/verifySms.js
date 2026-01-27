@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     (_a = document.getElementById('verifyBtn')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', verifyCode);
 });
 function setupCodeInput() {
-    const inputs = document.querySelectorAll('. code-digit');
+    const inputs = document.querySelectorAll('.code-digit');
     const verifyBtn = document.getElementById('verifyBtn');
     inputs.forEach((input, index) => {
         input.addEventListener('input', (e) => {
