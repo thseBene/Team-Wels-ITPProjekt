@@ -37,6 +37,8 @@
 
         <div id="nav"></div>
 
+        <i class="fa-solid fa-list" id="logIcon"></i>
+
 
         <a href="./loginEmployee.html">
              <svg class="icon" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,6 +53,7 @@
 
         <input type="text" id="searchBar" placeholder="Suche nach Feedback...">
 
+        
 
         <div id="viewIcons">
             <i class="fa-solid fa-grip selectedView" id="boxView"></i>
@@ -66,6 +69,15 @@
 
             <i class="fa-solid fa-bars" id="listView"></i>
         </div>  
+
+        <select id="sortSelect">
+            <option value="newest">Neueste</option>
+            <option value="oldest">Älteste</option>
+            <option value="finished">Fertig</option>
+            <option value="inProcess">In Bearbeitung</option>
+            <option value="notStarted">Nicht gestartet</option>
+        </select>
+
         <h1 id="headline">Logging</h1>
 
     </div>
