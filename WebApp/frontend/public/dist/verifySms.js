@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const API_BASE_VERIFY = 'http://localhost:8080/api';
 let phoneNumber = '';
 document.addEventListener('DOMContentLoaded', () => {
     var _a;
     // Telefonnummer aus URL holen
     const urlParams = new URLSearchParams(window.location.search);
-    phoneNumber = (urlParams.get('tel') || '').replace(/\s+/g, '+');
+    const rawTel = urlParams.get('tel') || '';
+    // Leerzeichen ENTFERNEN, nicht ersetzen!
+    phoneNumber = rawTel.trim();
+    console.log('Raw Tel from URL:', rawTel);
+    console.log('Processed phoneNumber:', phoneNumber);
     if (!phoneNumber) {
         alert('Keine Telefonnummer angegeben');
         return;
@@ -60,16 +65,22 @@ function verifyCode() {
         verifyBtn.textContent = 'Wird überprüft...';
         errorMsg.classList.remove('show');
         successMsg.classList.remove('show');
-        console.log(`Verifiziere Code ${code} für Telefonnummer ${phoneNumber}`);
+        console.log('=== VERIFY CODE ===');
+        console.log('Telefonnummer:', phoneNumber);
+        console.log('Code:', code);
+        console.log('URL:', `http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`);
         try {
-            const response = yield fetch(`http://localhost:8080/api/benutzer/verify-tel?tel=${phoneNumber}&code=${code}`, { method: 'POST',
+            const response = yield fetch(`http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Cache-Control': 'no-cache, no-store, must-revalidate'
                 },
                 cache: 'no-store'
             });
+            console.log('Response Status:', response.status);
             const data = yield response.json();
+            console.log('Response Data:', data);
             if (response.ok) {
                 // Erfolg
                 successMsg.classList.add('show');
@@ -89,6 +100,7 @@ function verifyCode() {
             }
         }
         catch (error) {
+            console.error('Fetch Error:', error);
             errorMsg.textContent = 'Netzwerkfehler';
             errorMsg.classList.add('show');
             verifyBtn.disabled = false;
