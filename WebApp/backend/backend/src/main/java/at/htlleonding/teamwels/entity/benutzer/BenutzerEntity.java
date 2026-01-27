@@ -102,17 +102,37 @@ public class BenutzerEntity extends PanacheEntityBase {
     }
 
     public static String normalizeTel(String tel) {
-        if (tel == null) return null;
-        String t = tel.trim();
-        boolean startsWithPlus = t.startsWith("+");
-        t = t.replaceAll("[^+0-9]", "");
-        if (startsWithPlus) {
-            if (! t.startsWith("+")) {
-                t = "+" + t. replaceAll("\\+", "");
-            }
-        } else {
-            t = t.replaceAll("\\+", "");
+        if (tel == null || tel.trim().isEmpty()) {
+            return null;
         }
+
+        String t = tel.trim();
+
+        // 1. Alle Zeichen außer + und Ziffern entfernen
+        t = t.replaceAll("[^+0-9]", "");
+
+        // 2. Mehrfache + entfernen (nur am Anfang behalten)
+        if (t.contains("+")) {
+            t = "+" + t.replaceAll("\\+", "");
+        }
+
+        // 3. Führende 00 durch + ersetzen (z.B. 0043 → +43)
+        if (t.startsWith("00")) {
+            t = "+" + t.substring(2);
+        }
+
+        // 4. Österreichische Nummer ohne Ländercode: 0676... → +43676...
+        if (t.startsWith("0") && !t.startsWith("00")) {
+            t = "+43" + t.substring(1);  // Entferne führende 0
+        }
+
+        // 5. Falls keine Ländervorwahl: Standardmäßig +43 (Österreich)
+        if (!t.startsWith("+")) {
+            t = "+43" + t;
+        }
+
+        System.out.println("[normalizeTel] '" + tel + "' → '" + t + "'");
+
         return t;
     }
 }

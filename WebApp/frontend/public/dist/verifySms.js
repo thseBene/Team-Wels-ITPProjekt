@@ -79,7 +79,7 @@ function verifyCode() {
                 cache: 'no-store'
             });
             console.log('Response Status:', response.status);
-            const data = yield response.json();
+            const data = yield response.text().then(text => text ? JSON.parse(text) : {});
             console.log('Response Data:', data);
             if (response.ok) {
                 // Erfolg
