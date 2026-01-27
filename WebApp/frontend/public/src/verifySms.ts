@@ -90,7 +90,7 @@ async function verifyCode() {
         
         console.log('Response Status:', response.status);
         
-        const data = await response.text().then(text => text ? JSON.parse(text) : {});
+        const data = await response.json();
         console.log('Response Data:', data);
         
         if (response.ok) {
