@@ -68,8 +68,7 @@ async function verifyCode() {
             `http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`,
             { method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate'
+                    'Content-Type': 'application/json'
                 },
                 cache: 'no-store'
 
