@@ -75,7 +75,7 @@ public class NotificationResource {
         if (notification == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        notification.gelesen = true;
+
         return Response.ok(notification).build();
     }
 

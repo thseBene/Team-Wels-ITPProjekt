@@ -1,5 +1,6 @@
 package at.htlleonding.teamwels.entity.feedback.services;
 
+import at.htlleonding.teamwels.entity.feedback.FeedbackEntity;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -21,9 +22,12 @@ public class SmsService {
     @ConfigProperty(name = "twilio.from", defaultValue = "")
     String fromNumber;
 
+    @ConfigProperty(name = "app.base-url", defaultValue = "http://localhost:4200")
+    String baseUrl;
+
     @PostConstruct
     void init() {
-        if (accountSid != null && ! accountSid.isBlank() && authToken != null && !authToken.isBlank()) {
+        if (accountSid != null && !accountSid.isBlank() && authToken != null && !authToken.isBlank()) {
             Twilio.init(accountSid, authToken);
         }
     }
@@ -49,12 +53,28 @@ public class SmsService {
 
     // NEU: SMS-Verifizierungscode senden
     public void sendVerificationSms(String toNumber, String code) {
+        // Link zur Verifizierungsseite mit Telefonnummer als Parameter
+        String verificationUrl = baseUrl + "/verify-sms.html?tel=" + toNumber;
+
         String body = String.format(
-                "Team Wels Verifizierung:\n\nIhr Code lautet: %s\n\nDieser Code ist 10 Minuten gültig.",
-                code
+                "Team Wels Verifizierung:\n\n" +
+                        "Code: %s\n\n" +
+                        "Geben Sie den Code hier ein:\n%s\n\n" +
+                        "Gültig für 10 Minuten.",
+                code,
+                verificationUrl
+        );
+
+        sendSms(toNumber, body);
+    }
+    public void sendCreatedSms(String toNumber, FeedbackEntity feedback){
+        String body = String.format( "Team Wels: Ihr Feedback '%s' wurde erhalten und wird bearbeitet.",
+                feedback.subject
         );
         sendSms(toNumber, body);
     }
+
+
 
     // NEU: 6-stelligen Verifizierungscode generieren
     public static String generateVerificationCode() {

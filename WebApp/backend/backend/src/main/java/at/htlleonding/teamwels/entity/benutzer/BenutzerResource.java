@@ -2,6 +2,7 @@ package at.htlleonding.teamwels.entity.benutzer;
 
 import at.htlleonding.teamwels.entity.feedback.services.SmsService;
 import at.htlleonding.teamwels.entity.feedback.services.EmailService;
+import at.htlleonding.teamwels.entity.notification.NotificationService;
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -33,6 +34,9 @@ public class BenutzerResource {
 
     @Inject
     SmsService smsService;
+
+    @Inject
+    NotificationService notificationService;
 
     @GET
     public List<BenutzerEntity> getAllUser(){
@@ -177,11 +181,14 @@ public class BenutzerResource {
         user.emailVerificationToken = null;
         user.emailVerificationTokenCreatedAt = null;
 
+        int sentCount = notificationService.sendPendingEmailNotifications(user);
+
         return Response.ok()
                 .entity(Map.of(
                         "message", "E-Mail erfolgreich verifiziert! ",
                         "verified", true,
-                        "fullyVerified", user.isFullyVerified()
+                        "fullyVerified", user.isFullyVerified(),
+                        "pendingNotificationSent", sentCount
                 )).build();
     }
 
@@ -221,11 +228,14 @@ public class BenutzerResource {
         user.telVerificationCode = null;
         user. telVerificationCodeCreatedAt = null;
 
+        int sentCount = notificationService.sendPendingSmsNotifications(user);
+
         return Response.ok()
                 .entity(Map. of(
                         "message", "Telefonnummer erfolgreich verifiziert!",
                         "verified", true,
-                        "fullyVerified", user.isFullyVerified()
+                        "fullyVerified", user.isFullyVerified(),
+                        "pendingNotificationSent", sentCount
                 )).build();
     }
 

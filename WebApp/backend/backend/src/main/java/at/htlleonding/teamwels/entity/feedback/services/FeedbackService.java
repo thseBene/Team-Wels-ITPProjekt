@@ -7,10 +7,12 @@ import at.htlleonding.teamwels.entity.feedback.FeedbackEntity;
 import at.htlleonding.teamwels.entity.feedback.FeedbackRepository;
 import at.htlleonding.teamwels.entity.feedback.Status;
 import at.htlleonding.teamwels.entity.notification.NotificationEntity;
+import at.htlleonding.teamwels.entity.notification.NotificationService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.NotFoundException;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
@@ -49,6 +51,8 @@ public class FeedbackService {
     // ThemaRepository themaRepo;
     // @Inject
     // KategorieRepository kategorieRepo;
+    @Inject
+    NotificationService notificationService;
 
     /**
      * Erstellt ein neues Feedback basierend auf dem Payload
@@ -56,38 +60,25 @@ public class FeedbackService {
      */
     @Transactional
     public FeedbackEntity createFeedback(FeedbackPayload payload) {
-        validatePayload(payload);
-
-        FeedbackEntity feedback = new FeedbackEntity();
+        FeedbackEntity feedback  = new FeedbackEntity();
         mapPayloadToEntity(payload, feedback);
+        // Prüfen ob User bereits Feedbacks hat
+        long feedbackCount = FeedbackEntity.count("user.id", feedback.user.id);
 
-        Instant now = Instant.now();
-        feedback.createdAt = now;
-        feedback.updatedAt = now;
+        // Ab dem 2. Feedback: Verifizierung erforderlich
+        if (feedbackCount > 0 && !feedback.user.isFullyVerified()) {
+            throw new ForbiddenException(
+                    "Bitte verifizieren Sie zuerst Ihre Kontaktdaten."
+            );
+        }
+        // Feedback erstellen
 
-
-        activityLogService.logFeedbackCreated(feedback.id, feedback.subject, feedback.user.id);
         feedbackRepo.persist(feedback);
 
-        Long feedbackId = feedback.id;
+        // Notification erstellen (wird sofort gesendet wenn verifiziert, sonst pending)
+        notificationService.createFeedbackNotification(feedback);
+        activityLogService.logFeedbackCreated(feedback.id, feedback.subject, feedback.user.id);
 
-
-            try {
-                if (feedback.user.mail != null){
-                    activityLogService.logNotificationEmailSent(feedback.id, feedback.subject, feedback.user.mail, "Feedback erstellt");
-                    emailService.sendEmail(feedback);
-                }
-                if (feedback.user.tel != null){
-                    String body = String.format("\"Ihr Feedback '%s' ist bei uns angekommen:\\n\" +\n" +
-                            "                        \"Mit freundlichen Grüßen\\n\" +\n" +
-                            "                        \"Ihr Team Wels\",", feedback.subject);
-                    activityLogService.logNotificationSmsSent(feedback.id, feedback.subject, feedback.user.tel,"Feedback erstellt");
-                    smsService.sendSms(feedback.user.tel, body);
-                }
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
-            }
         return feedback;
     }
 
@@ -165,6 +156,8 @@ public class FeedbackService {
         }
     }
 
+
+
     /**
      * Gibt alle Feedbacks zurück
      */
@@ -232,83 +225,6 @@ public class FeedbackService {
 
         // Hinweis: Thema- und Kategorie-Verarbeitung entfernt, um Lazy-Loading-Fehler zu vermeiden.
     }
-
-
-    private void createNotificationNew(FeedbackEntity feedback){
-        var benutzer = feedback.user;
-        if (benutzer == null) return;
-
-        String feedbackBetreff = feedback.subject != null ? feedback.subject : "(kein Betreff)";
-
-        // E-Mail Benachrichtigung erstellen (wenn E-Mail vorhanden)
-        if (benutzer.mail != null && !benutzer.mail.isEmpty()) {
-            NotificationEntity emailNotification = new NotificationEntity();
-            emailNotification.typ = "EMAIL";
-            emailNotification.betreff = "Feedback Status-Update: " + feedbackBetreff;
-            emailNotification.nachricht = String.format(
-                    "Sehr geehrte/r Benutzer,\n\n" +
-                            "Ihr Feedback '%s' ist bei uns angekommen:\n" +
-                            "Mit freundlichen Grüßen,\n" +
-                            "Ihr Team Wels",
-                    feedbackBetreff
-            );
-            emailNotification.benutzer = benutzer;
-            emailNotification.persist();
-        }
-
-        // SMS Benachrichtigung erstellen (wenn Telefonnummer vorhanden)
-        if (benutzer.tel != null && !benutzer.tel.isEmpty()) {
-            NotificationEntity smsNotification = new NotificationEntity();
-            smsNotification.typ = "SMS";
-            smsNotification.nachricht = String.format(
-                    "Feedback: '%s' ist bei uns angekommen",
-                    feedbackBetreff.length() > 30 ? feedbackBetreff.substring(0, 30) + "..." : feedbackBetreff
-
-            );
-            smsNotification.benutzer = benutzer;
-            smsNotification.persist();
-        }
-    }
-    private void createNotifications(FeedbackEntity feedback, Status oldStatus) {
-        var benutzer = feedback.user;
-        if (benutzer == null) return;
-
-        String feedbackBetreff = feedback.subject != null ? feedback.subject : "(kein Betreff)";
-        String newStatus = feedback.status != null ? feedback.status.getLabel() : "unbekannt";
-        String altStatus = (oldStatus != null) ? oldStatus.getLabel() : "unbekannt";
-
-        // E-Mail Benachrichtigung erstellen (wenn E-Mail vorhanden)
-        if (benutzer.mail != null && !benutzer.mail.isEmpty()) {
-            NotificationEntity emailNotification = new NotificationEntity();
-            emailNotification.typ = "EMAIL";
-            emailNotification.betreff = "Feedback Status-Update: " + feedbackBetreff;
-            emailNotification.nachricht = String.format(
-                    "Sehr geehrte/r Benutzer,\n\n" +
-                            "Ihr Feedback '%s' hat eine Statusänderung erhalten:\n" +
-                            "Alt: %s → Neu: %s\n\n" +
-                            "Mit freundlichen Grüßen,\n" +
-                            "Ihr Team Wels",
-                    feedbackBetreff, altStatus, newStatus
-            );
-            emailNotification.benutzer = benutzer;
-            emailNotification.persist();
-        }
-
-        // SMS Benachrichtigung erstellen (wenn Telefonnummer vorhanden)
-        if (benutzer.tel != null && !benutzer.tel.isEmpty()) {
-            NotificationEntity smsNotification = new NotificationEntity();
-            smsNotification.typ = "SMS";
-            smsNotification.nachricht = String.format(
-                    "Feedback-Update: '%s' ist jetzt '%s' (vorher: %s)",
-                    feedbackBetreff.length() > 30 ? feedbackBetreff.substring(0, 30) + "..." : feedbackBetreff,
-                    newStatus,
-                    altStatus
-            );
-            smsNotification.benutzer = benutzer;
-            smsNotification.persist();
-        }
-    }
-
     // --- DTOs (angepasst: thema/kategorien entfernt) ---
     public static class FeedbackPayload {
         public String subject;

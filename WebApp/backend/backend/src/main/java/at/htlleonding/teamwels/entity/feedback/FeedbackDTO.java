@@ -8,4 +8,5 @@ import java.time.Instant;
 public record FeedbackDTO(Long id, String subject, String description, String type, String status,
                        Long userId, String userMail, String userTel,
                        Instant createdAt, Instant updatedAt) {
+
 }

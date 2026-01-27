@@ -1,43 +1,43 @@
 package at.htlleonding.teamwels.entity.notification;
 
 import at.htlleonding.teamwels.entity.benutzer.BenutzerEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import at.htlleonding.teamwels.entity.feedback.FeedbackEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notification")
-public class NotificationEntity extends PanacheEntity {
+public class NotificationEntity extends PanacheEntityBase {
 
-    @Column(name = "typ", nullable = false)
-    public String typ;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
 
-    @Column(name = "nachricht", columnDefinition = "text", nullable = false)
-    public String nachricht;
-
-    @Column(name = "betreff")
-    public String betreff;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "benutzer_id", nullable = false)
-    @JsonIgnoreProperties({"feedbacks"})
+    @ManyToOne
+    @JoinColumn(name = "benutzer_id")
     public BenutzerEntity benutzer;
 
-    @Column(name = "gelesen", nullable = false)
-    public Boolean gelesen = false;
+    @Column(name = "typ", nullable = false)
+    public String typ; // EMAIL oder SMS
+
+    @OneToOne
+    public FeedbackEntity feedback;
 
     @Column(name = "created_at", nullable = false)
-    public Instant createdAt;
+    public LocalDateTime createdAt;
+
+    // NEU: Status ob schon versendet
+    @Column(name = "sent", nullable = false)
+    public Boolean sent = false;
+
+    @Column(name = "sent_at")
+    public LocalDateTime sentAt;
 
     @PrePersist
     void onCreate() {
         if (createdAt == null) {
-            createdAt = Instant.now();
-        }
-        if (gelesen == null) {
-            gelesen = false;
+            createdAt = LocalDateTime.now();
         }
     }
 }
