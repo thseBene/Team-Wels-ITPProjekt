@@ -66,7 +66,14 @@ async function verifyCode() {
     try {
         const response = await fetch(
             `http://localhost:8080/api/benutzer/verify-tel?tel=${encodeURIComponent(phoneNumber)}&code=${code}`,
-            { method: 'POST' }
+            { method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache, no-store, must-revalidate'
+                },
+                cache: 'no-store'
+
+             }
         );
         
         const data = await response.json();
