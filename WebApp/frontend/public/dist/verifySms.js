@@ -64,7 +64,8 @@ function verifyCode() {
         try {
             const response = yield fetch(`http://localhost:8080/api/benutzer/verify-tel?tel=${phoneNumber}&code=${code}`, { method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache, no-store, must-revalidate'
                 },
                 cache: 'no-store'
             });
