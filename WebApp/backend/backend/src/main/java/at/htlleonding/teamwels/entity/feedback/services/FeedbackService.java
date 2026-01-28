@@ -104,7 +104,7 @@ public class FeedbackService {
      * Ändert nur den Status eines Feedbacks
      */
     @Transactional
-    public FeedbackEntity updateStatus(Long feedbackId, String statusValue) {
+    public FeedbackEntity updateStatus(Long feedbackId, String statusValue, Long userId) {
         FeedbackEntity feedback = feedbackRepo.findById(feedbackId);
         if (feedback == null) {
             throw new NotFoundException("Feedback mit ID " + feedbackId + " nicht gefunden");
@@ -141,7 +141,7 @@ public class FeedbackService {
                 throw new RuntimeException("Fehler beim Versenden der E-Mail",e);
             }
         }
-       // activityLogService.logFeedbackStatusChanged(feedback.user != null ? feedback.user.id : null, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
+       activityLogService.logFeedbackStatusChanged(userId, feedback.id, feedback.subject, oldStatus != null ? oldStatus.getLabel() : "unbekannt", feedback.status.getLabel());
         return feedback;
     }
 

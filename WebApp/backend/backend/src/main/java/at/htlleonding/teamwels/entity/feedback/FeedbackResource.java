@@ -60,7 +60,7 @@ public class FeedbackResource {
     @Path("{id}/status")
     @Transactional
     public FeedbackDTO updateStatus(@PathParam("id") Long id, StatusUpdatePayload payload) {
-        FeedbackEntity updated = service.updateStatus(id, payload.status);
+        FeedbackEntity updated = service.updateStatus(id, payload.status, payload.userId);
         return FeedbackMapper.toDto(updated);
     }
 
@@ -75,5 +75,6 @@ public class FeedbackResource {
     // Minimales DTO für Status-Update
     public static class StatusUpdatePayload {
         public String status;
+        public Long userId;
     }
 }
