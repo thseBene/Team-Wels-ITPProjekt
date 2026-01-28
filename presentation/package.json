@@ -1,0 +1,25 @@
+{
+  "name": "team-wels-presentation",
+  "version": "1.0.0",
+  "description": "Reveal.js presentation for Team Wels IT Project",
+  "main": "index.html",
+  "scripts": {
+    "start": "reveal-md slides.md --watch",
+    "build": "reveal-md slides.md --static",
+    "serve": "npx http-server . -p 8080"
+  },
+  "keywords": [
+    "reveal.js",
+    "presentation",
+    "slides"
+  ],
+  "author": "Team Wels",
+  "license": "MIT",
+  "dependencies": {
+    "reveal.js": "^5.0.4"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "reveal-md": "^6.1.0"
+  }
+}
