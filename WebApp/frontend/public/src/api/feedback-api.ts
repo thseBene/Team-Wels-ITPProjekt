@@ -42,7 +42,10 @@ export async function updateByID(id: number, newStatus: string): Promise<void> {
     const res = await fetch(`${baseUrl}/api/feedback/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus })
+        body: JSON.stringify({ 
+            status: newStatus,
+            userId: localStorage.getItem('employeeId')
+        })
     });
     console.log(res);
     if (!res.ok) throw new Error(`Fehler beim Aktualisieren: ${res.status}`);
@@ -66,10 +69,11 @@ export async function employeeLogin(benutzername: string, passwort: string): Pro
     });
 
     console.log(res);
+    let data = await res.json();
+
+    localStorage.setItem('employeeId', data.id);
     if (!res.ok) throw new Error(`Fehler beim Login: ${res.status}`);
     
-    const data = await res.json();
-    console.log('Daten ', data);
 }
 export async function getLogSystem(): Promise<Activitylog[]> {
     const res = await fetch(`${baseUrl}/api/activitylog`, {

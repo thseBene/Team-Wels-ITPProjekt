@@ -5,8 +5,6 @@ import "./components/ListViewFeedback.js";
 
 let allFeedback: any[] = [];
 
-
-
   document.getElementById('listView')?.addEventListener('click', () => {
       renderFeedbackList();
       document.getElementById('logIcon')?.classList.remove('selectedLog');
@@ -51,7 +49,10 @@ let allFeedback: any[] = [];
   });
 
   document.getElementById('sortSelect')?.addEventListener('change', () => {
-  async function filterList() {
+    filterList();
+});
+
+async function filterList() {
       const container = document.getElementById('container');
       if (!container) return;
 
@@ -107,8 +108,6 @@ let allFeedback: any[] = [];
           container.appendChild(feedbackEl);
       });
   }
-  filterList();
-});
 
 
 
@@ -140,6 +139,8 @@ async function renderFeedbackBox() {
 
         container.appendChild(feedbackEl);
     });
+    filterList();
+
 }
 async function renderFeedbackList() {
     const container = document.getElementById("container");
@@ -168,6 +169,7 @@ async function renderFeedbackList() {
 
         container.appendChild(feedbackEl);
     });
+    filterList();
 
    
     
@@ -243,6 +245,15 @@ async function logFeedbackSystem() {
                 const x = rect.left;
                 const y = rect.bottom + 8;
                 longPressTimer = window.setTimeout(() => showPopup(x, y), 400);
+            // ensure a default of 3 columns is set and visually mark that option in the popup
+            const defaultCols = sessionStorage.getItem('dashboardCols') || '3';
+            if (!sessionStorage.getItem('dashboardCols')) sessionStorage.setItem('dashboardCols', defaultCols);
+
+            // highlight the button that matches the current columns, reset others
+            Array.from(popup.querySelectorAll('.viewOption')).forEach(el => {
+                const btn = el as HTMLElement;
+                btn.style.background = btn.dataset.cols === defaultCols ? '#e0e7ff' : '#f5f5f5';
+            });
               };
               const cancelPress = () => {
                 if (longPressTimer !== null) {
@@ -270,6 +281,7 @@ async function logFeedbackSystem() {
                 sessionStorage.setItem('dashboardCols', cols.toString());
                 container.style.display = 'grid';
                 container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
                 // mark chosen button visually
                 Array.from(popup.querySelectorAll('.viewOption')).forEach(b => (b as HTMLElement).style.background = '#f5f5f5');
                 btn.style.background = '#e0e7ff';

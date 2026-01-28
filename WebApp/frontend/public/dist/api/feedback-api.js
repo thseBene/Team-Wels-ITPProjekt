@@ -24,7 +24,10 @@ export function updateByID(id, newStatus) {
         const res = yield fetch(`${baseUrl}/api/feedback/${id}/status`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: newStatus })
+            body: JSON.stringify({
+                status: newStatus,
+                userId: localStorage.getItem('employeeId')
+            })
         });
         console.log(res);
         if (!res.ok)
@@ -50,10 +53,10 @@ export function employeeLogin(benutzername, passwort) {
             body: JSON.stringify({ benutzername, passwort }),
         });
         console.log(res);
+        let data = yield res.json();
+        localStorage.setItem('employeeId', data.id);
         if (!res.ok)
             throw new Error(`Fehler beim Login: ${res.status}`);
-        const data = yield res.json();
-        console.log('Daten ', data);
     });
 }
 export function getLogSystem() {

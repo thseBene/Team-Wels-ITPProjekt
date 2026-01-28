@@ -20,6 +20,8 @@ function checkLoginData() {
         .catch((error) => {
             alert("Login fehlgeschlagen: " + error.message);
         });
+
+        
 }
 
 function redirectToDashboard() {

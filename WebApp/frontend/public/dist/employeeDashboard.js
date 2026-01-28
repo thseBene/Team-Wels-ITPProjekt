@@ -57,62 +57,62 @@ let allFeedback = [];
     });
 });
 (_e = document.getElementById('sortSelect')) === null || _e === void 0 ? void 0 : _e.addEventListener('change', () => {
-    function filterList() {
-        return __awaiter(this, void 0, void 0, function* () {
-            var _a;
-            const container = document.getElementById('container');
-            if (!container)
-                return;
-            const sortValue = document.getElementById('sortSelect').value;
-            // Ensure we have the source data; fetch if cache is empty
-            if (!allFeedback || allFeedback.length === 0) {
-                try {
-                    allFeedback = yield getAllFeedback();
-                }
-                catch (err) {
-                    console.error('Failed to fetch feedback for filtering', err);
-                    return;
-                }
-            }
-            // work on a copy of the data
-            let filtered = [...allFeedback];
-            switch (sortValue) {
-                case 'newest':
-                    filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-                    break;
-                case 'oldest':
-                    filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-                    break;
-                case 'finished':
-                    filtered = filtered.filter(f => f.status === 'Erledigt');
-                    break;
-                case 'inProcess':
-                    filtered = filtered.filter(f => f.status === 'In Bearbeitung');
-                    break;
-                case 'notStarted':
-                    filtered = filtered.filter(f => f.status === 'Neu');
-                    break;
-                default:
-                // no-op, already have all items
-            }
-            // determine current view mode (list vs box) to render appropriate custom elements
-            const isListView = ((_a = document.getElementById('listView')) === null || _a === void 0 ? void 0 : _a.classList.contains('selectedView')) === true;
-            container.innerHTML = ''; // clear existing items
-            filtered.forEach(fb => {
-                const feedbackEl = isListView
-                    ? document.createElement('list-view-feedback')
-                    : document.createElement('feedback-view');
-                feedbackEl.setAttribute('feedback-id', fb.id.toString());
-                feedbackEl.setAttribute('subject', fb.subject);
-                feedbackEl.setAttribute('userMail', fb.userMail);
-                feedbackEl.setAttribute('status', fb.status);
-                feedbackEl.setAttribute('datetime', new Date(fb.createdAt).toLocaleDateString());
-                container.appendChild(feedbackEl);
-            });
-        });
-    }
     filterList();
 });
+function filterList() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        const container = document.getElementById('container');
+        if (!container)
+            return;
+        const sortValue = document.getElementById('sortSelect').value;
+        // Ensure we have the source data; fetch if cache is empty
+        if (!allFeedback || allFeedback.length === 0) {
+            try {
+                allFeedback = yield getAllFeedback();
+            }
+            catch (err) {
+                console.error('Failed to fetch feedback for filtering', err);
+                return;
+            }
+        }
+        // work on a copy of the data
+        let filtered = [...allFeedback];
+        switch (sortValue) {
+            case 'newest':
+                filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                break;
+            case 'oldest':
+                filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+                break;
+            case 'finished':
+                filtered = filtered.filter(f => f.status === 'Erledigt');
+                break;
+            case 'inProcess':
+                filtered = filtered.filter(f => f.status === 'In Bearbeitung');
+                break;
+            case 'notStarted':
+                filtered = filtered.filter(f => f.status === 'Neu');
+                break;
+            default:
+            // no-op, already have all items
+        }
+        // determine current view mode (list vs box) to render appropriate custom elements
+        const isListView = ((_a = document.getElementById('listView')) === null || _a === void 0 ? void 0 : _a.classList.contains('selectedView')) === true;
+        container.innerHTML = ''; // clear existing items
+        filtered.forEach(fb => {
+            const feedbackEl = isListView
+                ? document.createElement('list-view-feedback')
+                : document.createElement('feedback-view');
+            feedbackEl.setAttribute('feedback-id', fb.id.toString());
+            feedbackEl.setAttribute('subject', fb.subject);
+            feedbackEl.setAttribute('userMail', fb.userMail);
+            feedbackEl.setAttribute('status', fb.status);
+            feedbackEl.setAttribute('datetime', new Date(fb.createdAt).toLocaleDateString());
+            container.appendChild(feedbackEl);
+        });
+    });
+}
 function renderFeedbackBox() {
     return __awaiter(this, void 0, void 0, function* () {
         const container = document.getElementById("container");
@@ -138,6 +138,7 @@ function renderFeedbackBox() {
             feedbackEl.setAttribute("datetime", new Date(fb.createdAt).toLocaleDateString());
             container.appendChild(feedbackEl);
         });
+        filterList();
     });
 }
 function renderFeedbackList() {
@@ -164,6 +165,7 @@ function renderFeedbackList() {
             feedbackEl.setAttribute("datetime", new Date(fb.createdAt).toLocaleDateString());
             container.appendChild(feedbackEl);
         });
+        filterList();
     });
 }
 // initial render
@@ -224,6 +226,15 @@ function logFeedbackSystem() {
         const x = rect.left;
         const y = rect.bottom + 8;
         longPressTimer = window.setTimeout(() => showPopup(x, y), 400);
+        // ensure a default of 3 columns is set and visually mark that option in the popup
+        const defaultCols = sessionStorage.getItem('dashboardCols') || '3';
+        if (!sessionStorage.getItem('dashboardCols'))
+            sessionStorage.setItem('dashboardCols', defaultCols);
+        // highlight the button that matches the current columns, reset others
+        Array.from(popup.querySelectorAll('.viewOption')).forEach(el => {
+            const btn = el;
+            btn.style.background = btn.dataset.cols === defaultCols ? '#e0e7ff' : '#f5f5f5';
+        });
     };
     const cancelPress = () => {
         if (longPressTimer !== null) {
